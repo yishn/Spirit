@@ -12,3 +12,5 @@ foreach ($items as $item) {
 function __autoload($class) {
     require_once(dirname(__FILE__) . "/classes/{$class}.php");
 }
+
+require_once('spirit-config.php');
