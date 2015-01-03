@@ -19,7 +19,7 @@ define('URL', '');
  */
 
 // Configure dispatch
-config(array('url' => URL));
+Dispatcher::config(array('url' => URL));
 
 // Configure Idiorm
 ORM::configure(array(
