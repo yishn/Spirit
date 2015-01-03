@@ -367,12 +367,6 @@ class Dispatcher {
         $data = &self::$globals['routes'];
 
         $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
-        if ($path != '/' && substr($path, -1) == '/') {
-            header('Location: ' . substr($path, 0, strlen($path) - 1));
-            exit();
-        }
-        
         $path = trim($path, '/');
 
         # strip url from request URI
