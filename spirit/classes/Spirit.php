@@ -7,11 +7,11 @@ class Spirit {
         Dispatcher::map('GET', '/photo/{id:\d*}', function($params) { echo "Photo ID " . $params['id']; });
         Dispatcher::map('GET', '/photo/{id:\d*}/size/thumb', function($params) {
             $size = Setting::where('key', 'thumbSize')->find_one()->value;
-            Spirit::generateThumbnail($params['id'], $size, 1);
+            Spirit::generateThumbnail($params['id'], $size, true);
         });
         Dispatcher::map('GET', '/photo/{id:\d*}/size/large', function($params) {
             $size = Setting::where('key', 'photoSize')->find_one()->value;
-            Spirit::generateThumbnail($params['id'], $size, 1);
+            Spirit::generateThumbnail($params['id'], $size, false);
         });
 
         Dispatcher::map('GET', '/spirit/login', function() { 
