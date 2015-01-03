@@ -18,6 +18,8 @@ define('BASEURL', '/');
  * Ok, stop editing now!
  */
 
+define('ABSURL', dirname(__FILE__));
+
 // Configure Dispatcher
 Dispatcher::config(array('url' => BASEURL));
 
