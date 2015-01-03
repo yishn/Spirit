@@ -8,16 +8,41 @@ header {
         top: 0;
         left: 0;
         right: 0;
-        height: auto;
         padding: 1em;
         opacity: .9;
     }
     header h1 {
+        float: left;
+        margin-right: 1em;
         font-size: 1.3em;
         font-weight: bold;
         letter-spacing: 2px;
         text-transform: uppercase;
 }
+
+nav ul {
+        list-style: none;
+        overflow: hidden;
+        font-size: .8em;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+    nav ul li a {
+        display: block;
+        float: left;
+        margin-left: 5px;
+        padding: 5px 7px;
+        vertical-align: middle;
+        text-decoration: none;
+    }
+    nav ul li a::before {
+        margin-right: 5px;
+        font: 1em Ionicons;
+    }
+    nav ul li:nth-child(1) a::before { content: "\f147"; }
+    nav ul li:nth-child(2) a::before { content: "\f148"; }
+    nav ul li:nth-child(3) a::before { content: "\f212"; }
+    nav ul li:nth-child(4) a::before { content: "\f2ad"; }
 
 main {
     margin-top: 5em;

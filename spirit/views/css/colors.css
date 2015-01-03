@@ -1,3 +1,21 @@
+/**
+ * Color palette:
+ *
+ * #F7FEFF, #83CCBC, #D1370E, #0082f0, #26292A
+ */
+
 body {
     background: #F7FEFF;
+}
+
+header {
+        background: #26292A;
+        color: white;
+    }
+    header a {
+        color: white;
+        opacity: .7;
+    }
+    header a:hover {
+        opacity: 1;
 }
