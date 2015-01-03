@@ -473,7 +473,7 @@ class Dispatcher {
             if (is_callable($data['all'])) {
                 $func = $data['all'];
             } else {
-                $func = 'error';
+                $func = 'self::error';
                 array_unshift($argv, 404);
             }
 
@@ -495,6 +495,15 @@ class Dispatcher {
         }        
 
         return $temp . trim($route, '/');
+    }
+
+    public static function link($path) {
+        if ($base = self::config('url')) {
+            $base = trim(parse_url($base, PHP_URL_PATH), '/');
+            $path = $base . '/' . trim($path, '/');
+        }
+        
+        return $path;
     }
 
     # state (routes, handlers, etc)
