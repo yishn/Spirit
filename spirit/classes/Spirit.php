@@ -24,7 +24,7 @@ class Spirit {
 
     public static function renderLogin() {
         $context = [ 
-            'css' => Dispatcher::link('/spirit/views/css/bootstrap.css')
+            'baseUrl' => BASEURL
         ];
         
         return Mustache::renderByFile('spirit/views/login', $context);
@@ -33,7 +33,7 @@ class Spirit {
     public static function renderAdmin($page) {
         $context = [
             'title' => Setting::where('key', 'title')->find_one()->value,
-            'css' => Dispatcher::link('/spirit/views/css/bootstrap.css'),
+            'baseUrl' => BASEURL,
             'main' => self::renderAdminMain($page)
         ];
 
