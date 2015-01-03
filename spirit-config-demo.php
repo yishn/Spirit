@@ -12,7 +12,7 @@ define('DB_NAME', '');
 define('DB_PREFIX', '');
 
 // The base url of your photoblog
-define('URL', '');
+define('URL', '/');
 
 /**
  * Ok, stop editing now!

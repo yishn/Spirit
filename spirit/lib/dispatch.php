@@ -1,8 +1,13 @@
 <?php
 
-# Based on dispatch by
-# @author Jesus A. Domingo
-# @license MIT <http://noodlehaus.mit-license.org>
+/**
+ * Dispatcher class by
+ * @author  Yichuan Shen
+ *
+ * Based on dispatch by
+ * @author  Jesus A. Domingo
+ * @license <http://noodlehaus.mit-license.org> MIT
+ */
 
 class Dispatcher {
     # config settings
@@ -36,38 +41,6 @@ class Dispatcher {
         }
 
         return ($data[$name] = $info);
-    }
-
-    # wrapper for htmlentities()
-    public static function ent() {
-        return call_user_func_array('htmlentities', func_get_args());
-    }
-
-    # wrapper for urlencode()
-    public static function url($str) {
-        return urlencode($str);
-    }
-
-    # php template loader
-    public static function phtml($__n, $__v = [], $__l = 'layout') {
-
-        # if we have templates set, use it as view base path
-        if (($__d = config('templates')) !== null) {
-            $__n = "{$__d}/{$__n}";
-        }
-
-        # extract locals (__v), require template (__n)
-        extract($__v, EXTR_SKIP);
-        ob_start();
-        require "{$__n}.phtml";
-        $__b = ob_get_clean();
-
-        # if we have a layout file, render it
-        if (!empty($__l) && is_string($__l)) {
-            $__b = phtml($__l, ['body' => $__b] + $__v, null);
-        }
-
-        return $__b;
     }
 
     # returns hash containing args as keys, mapped to '' as values
@@ -508,6 +481,21 @@ class Dispatcher {
         }
 
         return call_user_func_array($func, $argv);
+    }
+
+    public static function href($route) {
+        $temp = '';
+
+        if ($base = self::config('url')) {
+            $base = trim(parse_url($base, PHP_URL_PATH), '/');
+            $temp .= $base;
+        }
+        
+        if ($stub = self::config('router')) {
+            $temp .= '/' . trim($stub, '/') . '/';
+        }        
+
+        return $temp . trim($route, '/');
     }
 
     # state (routes, handlers, etc)
