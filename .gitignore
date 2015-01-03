@@ -1,4 +1,5 @@
 spirit-config.php
+spirit-content/photos/*
 
 # Windows image file caches
 Thumbs.db

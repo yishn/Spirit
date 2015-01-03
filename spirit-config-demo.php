@@ -28,3 +28,6 @@ ORM::configure(array(
     'password' => DB_PASS,
     'driver_options' => array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')
 ));
+
+// Configue Thumb
+Thumb::$thumb_cache = ABSURL . '/cache/';
