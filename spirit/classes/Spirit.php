@@ -26,7 +26,7 @@ class Spirit {
             $admin = new SpiritAdmin();
             print $admin->renderAdmin($params['main']);
         });
-        Dispatcher::map('GET', '/spirit/{main:photos|albums|users|settings}/{page:\d+}', function($params) {
+        Dispatcher::map('GET', '/spirit/{main:photos|albums|users|settings}/page/{page:\d+}', function($params) {
             $admin = new SpiritAdmin();
             print $admin->renderAdmin($params['main'], $params['page']);
         });

@@ -45,16 +45,8 @@ nav ul {
 nav ul li:nth-child(4) a::before { content: "\f2ad"; }
 
 main {
+    display: block;
     margin-top: 4em;
+    overflow: hidden;
     padding: 1em;
 }
-
-#photos {
-        list-style: none;
-    }
-    #photos li {
-        display: block;
-        float: left;
-        margin-bottom: 1em;
-        margin-right: 1em;
-    }

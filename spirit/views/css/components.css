@@ -1,0 +1,42 @@
+#photos {
+        list-style: none;
+    }
+    #photos li {
+        position: relative;
+        display: block;
+        float: left;
+        margin-bottom: 1em;
+        margin-right: 1em;
+    }
+    #photos li a {
+        display: none;
+        overflow: hidden;
+        width: 0;
+        height: 0;
+        text-decoration: none;
+    }
+    #photos li:hover a { display: block; }
+    #photos li a::before {
+        display: block;
+        position: absolute;
+        width: 1em;
+        height: 1em;
+        padding: 5px;
+        background: rgba(0, 0, 0, .5);
+        color: white;
+        font-family: Ionicons;
+        text-align: center;
+        text-decoration: none;
+    }
+    #photos li a:hover::before { background: #222; }
+    #photos li a.permalink::before {
+        top: 0;
+        right: 0;
+        content: '\f1fe';
+    }
+    #photos li a.delete::before {
+        bottom: 0;
+        right: 0;
+        content: '\f252';
+    }
+    #photos li a.delete:hover::before { background: #D1370E; }

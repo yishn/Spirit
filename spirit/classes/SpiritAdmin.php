@@ -27,19 +27,26 @@ class SpiritAdmin {
     }
 
     public function renderAdminMain($main, $page = 1) {
-        $context = [ 'baseUrl' => Dispatcher::config('url') ];
+        $context = [];
 
-        if ($main == 'photos') {
-            $limit = intval(Setting::where('key', 'photosPerPage')->find_one()->value);
-            $photos = Photo::order_by_desc('date')
-                ->limit($limit)
-                ->offset(($page - 1) * $limit)
-                ->find_many();
-            $context['photos'] = array_map(function($photo) {
-                return $photo->as_array();
-            }, $photos);
-        }
+        if ($main == 'photos') $context = $this->getPhotosContext($page);
 
         return Mustache::renderByFile('spirit/views/' . $main, $context);
+    }
+
+    public function getPhotosContext($page = 1) {
+        $context = [];
+        $limit = intval(Setting::where('key', 'photosPerPage')->find_one()->value);
+
+        $photos = Photo::order_by_desc('date')
+            ->limit($limit)
+            ->offset(($page - 1) * $limit)
+            ->find_many();
+        
+        $context['photos'] = array_map(function($photo) {
+            return $photo->as_array();
+        }, $photos);
+
+        return $context;
     }
 }
