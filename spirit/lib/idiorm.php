@@ -74,6 +74,7 @@
             'caching' => false,
             'caching_auto_clear' => false,
             'return_result_sets' => false,
+            'table_prefix' => ''
         );
 
         // Map of configuration settings
@@ -543,7 +544,7 @@
          * Use the ORM::for_table factory method instead.
          */
         protected function __construct($table_name, $data = array(), $connection_name = self::DEFAULT_CONNECTION) {
-            $this->_table_name = $table_name;
+            $this->_table_name = self::get_config('table_prefix', $connection_name) . $table_name;
             $this->_data = $data;
 
             $this->_connection_name = $connection_name;

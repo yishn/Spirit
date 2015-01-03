@@ -32,7 +32,7 @@ class Spirit {
 
     public static function renderAdmin($page) {
         $context = [
-            'title' => 'Title',
+            'title' => Setting::where('key', 'title')->find_one()->value,
             'css' => Dispatcher::link('/spirit/views/css/bootstrap.css'),
             'main' => self::renderAdminMain($page)
         ];
