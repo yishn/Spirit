@@ -1,8 +1,7 @@
 <?php
 
 /**
- * Dispatcher class by
- * @author  Yichuan Shen
+ * Dispatcher class
  *
  * Based on dispatch by
  * @author  Jesus A. Domingo
