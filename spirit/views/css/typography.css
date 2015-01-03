@@ -1,0 +1,7 @@
+body {
+    font: 100% 'Source Sans Pro', sans-serif;
+}
+
+h1, h2 { font-weight: lighter; }
+h1 { font-size: 3em; }
+h2 { font-size: 2em; }
