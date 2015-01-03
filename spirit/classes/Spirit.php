@@ -1,6 +1,22 @@
 <?php
 
 class Spirit {
+    public static function setUpRoutes() {
+        Dispatcher::map('GET', '/', function() { echo "Void."; });
+
+        Dispatcher::map('GET', '/spirit/login', function() { 
+            print Spirit::renderLogin();
+        });
+
+        Dispatcher::map('GET', '/spirit', function() { 
+            Dispatcher::redirect('/spirit/login'); 
+        });
+
+        Dispatcher::map('GET', '/spirit/{page:photos|albums|users|settings}', function($params) {
+            print Spirit::renderAdmin($params['page']);
+        });
+    }
+
     public static function renderLogin() {
         $context = [ 
             'css' => Dispatcher::link('/spirit/views/css/bootstrap.css')
