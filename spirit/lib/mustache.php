@@ -133,7 +133,7 @@ class Mustache
 
             // ----------------------------------
 
-            elseif (is_bool($val) || empty($val) === true)
+            elseif (is_bool($val) || is_array($val) && empty($val) === true)
             {
                 // determine true/false
                 $conditionChar = $val === true ? '\#' : '\^';
