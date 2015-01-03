@@ -11,26 +11,35 @@ class SpiritAdmin {
         return true;
     }
 
-    public function renderAdmin($page) {
+    public function renderAdmin($main) {
         $context = [
             'title' => Setting::where('key', 'title')->find_one()->value,
             'baseUrl' => Dispatcher::config('url'),
-            'main' => self::renderAdminMain($page),
+            'main' => self::renderAdminMain($main),
 
-            'pagePhotos' => $page == 'photos',
-            'pageAlbums' => $page == 'albums',
-            'pageUsers' => $page == 'users',
-            'pageSettings' => $page == 'settings'
+            'mainPhotos' => $main == 'photos',
+            'mainAlbums' => $main == 'albums',
+            'mainUsers' => $main == 'users',
+            'mainSettings' => $main == 'settings'
         ];
 
         return Mustache::renderByFile('spirit/views/admin', $context);
     }
 
-    public function renderAdminMain($page) {
-        $context = [
-            'baseUrl' => Dispatcher::config('url')
-        ];
+    public function renderAdminMain($main, $page = 1) {
+        $context = [ 'baseUrl' => Dispatcher::config('url') ];
 
-        return Mustache::renderByFile('spirit/views/page-' . $page, $context);
+        if ($main == 'photos') {
+            $limit = intval(Setting::where('key', 'photosPerPage')->find_one()->value);
+            $photos = Photo::order_by_desc('date')
+                ->limit($limit)
+                ->offset(($page - 1) * $limit)
+                ->find_many();
+            $context['photos'] = array_map(function($photo) {
+                return $photo->as_array();
+            }, $photos);
+        }
+
+        return Mustache::renderByFile('spirit/views/' . $main, $context);
     }
 }
