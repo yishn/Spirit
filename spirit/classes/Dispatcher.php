@@ -277,7 +277,7 @@ class Dispatcher {
     }
 
     # shortcut for dumping a redirect header (no longer exits)
-    public static function redirect($route, $code = 302, $halt = false) {
+    public static function redirect($route, $code = 302, $halt = true) {
         $path = self::href($route);
         header("Location: {$path}", true, $code);
         $halt && exit;
