@@ -8,20 +8,23 @@
 @import url('http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,400italic,700');
 
 /*!
-  Ionicons, v2.0.0
-  Created by Ben Sperry for the Ionic Framework, http://ionicons.com/
-  https://twitter.com/benjsperry  https://twitter.com/ionicframework
-  MIT License: https://github.com/driftyco/ionicons
+    Ionicons, v2.0.0
+    Created by Ben Sperry for the Ionic Framework, http://ionicons.com/
+    https://twitter.com/benjsperry  https://twitter.com/ionicframework
+    MIT License: https://github.com/driftyco/ionicons
 
-  Android-style icons originally built by Google’s
-  Material Design Icons: https://github.com/google/material-design-icons
-  used under CC BY http://creativecommons.org/licenses/by/4.0/
-  Modified icons to fit ionicon’s grid from original.
+    Android-style icons originally built by Google’s
+    Material Design Icons: https://github.com/google/material-design-icons
+    used under CC BY http://creativecommons.org/licenses/by/4.0/
+    Modified icons to fit ionicon’s grid from original.
 */
 @font-face { 
     font-family: "Ionicons";
     src: url("../resources/ionicons.eot?v=2.0.0"); 
-    src: url("../resources/ionicons.eot?v=2.0.0#iefix") format("embedded-opentype"), url("../resources/ionicons.ttf?v=2.0.0") format("truetype"), url("../resources/ionicons.woff?v=2.0.0") format("woff"), url("../resources/ionicons.svg?v=2.0.0#Ionicons") format("svg");
+    src: url("../resources/ionicons.eot?v=2.0.0#iefix") format("embedded-opentype"), 
+         url("../resources/ionicons.ttf?v=2.0.0") format("truetype"), 
+         url("../resources/ionicons.woff?v=2.0.0") format("woff"), 
+         url("../resources/ionicons.svg?v=2.0.0#Ionicons") format("svg");
     font-weight: normal;
     font-style: normal;
 }
