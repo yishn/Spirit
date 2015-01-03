@@ -24,7 +24,7 @@ class Spirit {
 
     public static function renderLogin() {
         $context = [ 
-            'baseUrl' => BASEURL
+            'baseUrl' => Dispatcher::config('url')
         ];
         
         return Mustache::renderByFile('spirit/views/login', $context);
@@ -33,15 +33,22 @@ class Spirit {
     public static function renderAdmin($page) {
         $context = [
             'title' => Setting::where('key', 'title')->find_one()->value,
-            'baseUrl' => BASEURL,
-            'main' => self::renderAdminMain($page)
+            'baseUrl' => Dispatcher::config('url'),
+            'main' => self::renderAdminMain($page),
+
+            'pagePhotos' => $page == 'photos',
+            'pageAlbums' => $page == 'albums',
+            'pageUsers' => $page == 'users',
+            'pageSettings' => $page == 'settings'
         ];
 
         return Mustache::renderByFile('spirit/views/admin', $context);
     }
 
     public static function renderAdminMain($page) {
-        $context = [];
+        $context = [
+            'baseUrl' => Dispatcher::config('url')
+        ];
 
         return Mustache::renderByFile('spirit/views/page-' . $page, $context);
     }

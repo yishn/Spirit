@@ -30,8 +30,8 @@ nav ul {
     nav ul li a {
         display: block;
         float: left;
-        margin-left: 5px;
-        padding: 5px 7px;
+        margin-left: 1em;
+        padding: 5px 10px;
         vertical-align: middle;
         text-decoration: none;
     }

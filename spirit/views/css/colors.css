@@ -19,3 +19,7 @@ header {
     header a:hover {
         opacity: 1;
 }
+
+nav li.current a, nav li a:hover {
+    background: black;
+}

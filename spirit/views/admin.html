@@ -15,10 +15,10 @@
 
     <nav>
         <ul>
-            <li><a href="{{baseUrl}}spirit/photos">Photos</a></li>
-            <li><a href="{{baseUrl}}spirit/albums">Albums</a></li>
-            <li><a href="{{baseUrl}}spirit/users">Users</a></li>
-            <li><a href="{{baseUrl}}spirit/settings">Settings</a></li>
+            <li{{#pagePhotos}} class="current"{{/pagePhotos}}><a href="{{baseUrl}}spirit/photos">Photos</a></li>
+            <li{{#pageAlbums}} class="current"{{/pageAlbums}}><a href="{{baseUrl}}spirit/albums">Albums</a></li>
+            <li{{#pageUsers}} class="current"{{/pageUsers}}><a href="{{baseUrl}}spirit/users">Users</a></li>
+            <li{{#pageSettings} class="current"{{/pageSettings}}><a href="{{baseUrl}}spirit/settings">Settings</a></li>
         </ul>
     </nav>
 </header>
