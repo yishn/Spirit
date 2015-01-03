@@ -4,9 +4,12 @@ class Spirit {
     public static function setUpRoutes() {
         Dispatcher::map('GET', '/', function() { echo "Void."; });
 
-        Dispatcher::map('GET', '/photo/{id:\d*}/size/{size:thumb|large}', function($params) {
+        Dispatcher::map('GET', '/photo/{id:\d+}/size/{size:thumb|large}', function($params) {
             $photo = Photo::find_one($params['id']);
-            if (!$photo) Dispatcher::error(404);
+            if (!$photo) {
+                Dispatcher::error(404);
+                exit();
+            }
             
             $size = Setting::where('key', $params['size'] == 'thumb' ? 'thumbSize' : 'largeImageSize')
                 ->find_one()
@@ -19,9 +22,13 @@ class Spirit {
         });
 
         Dispatcher::map('GET', '/spirit', function() { Dispatcher::redirect('/spirit/photos'); });
-        Dispatcher::map('GET', '/spirit/{page:photos|albums|users|settings}', function($params) {
+        Dispatcher::map('GET', '/spirit/{main:photos|albums|users|settings}', function($params) {
             $admin = new SpiritAdmin();
-            print $admin->renderAdmin($params['page']);
+            print $admin->renderAdmin($params['main']);
+        });
+        Dispatcher::map('GET', '/spirit/{main:photos|albums|users|settings}/{page:\d+}', function($params) {
+            $admin = new SpiritAdmin();
+            print $admin->renderAdmin($params['main'], $params['page']);
         });
     }
 
