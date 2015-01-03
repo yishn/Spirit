@@ -193,7 +193,9 @@ class Thumb {
                     }
                 }
             }
-            list($w,$h) = explode('x', str_replace('<', '', $size));
+            $array = explode('x', str_replace('<', '', $size));
+            array_push($array, '');
+            list($w,$h) = $array;
             $w = ($w != '') ? floor(max(8, min(1500, $w))) : '';
             $h = ($h != '') ? floor(max(8, min(1500, $h))) : '';
             if (strstr($size, '<')) {
