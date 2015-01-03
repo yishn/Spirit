@@ -18,7 +18,7 @@ define('URL', '/');
  * Ok, stop editing now!
  */
 
-// Configure dispatch
+// Configure Dispatcher
 Dispatcher::config(array('url' => URL));
 
 // Configure Idiorm

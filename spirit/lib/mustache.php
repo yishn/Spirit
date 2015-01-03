@@ -48,7 +48,7 @@ class Mustache
      * @return string
      * @throws MustacheException
      */
-    public static function renderByFile($pathTemplate, array $data = array(), array $customParsers = array(), $fileExtension = 'mustache')
+    public static function renderByFile($pathTemplate, array $data = array(), array $customParsers = array(), $fileExtension = 'html')
     {
         // set filename
         $fileName = $pathTemplate . '.' . $fileExtension;
