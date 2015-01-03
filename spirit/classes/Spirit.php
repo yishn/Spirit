@@ -8,13 +8,18 @@ class Spirit {
             print Spirit::renderLogin();
         });
 
-        Dispatcher::map('GET', '/spirit', function() { 
-            Dispatcher::redirect('/spirit/login'); 
+        Dispatcher::map('GET', '/spirit', function() {
+            if (self::isLoggedIn()) Dispatcher::redirect('/spirit/photos');
+            else Dispatcher::redirect('/spirit/login'); 
         });
 
         Dispatcher::map('GET', '/spirit/{page:photos|albums|users|settings}', function($params) {
             print Spirit::renderAdmin($params['page']);
         });
+    }
+
+    public static function isLoggedIn() {
+        return false;
     }
 
     public static function renderLogin() {
