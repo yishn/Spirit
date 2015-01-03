@@ -15,7 +15,7 @@ class Mustache
     /**
      * @var array
      */
-    private static $templates = array();
+    private static $templates = [];
 
     /**
      * @param $template
@@ -24,7 +24,7 @@ class Mustache
      *
      * @return string
      */
-    public static function render($template, array $data = array(), array $customParsers = array())
+    public static function render($template, array $data = [], array $customParsers = [])
     {
         // cache data
         self::$data = $data;
@@ -48,7 +48,7 @@ class Mustache
      * @return string
      * @throws MustacheException
      */
-    public static function renderByFile($pathTemplate, array $data = array(), array $customParsers = array(), $fileExtension = 'html')
+    public static function renderByFile($pathTemplate, array $data = [], array $customParsers = [], $fileExtension = 'html')
     {
         // set filename
         $fileName = $pathTemplate . '.' . $fileExtension;
@@ -83,7 +83,7 @@ class Mustache
      *
      * @return string
      */
-    private static function parse($template, array $data = array())
+    private static function parse($template, array $data = [])
     {
         foreach ($data as $key => $val)
         {
@@ -186,7 +186,7 @@ class Mustache
      *
      * @return string
      */
-    private static function handleCustomParsers($template, array $parsers = array())
+    private static function handleCustomParsers($template, array $parsers = [])
     {
         foreach ($parsers as $parser)
         {
