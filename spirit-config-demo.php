@@ -11,15 +11,15 @@ define('DB_PASS', '');
 define('DB_NAME', '');  
 define('DB_PREFIX', '');
 
-// The base url of your photoblog
-define('URL', '/');
+// The base url of your photoblog. Please add trailing `/`.
+define('BASEURL', '/');
 
 /**
  * Ok, stop editing now!
  */
 
 // Configure Dispatcher
-Dispatcher::config(array('url' => URL));
+Dispatcher::config(array('url' => BASEURL));
 
 // Configure Idiorm
 ORM::configure(array(
