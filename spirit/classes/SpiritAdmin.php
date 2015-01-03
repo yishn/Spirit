@@ -11,11 +11,11 @@ class SpiritAdmin {
         return true;
     }
 
-    public function renderAdmin($main) {
+    public function renderAdmin($main, $page = 1) {
         $context = [
             'title' => Setting::where('key', 'title')->find_one()->value,
             'baseUrl' => Dispatcher::config('url'),
-            'main' => self::renderAdminMain($main),
+            'main' => self::renderAdminMain($main, $page),
 
             'mainPhotos' => $main == 'photos',
             'mainAlbums' => $main == 'albums',
