@@ -45,7 +45,7 @@ class Photo extends Model {
         $result['thumbnailLink'] = $this->getThumbnailLink();
         $result['largeImageLink'] = $this->getLargeImageLink();
         $result['editLink'] = $this->getEditLink();
-        $result['description'] = $this->getFormattedDescription();
+        $result['formattedDescription'] = function() { return $this->getFormattedDescription(); };
 
         return $result;
     }
