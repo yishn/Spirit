@@ -189,6 +189,7 @@
          * @var string $auto_prefix_models
          */
         public static $auto_prefix_models = null;
+        public static $auto_prefix_tables = '';
 
         /**
          * The ORM instance used by this model 
@@ -243,7 +244,7 @@
             }
 
             if (is_null($specified_table_name)) {
-                return self::_class_name_to_table_name($class_name);
+                return self::$auto_prefix_tables . self::_class_name_to_table_name($class_name);
             }
             return $specified_table_name;
         }
@@ -295,7 +296,8 @@
             if (!is_null($specified_foreign_key_name)) {
                 return $specified_foreign_key_name;
             }
-            return $table_name . self::DEFAULT_FOREIGN_KEY_SUFFIX;
+            $prefixlen = strlen(self::$auto_prefix_tables);
+            return substr($table_name, $prefixlen) . self::DEFAULT_FOREIGN_KEY_SUFFIX;
         }
 
         /**

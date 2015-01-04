@@ -33,7 +33,9 @@ ORM::configure(array(
     'connection_string' => 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME,
     'username' => DB_USER,
     'password' => DB_PASS,
-    'table_prefix' => DB_PREFIX,
     'driver_options' => array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'),
     'caching' => true
 ));
+
+// Configure Paris
+Model::$auto_prefix_tables = DB_PREFIX;
