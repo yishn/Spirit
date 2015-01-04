@@ -11,11 +11,11 @@ class SpiritAdmin {
         return true;
     }
 
-    public function renderAdmin($main, $page = 1) {
+    public function renderAdmin($main) {
         $context = [
             'title' => Setting::where('key', 'title')->find_one()->value,
             'baseUrl' => Dispatcher::config('url'),
-            'main' => self::renderAdminMain($main, $page),
+            'main' => self::renderAdminMain($main),
 
             'mainPhotos' => $main == 'photos',
             'mainAlbums' => $main == 'albums',
@@ -26,27 +26,22 @@ class SpiritAdmin {
         return Mustache::renderByFile('spirit/views/admin', $context);
     }
 
-    public function renderAdminMain($main, $page = 1) {
+    public function renderAdminMain($main) {
         $context = [];
 
-        if ($main == 'photos') $context = $this->getPhotosContext($page);
+        if ($main == 'photos') $context = $this->getPhotosContext();
 
         return Mustache::renderByFile('spirit/views/' . $main, $context);
     }
 
     public function getPhotosContext($page = 1) {
-        $context = [];
         $limit = intval(Setting::where('key', 'photosPerPage')->find_one()->value);
 
         $photos = Photo::order_by_desc('date')
             ->limit($limit)
             ->offset(($page - 1) * $limit)
             ->find_many();
-        
-        $context['photos'] = array_map(function($photo) {
-            return $photo->as_array();
-        }, $photos);
 
-        return $context;
+        return Spirit::getPhotosContext($photos);
     }
 }
