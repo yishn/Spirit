@@ -2,6 +2,7 @@
         list-style: none;
     }
     #photos li {
+        background: black;
         position: relative;
         display: block;
         float: left;
@@ -16,23 +17,33 @@
         text-decoration: none;
     }
     #photos li:hover a { display: block; }
+    #photos li:hover img { opacity: .9; }
     #photos li a::before {
         display: block;
         position: absolute;
-        width: 1em;
-        height: 1em;
-        padding: 5px;
-        background: rgba(0, 0, 0, .5);
+        width: 1.5em;
+        height: 1.5em;
         color: white;
         font-family: Ionicons;
+        line-height: 1.5em;
         text-align: center;
         text-decoration: none;
+        text-shadow: 0 0 5px rgba(0, 0, 0, .7);
+        z-index: 1;
     }
-    #photos li a:hover::before { background: #222; }
+    #photos li a:hover::before { 
+        background: #0082f0; 
+        text-shadow: none;
+    }
     #photos li a.permalink::before {
         top: 0;
         right: 0;
         content: '\f1fe';
+    }
+    #photos li a.edit::before {
+        bottom: 0;
+        left: 0;
+        content: '\f2bf';
     }
     #photos li a.delete::before {
         bottom: 0;

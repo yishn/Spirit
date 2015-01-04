@@ -10,6 +10,7 @@ body {
 
 header {
         background: #26292A;
+        background: rgba(38, 41, 42, .9);
         color: white;
     }
     header a {
