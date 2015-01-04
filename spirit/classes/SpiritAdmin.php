@@ -3,11 +3,12 @@
 class SpiritAdmin {
     public function __construct() {
         if ($this->isLoggedIn()) return;
-
         Dispatcher::redirect('/spirit/login');
     }
 
     public function isLoggedIn() {
+        $this->user = User::create();
+        $this->user->name = "admin";
         return true;
     }
 
@@ -16,6 +17,7 @@ class SpiritAdmin {
             'title' => Setting::where('key', 'title')->find_one()->value,
             'baseUrl' => Dispatcher::config('url'),
             'main' => self::renderAdminMain($main),
+            'user' => $this->user->as_array(),
 
             'mainPhotos' => $main == 'photos',
             'mainAlbums' => $main == 'albums',

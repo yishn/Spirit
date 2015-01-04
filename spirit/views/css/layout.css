@@ -42,7 +42,9 @@ nav ul {
     nav ul li:nth-child(1) a::before { content: "\f147"; }
     nav ul li:nth-child(2) a::before { content: "\f148"; }
     nav ul li:nth-child(3) a::before { content: "\f212"; }
-nav ul li:nth-child(4) a::before { content: "\f2ad"; }
+    nav ul li:nth-child(4) a::before { content: "\f2ad"; }
+    nav ul li:last-child a::before { content: "\f213"; }
+nav ul li:last-child { float: right; }
 
 main {
     display: block;

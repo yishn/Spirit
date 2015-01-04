@@ -22,5 +22,8 @@ header {
 }
 
 nav li.current a, nav li a:hover {
-    background: black;
+        background: #181818;
+    }
+    nav li:last-child a:hover {
+        background: #0082f0;
 }
