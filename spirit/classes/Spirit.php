@@ -4,6 +4,9 @@ class Spirit {
     public static function setUpRoutes() {
         Dispatcher::map('GET', '/', function() { echo "Void."; });
 
+        Dispatcher::map('GET', '/photo/{id:\d+}', function($params) {
+            Dispatcher::redirect('/photo/' . $params['id'] . '/size/large');
+        });
         Dispatcher::map('GET', '/photo/{id:\d+}/size/{size:thumb|large}', function($params) {
             $photo = Photo::find_one($params['id']);
             if (!$photo) {
@@ -14,7 +17,7 @@ class Spirit {
             $size = Setting::where('key', $params['size'] == 'thumb' ? 'thumbSize' : 'largeImageSize')
                 ->find_one()
                 ->value;
-            $photo->generateThumbnail($size, true);
+            $photo->generateThumbnail($size, [ 'zoom' => $params['size'] == 'thumb' ]);
         });
 
         Dispatcher::map('GET', '/spirit/login', function() { 
@@ -38,5 +41,18 @@ class Spirit {
         ];
         
         return Mustache::renderByFile('spirit/views/login', $context);
+    }
+
+    public static function getPhotosContext(array $photos) {
+        $photos = array_map(function($photo) {
+            return $photo->as_array();
+        }, $photos);
+
+        $context = [
+            'hasPhotos' => count($photos) != 0,
+            'photos' => $photos
+        ];
+
+        return $context;
     }
 }

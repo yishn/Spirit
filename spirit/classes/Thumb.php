@@ -39,13 +39,14 @@ define('ADJUST_ORIENTATION',    true);          // Auto adjust orientation for J
 class Thumb {
     public static $thumb_cache = '';
 
-    public static function render($src, $size, $crop) {
-        $trim = 1;
-        $zoom = 0;
-        $align = false;
-        $sharpen = 0;
-        $gray = 0;
-        $ignore = 0;
+    public static function render($src, $size, array $options = []) {
+        $crop = isset($options['crop']) ? $options['crop'] : 1;
+        $trim = isset($options['trim']) ? $options['trim'] : 1;
+        $zoom = isset($options['zoom']) ? $options['zoom'] : 0;
+        $align = isset($options['align']) ? $options['align'] : false;
+        $sharpen = isset($options['sharpen']) ? $options['sharpen'] : 0;
+        $gray = isset($options['gray']) ? $options['gray'] : 0;
+        $ignore = isset($options['ignore']) ? $options['ignore'] : 0;
         $path = parse_url($src);
 
         if (isset($path['scheme'])) {

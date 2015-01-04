@@ -30,12 +30,12 @@ class Photo extends Model {
         return $parsedown->text($this->description);
     }
 
-    public function generateThumbnail($size, $trim) {
+    public function generateThumbnail($size) {
         $filename = $this->filename;
         $contentDir = Setting::where('key', 'contentDir')->find_one()->value;
         $path = Dispatcher::config('abspath') . "/{$contentDir}photos/" . $filename;
 
-        Thumb::render($path, $size, $trim);
+        Thumb::render($path, $size);
     }
 
     public function as_array() {
