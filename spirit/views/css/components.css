@@ -40,14 +40,5 @@
         right: 0;
         content: '\f1fe';
     }
-    #photos li a.edit::before {
-        bottom: 0;
-        left: 0;
-        content: '\f2bf';
-    }
-    #photos li a.delete::before {
-        bottom: 0;
-        right: 0;
-        content: '\f252';
-    }
-    #photos li a.delete:hover::before { background: #D1370E; }
+    #photos li { max-width: 42%; }
+    #photos li img { max-width: 100%; }

@@ -1,8 +1,10 @@
-<ol id="photos">
-{{#photos}}
-    <li>
-        <a class="permalink" href="{{permalink}}" title="Permalink to &lsquo;{{title}}&rsquo;">Permalink</a>
-        <img src="{{thumbnailLink}}" alt="{{title}}" />
-    </li>
-{{/photos}}
-</ol>
+<main>
+    <ol id="photos">
+    {{#photos}}
+        <li>
+            <a class="permalink" href="{{permalink}}" title="Permalink to &lsquo;{{title}}&rsquo;">Permalink</a>
+            <img src="{{thumbnailLink}}" alt="{{title}}" />
+        </li>
+    {{/photos}}
+    </ol>
+</main>

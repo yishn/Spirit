@@ -1,5 +1,6 @@
 body {
     font: 120% 'Source Sans Pro', sans-serif;
+    word-wrap: break-word;
 }
 
 h1, h2 { font-weight: lighter; }
