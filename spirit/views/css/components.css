@@ -16,8 +16,11 @@
         height: 0;
         text-decoration: none;
     }
-    .photostream li:hover a { display: block; }
-    .photostream li:hover img { opacity: .9; }
+    .photostream li:hover a, .photostream li.selected a { display: block; }
+    .photostream li:hover img, .photostream li.selected img { opacity: .9; }
+    .photostream li.selected {
+        outline: 5px solid #0082f0;
+    }
     .photostream li a::before {
         display: block;
         position: absolute;

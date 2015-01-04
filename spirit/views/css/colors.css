@@ -13,7 +13,7 @@ body {
 }
 
 header {
-        background: rgba(38, 41, 42, .9);
+        background: rgba(38, 41, 42, .95);
         color: white;
     }
     header a {
@@ -32,7 +32,7 @@ nav li.current a, nav li a:hover {
 }
 
 #toolbox {
-        background: rgba(224, 224, 224, .9);
+        background: rgba(224, 224, 224, .95);
     }
     #toolbox a {
         color: black;

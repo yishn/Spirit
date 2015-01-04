@@ -32,7 +32,7 @@ class SpiritAdmin {
         $context = [ 'baseUrl' => Dispatcher::config('url') ];
 
         if ($main == 'photos') {
-            $context = array_merge($context, Spirit::getPhotosContext(3, $params));
+            $context = array_merge($context, Spirit::getPhotosContext(20, $params));
             $context['filters'] = isset($params['month']) || isset($params['album']);
         }
 
