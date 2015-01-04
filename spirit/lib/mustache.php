@@ -131,6 +131,11 @@ class Mustache
                 }
             }
 
+            elseif (is_array($val) && empty($val) === true) {
+                // remove
+                $template = preg_replace('|{{#' . $key . '}}(.*?){{/' . $key . '}}|sm', '', $template);
+            }
+
             // ----------------------------------
 
             elseif (is_bool($val) || is_array($val) && empty($val) === true)
@@ -162,7 +167,7 @@ class Mustache
 
             // ----------------------------------
 
-            elseif ($val instanceof Closure)
+            elseif ($val instanceof \Closure)
             {
                 // set closure return
                 $template = str_replace('{{{' . $key . '}}}', $val(), $template);

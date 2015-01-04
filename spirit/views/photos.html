@@ -25,6 +25,17 @@
 {{^hasPhotos}}
     Nothing found. Why not <em>upload</em> some photos?
 {{/hasPhotos}}
+
+{{#hasPagination}}
+    <ol class="pagination">
+    {{#hasPreviousPage}}
+        <li><a href="{{previousPageLink}}">Previous page</a></li>
+    {{/hasPreviousPage}}
+    {{#hasNextPage}}
+        <li><a href="{{nextPageLink}}">Next page</a></li>
+    {{/hasNextPage}}
+    </ol>
+{{/hasPagination}}
 </main>
 
-<script type="text/javascript" src="{{baseUrl}}spirit/views/js/photostream.js"></script>
+<script type="text/javascript" src="{{baseUrl}}spirit/views/js/photos.js"></script>

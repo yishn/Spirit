@@ -8,6 +8,8 @@
         float: left;
         margin-bottom: 1em;
         margin-right: 1em;
+        outline: 5px solid transparent;
+        transition: outline .2s;
     }
     .photostream li a {
         display: none;
@@ -44,4 +46,8 @@
         content: '\f1fe';
     }
     .photostream li { max-width: 42%; }
-    .photostream li img { max-width: 100%; }
+.photostream li img { max-width: 100%; }
+
+.pagination {
+    clear: both;
+}

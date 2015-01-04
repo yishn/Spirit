@@ -42,6 +42,9 @@ nav li.current a, nav li a:hover {
         background: #ccc;
         opacity: 1;
     }
+    #toolbox li {
+        transition: opacity .2s;
+    }
     #toolbox li.clearFilters a {
         background: #ccc;
     }

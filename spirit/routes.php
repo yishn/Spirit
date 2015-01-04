@@ -35,37 +35,27 @@ Dispatcher::map('GET', '/spirit', function() {
     Dispatcher::redirect('/spirit/photos'); 
 });
 Dispatcher::map('GET', '/spirit/{main:albums|users|settings}', function($params) {
-    $admin = new SpiritAdmin();
+    $admin = new Admin();
     print $admin->renderAdmin($params['main']);
 });
 
 // Photos
 
-Dispatcher::map('GET', '/spirit/photos/{page:\d*}', function($params) {
-    $admin = new SpiritAdmin();
-    $page = $params['page'] !== '' ? intval($params['page']) : 1;
-    print $admin->renderAdmin('photos', [ 'page' => $page ]);
-});
+$func = function($params) {
+    $admin = new Admin();
 
-Dispatcher::map('GET', '/spirit/photos/filter', function() {
-    Dispatcher::redirect('/spirit/photos');
-});
+    $temp = [];
+    if (isset($params['album']))
+        $temp['album'] = Album::find_one($params['album']);
+    if (isset($params['year']) && isset($params['month']))
+        $temp['month'] = $params['year'] . '-' . $params['month'];
+    if (isset($params['page']))
+        $temp['page'] = $params['page'] !== '' ? intval($params['page']) : 1;
 
-Dispatcher::map('GET', '/spirit/photos/filter/album/{id:\d+}', function($params) {
-    $admin = new SpiritAdmin();
-    $album = Album::find_one($params['id']);
-    print $admin->renderAdmin('photos', [ 'album' => $album ]);
-});
+    print $admin->renderAdmin('photos', $temp);
+};
 
-Dispatcher::map('GET', '/spirit/photos/filter/{year:\d\d\d\d}-{month:\d\d}', function($params) {
-    $admin = new SpiritAdmin();
-    $month = $params['year'] . '-' . $params['month'];
-    print $admin->renderAdmin('photos', [ 'month' => $month ]);
-});
-
-Dispatcher::map('GET', '/spirit/photos/filter/{year:\d\d\d\d}-{month:\d\d}/album/{id:\d+}', function($params) {
-    $admin = new SpiritAdmin();
-    $album = Album::find_one($params['id']);
-    $month = $params['year'] . '-' . $params['month'];
-    print $admin->renderAdmin('photos', [ 'album' => $album, 'month' => $month ]);
-});
+Dispatcher::map('GET', '/spirit/photos/{page:\d*}', $func);
+Dispatcher::map('GET', '/spirit/photos/album/{album:\d+}/{page:\d*}', $func);
+Dispatcher::map('GET', '/spirit/photos/{year:\d\d\d\d}-{month:\d\d}/{page:\d*}', $func);
+Dispatcher::map('GET', '/spirit/photos/{year:\d\d\d\d}-{month:\d\d}/album/{id:\d+}/{page:\d*}', $func);

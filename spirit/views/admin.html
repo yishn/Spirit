@@ -25,7 +25,7 @@
             <li{{#mainUsers}} class="current"{{/mainUsers}}><a href="{{baseUrl}}spirit/users">Users</a></li>
             <li{{#mainSettings} class="current"{{/mainSettings}}><a href="{{baseUrl}}spirit/settings">Settings</a></li>
             {{#user}}
-            <li><a href="#">{{name}}</a></li>
+            <li><a href="{{baseUrl}}spirit/users/{{id}}">{{name}}</a></li>
             {{/user}}
         </ul>
     </nav>
