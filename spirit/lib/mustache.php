@@ -162,7 +162,8 @@ class Mustache
             elseif ($val instanceof Closure)
             {
                 // set closure return
-                $template = str_replace('{{' . $key . '}}', $val(), $template);
+                $template = str_replace('{{{' . $key . '}}}', $val(), $template);
+                $template = str_replace('{{' . $key . '}}', htmlspecialchars($val()), $template);
             }
 
             // ----------------------------------
