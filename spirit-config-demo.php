@@ -14,6 +14,9 @@ define('DB_PREFIX', '');
 // The base url of your photoblog. Please add trailing `/`.
 define('BASEURL', '/');
 
+// The path to your content directory. Make sure it's writable!
+define('CONTENTDIR', 'spirit-content/');
+
 /**
  * Ok, stop editing now!
  */
@@ -21,6 +24,7 @@ define('BASEURL', '/');
 // Configure Dispatcher
 Dispatcher::config(array(
     'url' => BASEURL,
+    'contentDir' => CONTENTDIR,
     'abspath' => dirname(__FILE__)
 ));
 

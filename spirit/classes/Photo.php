@@ -32,8 +32,8 @@ class Photo extends Model {
 
     public function generateThumbnail($size) {
         $filename = $this->filename;
-        $contentDir = Setting::where('key', 'contentDir')->find_one()->value;
-        $path = Dispatcher::config('abspath') . "/{$contentDir}photos/" . $filename;
+        $contentDir = Dispatcher::config('contentDir');
+        $path = "{$contentDir}photos/" . $filename;
 
         Thumb::render($path, $size);
     }
