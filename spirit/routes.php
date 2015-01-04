@@ -34,21 +34,21 @@ Dispatcher::map('GET', '/spirit/login', function() {
 Dispatcher::map('GET', '/spirit', function() { 
     Dispatcher::redirect('/spirit/photos'); 
 });
-Dispatcher::map('GET', '/spirit/{main:photos|albums|users|settings}', function($params) {
+Dispatcher::map('GET', '/spirit/{main:albums|users|settings}', function($params) {
     $admin = new SpiritAdmin();
     print $admin->renderAdmin($params['main']);
 });
 
 // Photos
 
-Dispatcher::map('GET', '/spirit/photos/filter', function() {
-    Dispatcher::redirect('/spirit/photos');
+Dispatcher::map('GET', '/spirit/photos/{page:\d*}', function($params) {
+    $admin = new SpiritAdmin();
+    $page = $params['page'] !== '' ? intval($params['page']) : 1;
+    print $admin->renderAdmin('photos', [ 'page' => $page ]);
 });
 
-Dispatcher::map('GET', '/spirit/photos/filter/album/{id:\d+}', function($params) {
-    $admin = new SpiritAdmin();
-    $album = Album::find_one($params['id']);
-    print $admin->renderAdmin('photos', [ 'album' => $album ]);
+Dispatcher::map('GET', '/spirit/photos/filter', function() {
+    Dispatcher::redirect('/spirit/photos');
 });
 
 Dispatcher::map('GET', '/spirit/photos/filter/album/{id:\d+}', function($params) {

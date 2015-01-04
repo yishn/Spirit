@@ -422,7 +422,7 @@ class Dispatcher {
             $rexp = trim($rexp, '/');
             $rexp = preg_replace_callback('@\{([^:]+)(:(.+))?\}@U', $rxcb, $rexp);
 
-            if (!preg_match('@^'.$rexp.'$@', $path, $vals)) {
+            if (!preg_match('@^'.$rexp.'$@', $path, $vals) && !preg_match('@^'.$rexp.'$@', $path . '/', $vals)) {
                 continue;
             }
 
