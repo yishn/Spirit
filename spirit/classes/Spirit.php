@@ -29,6 +29,11 @@ class Spirit {
             $admin = new SpiritAdmin();
             print $admin->renderAdmin($params['main']);
         });
+        Dispatcher::map('GET', '/spirit/photos/filter/album/{id:\d+}', function($params) {
+            $admin = new SpiritAdmin();
+            $album = Album::find_one($params['id']);
+            print $admin->renderAdmin('photos', [ 'album' => $album ]);
+        });
     }
 
     public static function renderLogin() {
@@ -39,7 +44,15 @@ class Spirit {
         return Mustache::renderByFile('spirit/views/login', $context);
     }
 
-    public static function getPhotosContext(array $photos) {
+    public static function getPhotosContext($limit, array $filter = [], $page = 1) {
+        $query = Model::factory('Photo');
+        if (isset($filter['album'])) $query = $filter['album']->photos();
+
+        $photos = $query->order_by_desc('date')
+            ->limit($limit)
+            ->offset(($page - 1) * $limit)
+            ->find_many();
+
         $photos = array_map(function($photo) {
             return $photo->as_array();
         }, $photos);
