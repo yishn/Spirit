@@ -1,7 +1,7 @@
-#photos {
+.photostream {
         list-style: none;
     }
-    #photos li {
+    .photostream li {
         background: black;
         position: relative;
         display: block;
@@ -9,16 +9,16 @@
         margin-bottom: 1em;
         margin-right: 1em;
     }
-    #photos li a {
+    .photostream li a {
         display: none;
         overflow: hidden;
         width: 0;
         height: 0;
         text-decoration: none;
     }
-    #photos li:hover a { display: block; }
-    #photos li:hover img { opacity: .9; }
-    #photos li a::before {
+    .photostream li:hover a { display: block; }
+    .photostream li:hover img { opacity: .9; }
+    .photostream li a::before {
         display: block;
         position: absolute;
         width: 1.5em;
@@ -31,14 +31,14 @@
         text-shadow: 0 0 5px rgba(0, 0, 0, .7);
         z-index: 1;
     }
-    #photos li a:hover::before { 
+    .photostream li a:hover::before { 
         background: #0082f0; 
         text-shadow: none;
     }
-    #photos li a.permalink::before {
+    .photostream li a.permalink::before {
         top: 0;
         right: 0;
         content: '\f1fe';
     }
-    #photos li { max-width: 42%; }
-    #photos li img { max-width: 100%; }
+    .photostream li { max-width: 42%; }
+    .photostream li img { max-width: 100%; }

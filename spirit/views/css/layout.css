@@ -1,4 +1,60 @@
-header h1 { float: left; }
+* {
+    margin: 0;
+    padding: 0;
+}
 
-nav ul { margin: 0; }
-nav ul li:last-child { float: right; }
+#root {
+    min-width: 300px;
+}
+
+header {
+        padding: 1em;
+    }
+    header h1 {
+        margin-right: 1em;
+        font-size: 1.3em;
+        font-weight: lighter;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+}
+
+nav ul, #toolbox ul {
+        list-style: none;
+        margin: 1em 0 0;
+        overflow: hidden;
+        font-size: .8em;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+    nav ul li a, #toolbox ul li a {
+        display: block;
+        float: left;
+        margin: .2em 1em .3em 0;
+        padding: 5px 10px;
+        text-decoration: none;
+    }
+    nav ul li a::before, #toolbox li a::before, #toolbox li a::after {
+        margin-right: 5px;
+        font: 1em Ionicons;
+    }
+    nav ul li:nth-child(1) a::before { content: "\f147"; }
+    nav ul li:nth-child(2) a::before { content: "\f148"; }
+    nav ul li:nth-child(3) a::before { content: "\f212"; }
+    nav ul li:nth-child(4) a::before { content: "\f2ad"; }
+nav ul li:last-child a::before { content: "\f213"; }
+
+#toolbox { padding: .3em 1em; }
+    #toolbox ul { margin: 0; }
+    #toolbox ul li a::after {
+        margin-right: 0;
+        margin-left: 5px;
+    }
+    #toolbox ul li.edit a::before { content: "\f2bf"; }
+    #toolbox ul li.delete a::before { content: "\f252"; }
+    #toolbox ul li.filter a::after { content: "\f3d0"; }
+
+main {
+    display: block;
+    overflow: hidden;
+    padding: 1em;
+}

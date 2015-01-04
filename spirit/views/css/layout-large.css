@@ -1,0 +1,15 @@
+header, #toolbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+}
+header h1 { float: left; }
+
+nav ul { margin: 0; }
+nav ul li:last-child { float: right; }
+nav ul li a { margin-top: 0; margin-bottom: 0; }
+
+#toolbox { top: 3.6em; }
+main { margin-top: 6.3em; }

@@ -1,7 +1,11 @@
 /**
  * Color palette:
  *
- * #F7FEFF, #83CCBC, #D1370E, #0082f0, #26292A
+ * #F7FEFF  rgb(38, 41, 42)
+ * #83CCBC 
+ * #D1370E 
+ * #0082f0 
+ * #26292A
  */
 
 body {
@@ -9,7 +13,6 @@ body {
 }
 
 header {
-        background: #26292A;
         background: rgba(38, 41, 42, .9);
         color: white;
     }
@@ -26,4 +29,24 @@ nav li.current a, nav li a:hover {
     }
     nav li:last-child a:hover {
         background: #0082f0;
+}
+
+#toolbox {
+        background: rgba(204, 204, 204, .9);
+    }
+    #toolbox a {
+        color: black;
+        opacity: .7;
+    }
+    #toolbox a:hover {
+        background: #b5b5b5;
+        opacity: 1;
+    }
+    #toolbox li.edit a:hover {
+        background: #0082f0;
+        color: white;
+    }
+    #toolbox li.delete a:hover {
+        background: #D1370E;
+        color: white;   
 }
