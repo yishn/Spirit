@@ -12,11 +12,11 @@ class SpiritAdmin {
         return true;
     }
 
-    public function renderAdmin($main) {
+    public function renderAdmin($main, $params = []) {
         $context = [
             'title' => Setting::where('key', 'title')->find_one()->value,
             'baseUrl' => Dispatcher::config('url'),
-            'main' => self::renderAdminMain($main),
+            'main' => self::renderAdminMain($main, $params),
             'user' => $this->user->as_array(),
 
             'mainPhotos' => $main == 'photos',
@@ -28,22 +28,14 @@ class SpiritAdmin {
         return Mustache::renderByFile('spirit/views/admin', $context);
     }
 
-    public function renderAdminMain($main) {
-        $context = [];
+    public function renderAdminMain($main, array $params = []) {
+        $context = [ 'baseUrl' => Dispatcher::config('url') ];
 
-        if ($main == 'photos') $context = $this->getPhotosContext();
+        if ($main == 'photos') {
+            $context = array_merge($context, Spirit::getPhotosContext(3, $params));
+            $context['filters'] = isset($params['month']) || isset($params['album']);
+        }
 
         return Mustache::renderByFile('spirit/views/' . $main, $context);
-    }
-
-    public function getPhotosContext($page = 1) {
-        $limit = intval(Setting::where('key', 'photosPerPage')->find_one()->value);
-
-        $photos = Photo::order_by_desc('date')
-            ->limit($limit)
-            ->offset(($page - 1) * $limit)
-            ->find_many();
-
-        return Spirit::getPhotosContext($photos);
     }
 }

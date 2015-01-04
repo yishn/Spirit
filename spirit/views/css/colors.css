@@ -32,15 +32,18 @@ nav li.current a, nav li a:hover {
 }
 
 #toolbox {
-        background: rgba(204, 204, 204, .9);
+        background: rgba(224, 224, 224, .9);
     }
     #toolbox a {
         color: black;
         opacity: .7;
     }
     #toolbox a:hover {
-        background: #b5b5b5;
+        background: #ccc;
         opacity: 1;
+    }
+    #toolbox li.clearFilters a {
+        background: #ccc;
     }
     #toolbox li.edit a:hover {
         background: #0082f0;

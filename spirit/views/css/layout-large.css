@@ -9,7 +9,7 @@ header h1 { float: left; }
 
 nav ul { margin: 0; }
 nav ul li:last-child { float: right; }
-nav ul li a { margin-top: 0; margin-bottom: 0; }
+nav ul li a, #toolbox ul li a { margin-top: 0; margin-bottom: 0; }
 
 #toolbox { top: 3.6em; }
 main { margin-top: 6.3em; }

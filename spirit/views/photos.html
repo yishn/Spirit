@@ -1,14 +1,17 @@
 <div id="toolbox">
     <ul>
+        {{#filters}}
+        <li class="clearFilters"><a href="{{baseUrl}}spirit/photos">Clear Filters</a></li>
+        {{/filters}}
+        <li class="filter"><a href="#">Album</a></li>
+        <li class="filter"><a href="#">Month</a></li>
         <li class="edit"><a href="#">Edit</a></li>
         <li class="delete"><a href="#">Delete</a></li>
-        <li class="filter"><a href="#">Album</a></li>
-        <li class="filter"><a href="#">Date</a></li>
     </ul>
 </div>
 
 <main>
-    {{#hasPhotos}}
+{{#hasPhotos}}
     <ol class="photostream">
         {{#photos}}
         <li>
@@ -17,8 +20,8 @@
         </li>
         {{/photos}}
     </ol>
-    {{/hasPhotos}}
-    {{^hasPhotos}}
-    Why not upload some photos?
-    {{/hasPhotos}}
+{{/hasPhotos}}
+{{^hasPhotos}}
+    Nothing found. Why not <em>upload</em> some photos?
+{{/hasPhotos}}
 </main>
