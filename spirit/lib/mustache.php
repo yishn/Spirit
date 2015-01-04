@@ -137,7 +137,10 @@ class Mustache
             {
                 // determine true/false
                 $conditionChar = $val === true ? '\#' : '\^';
+                $negationChar = $val === true ? '\^' : '\#';
 
+                // remove bools
+                $template = preg_replace('|{{' . $negationChar . $key . '}}.*?{{/' . $key . '}}\n*|s', '', $template);
                 // find bools
                 preg_match_all('|{{' . $conditionChar . $key . '}}(.*?){{/' . $key . '}}|s', $template, $boolPattern);
 
