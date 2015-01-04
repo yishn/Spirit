@@ -40,6 +40,8 @@ class Thumb {
     public static $thumb_cache = '';
 
     public static function render($src, $size, array $options = []) {
+        self::$thumb_cache = Setting::where('key', 'contentDir')->find_one()->value . 'cache/';
+
         $crop = isset($options['crop']) ? $options['crop'] : 1;
         $trim = isset($options['trim']) ? $options['trim'] : 1;
         $zoom = isset($options['zoom']) ? $options['zoom'] : 0;
@@ -74,6 +76,9 @@ class Thumb {
 
         if (!extension_loaded('gd')) {
             die('GD extension is not installed');
+        }
+        if (!is_dir(self::$thumb_cache)) {
+            mkdir(self::$thumb_cache);
         }
         if (!is_writable(self::$thumb_cache)) {
             die('Cache not writable');

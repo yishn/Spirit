@@ -30,8 +30,6 @@ ORM::configure(array(
     'username' => DB_USER,
     'password' => DB_PASS,
     'table_prefix' => DB_PREFIX,
-    'driver_options' => array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')
+    'driver_options' => array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'),
+    'caching' => true
 ));
-
-// Configue Thumb
-Thumb::$thumb_cache = Dispatcher::config('abspath') . '/cache/';
