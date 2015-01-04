@@ -18,18 +18,20 @@ define('BASEURL', '/');
  * Ok, stop editing now!
  */
 
-define('ABSURL', dirname(__FILE__));
-
 // Configure Dispatcher
-Dispatcher::config(array('url' => BASEURL));
+Dispatcher::config(array(
+    'url' => BASEURL,
+    'abspath' => dirname(__FILE__)
+));
 
 // Configure Idiorm
 ORM::configure(array(
     'connection_string' => 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME,
     'username' => DB_USER,
     'password' => DB_PASS,
+    'table_prefix' => DB_PREFIX,
     'driver_options' => array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')
 ));
 
 // Configue Thumb
-Thumb::$thumb_cache = ABSURL . '/cache/';
+Thumb::$thumb_cache = Dispatcher::config('abspath') . '/cache/';

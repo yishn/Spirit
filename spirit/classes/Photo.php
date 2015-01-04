@@ -33,7 +33,7 @@ class Photo extends Model {
     public function generateThumbnail($size, $trim) {
         $filename = $this->filename;
         $contentDir = Setting::where('key', 'contentDir')->find_one()->value;
-        $path = ABSURL . "/{$contentDir}photos/" . $filename;
+        $path = Dispatcher::config('abspath') . "/{$contentDir}photos/" . $filename;
 
         Thumb::render($path, $size, $trim);
     }
