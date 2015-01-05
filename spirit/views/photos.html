@@ -1,8 +1,15 @@
 <div id="toolbox">
     <ul>
-        {{#filters}}
-        <li class="clearFilters"><a href="{{baseUrl}}spirit/photos">Clear Filters</a></li>
-        {{/filters}}
+        {{#hasFilters}}
+        <li class="clearFilters">
+            {{#filterAlbum}}
+            <a href="{{baseUrl}}spirit/photos" title="Clear filter">Filter: {{name}}</a>
+            {{/filterAlbum}}
+            {{#filterMonth}}
+            <a href="{{baseUrl}}spirit/photos" title="Clear filter">Filter: {{month}} {{year}}</a>
+            {{/filterMonth}}
+        </li>
+        {{/hasFilters}}
         <li class="filter"><a href="#">Album</a></li>
         <li class="filter"><a href="#">Month</a></li>
         <li class="upload"><a href="#">Upload</a></li>

@@ -33,9 +33,16 @@ class Spirit {
             'hasPhotos' => count($photos) != 0,
             'photos' => $photos,
 
+            'hasFilters' => isset($filter['album']) || isset($filter['month']),
+            'filterAlbum' => !isset($filter['album']) ? false : $filter['album']->as_array(),
+            'filterMonth' => !isset($filter['month']) ? false : [
+                'year' => substr($filter['month'], 0, 4),
+                'month' => jdmonthname(intval(substr($filter['month'], -2)), 1)
+            ],
+
+            'hasPagination' => $hasPreviousPage || $hasNextPage,
             'hasPreviousPage' => $hasPreviousPage,
-            'hasNextPage' => $hasNextPage,
-            'hasPagination' => $hasPreviousPage || $hasNextPage
+            'hasNextPage' => $hasNextPage
         ];
 
         return $context;

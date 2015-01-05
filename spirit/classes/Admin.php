@@ -35,8 +35,7 @@ class Admin {
         $limit = intval(Setting::where('key', 'adminPhotosPerPage')->find_one()->value);
 
         if ($main == 'photos') {
-            $context = array_merge($context, Spirit::getPhotosContext($limit, $params, $params['page']));
-            $context['filters'] = isset($params['month']) || isset($params['album']);
+            $context = array_merge($context, Spirit::getPhotosContext($limit, $params['filter'], $params['page']));
             $context['previousPageLink'] = $this->getPhotosRoute($params, $params['page'] - 1);
             $context['nextPageLink'] = $this->getPhotosRoute($params, $params['page'] + 1);
         }

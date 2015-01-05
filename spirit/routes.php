@@ -44,11 +44,11 @@ Dispatcher::map('GET', '/spirit/{main:albums|users|settings}', function($params)
 $photosRoute = function($params) {
     $admin = new Admin();
 
-    $temp = [];
+    $temp = [ 'filter' => [] ];
     if (isset($params['album']))
-        $temp['album'] = Album::find_one($params['album']);
+        $temp['filter']['album'] = Album::find_one($params['album']);
     if (isset($params['year']) && isset($params['month']))
-        $temp['month'] = $params['year'] . '-' . $params['month'];
+        $temp['filter']['month'] = $params['year'] . '-' . $params['month'];
     if (isset($params['page']))
         $temp['page'] = $params['page'] !== '' ? intval($params['page']) : 1;
 
@@ -58,4 +58,4 @@ $photosRoute = function($params) {
 Dispatcher::map('GET', '/spirit/photos/{page:\d*}', $photosRoute);
 Dispatcher::map('GET', '/spirit/photos/album/{album:\d+}/{page:\d*}', $photosRoute);
 Dispatcher::map('GET', '/spirit/photos/{year:\d\d\d\d}-{month:\d\d}/{page:\d*}', $photosRoute);
-Dispatcher::map('GET', '/spirit/photos/{year:\d\d\d\d}-{month:\d\d}/album/{album:\d+}/{page:\d*}', $photosRoute);
+//Dispatcher::map('GET', '/spirit/photos/{year:\d\d\d\d}-{month:\d\d}/album/{album:\d+}/{page:\d*}', $photosRoute);
