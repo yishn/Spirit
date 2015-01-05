@@ -10,19 +10,19 @@ class Photo extends Model {
     }
 
     public function getPermalink() {
-        return Dispatcher::link("/photo/{$this->id}");
+        return Route::link("/photo/{$this->id}");
     }
 
     public function getThumbnailLink() {
-        return Dispatcher::link("/photo/{$this->id}/size/thumb");
+        return Route::link("/photo/{$this->id}/size/thumb");
     }
 
     public function getLargeImageLink() {
-        return Dispatcher::link("/photo/{$this->id}/size/large");
+        return Route::link("/photo/{$this->id}/size/large");
     }
 
     public function getEditLink() {
-        return Dispatcher::link("/spirit/edit/photo/{$this->id}");
+        return Route::link("/spirit/edit/photo/{$this->id}");
     }
 
     public function getFormattedDescription() {
@@ -32,7 +32,7 @@ class Photo extends Model {
 
     public function generateThumbnail($size) {
         $filename = $this->filename;
-        $contentDir = Dispatcher::config('contentDir');
+        $contentDir = Route::config('contentDir');
         $path = "{$contentDir}photos/" . $filename;
 
         Thumb::render($path, $size);

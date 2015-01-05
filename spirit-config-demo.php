@@ -21,8 +21,8 @@ define('CONTENTDIR', 'spirit-content/');
  * Ok, stop editing now!
  */
 
-// Configure Dispatcher
-Dispatcher::config(array(
+// Configure Route
+Route::config(array(
     'url' => BASEURL,
     'contentDir' => CONTENTDIR
 ));

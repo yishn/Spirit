@@ -3,7 +3,7 @@
 class Admin {
     public function __construct() {
         if ($this->isLoggedIn()) return;
-        Dispatcher::redirect('/spirit/login');
+        Route::redirect('/spirit/login');
     }
 
     public function isLoggedIn() {
@@ -16,7 +16,7 @@ class Admin {
     public function renderAdmin($main, $params = []) {
         $context = [
             'title' => Setting::where('key', 'title')->find_one()->value,
-            'baseUrl' => Dispatcher::config('url'),
+            'baseUrl' => Route::config('url'),
             'user' => $this->user->as_array(),
 
             'mainPhotos' => $main == 'photos',
@@ -36,23 +36,10 @@ class Admin {
 
         if ($main == 'photos') {
             $context = array_merge($context, Spirit::getPhotosContext($limit, $params['filter'], $params['page']));
-            $context['previousPageLink'] = $this->getPhotosRoute($params, $params['page'] - 1);
-            $context['nextPageLink'] = $this->getPhotosRoute($params, $params['page'] + 1);
+            $context['previousPageLink'] = Route::buildAdminPhotosRoute($params, $params['page'] - 1);
+            $context['nextPageLink'] = Route::buildAdminPhotosRoute($params, $params['page'] + 1);
         }
 
         return Mustache::renderByFile('spirit/views/' . $main, $context);
-    }
-
-    public function getPhotosRoute(array $filter = [], $page = 1) {
-        $result = Dispatcher::config('url') . 'spirit/photos';
-
-        if (isset($filter['month']))
-            $result .= '/' . $filter['month'];
-        if (isset($filter['album']))
-            $result .= '/album/' . $filter['album']->id;
-        if ($page != 1)
-            $result .= "/{$page}";
-
-        return $result;
     }
 }

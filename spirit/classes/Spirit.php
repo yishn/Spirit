@@ -3,7 +3,7 @@
 class Spirit {
     public static function renderLogin() {
         $context = [ 
-            'baseUrl' => Dispatcher::config('url')
+            'baseUrl' => Route::config('url')
         ];
         
         return Mustache::renderByFile('spirit/views/login', $context);
@@ -37,7 +37,7 @@ class Spirit {
             'filterAlbum' => !isset($filter['album']) ? false : $filter['album']->as_array(),
             'filterMonth' => !isset($filter['month']) ? false : [
                 'year' => substr($filter['month'], 0, 4),
-                'month' => jdmonthname(intval(substr($filter['month'], -2)), 1)
+                'month' => date('F', mktime(0, 0, 0, intval(substr($filter['month'], -2)), 1, 2000))
             ],
 
             'hasPagination' => $hasPreviousPage || $hasNextPage,
