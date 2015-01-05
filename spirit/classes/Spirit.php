@@ -33,7 +33,7 @@ class Spirit {
             ->offset(($page - 1) * $limit)
             ->find_many();
 
-        $hasPreviousPage = $page != 1;
+        $hasPreviousPage = $page != 1 && count($photos) != 0;
         $hasNextPage = count($photos) == $limit + 1;
         if ($hasNextPage) array_pop($photos);
         

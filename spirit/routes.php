@@ -41,7 +41,7 @@ Dispatcher::map('GET', '/spirit/{main:albums|users|settings}', function($params)
 
 // Photos
 
-$func = function($params) {
+$photosRoute = function($params) {
     $admin = new Admin();
 
     $temp = [];
@@ -55,7 +55,7 @@ $func = function($params) {
     print $admin->renderAdmin('photos', $temp);
 };
 
-Dispatcher::map('GET', '/spirit/photos/{page:\d*}', $func);
-Dispatcher::map('GET', '/spirit/photos/album/{album:\d+}/{page:\d*}', $func);
-Dispatcher::map('GET', '/spirit/photos/{year:\d\d\d\d}-{month:\d\d}/{page:\d*}', $func);
-Dispatcher::map('GET', '/spirit/photos/{year:\d\d\d\d}-{month:\d\d}/album/{album:\d+}/{page:\d*}', $func);
+Dispatcher::map('GET', '/spirit/photos/{page:\d*}', $photosRoute);
+Dispatcher::map('GET', '/spirit/photos/album/{album:\d+}/{page:\d*}', $photosRoute);
+Dispatcher::map('GET', '/spirit/photos/{year:\d\d\d\d}-{month:\d\d}/{page:\d*}', $photosRoute);
+Dispatcher::map('GET', '/spirit/photos/{year:\d\d\d\d}-{month:\d\d}/album/{album:\d+}/{page:\d*}', $photosRoute);
