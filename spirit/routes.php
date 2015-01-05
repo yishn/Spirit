@@ -58,4 +58,4 @@ $func = function($params) {
 Dispatcher::map('GET', '/spirit/photos/{page:\d*}', $func);
 Dispatcher::map('GET', '/spirit/photos/album/{album:\d+}/{page:\d*}', $func);
 Dispatcher::map('GET', '/spirit/photos/{year:\d\d\d\d}-{month:\d\d}/{page:\d*}', $func);
-Dispatcher::map('GET', '/spirit/photos/{year:\d\d\d\d}-{month:\d\d}/album/{id:\d+}/{page:\d*}', $func);
+Dispatcher::map('GET', '/spirit/photos/{year:\d\d\d\d}-{month:\d\d}/album/{album:\d+}/{page:\d*}', $func);
