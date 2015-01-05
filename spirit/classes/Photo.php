@@ -69,7 +69,7 @@ class Photo extends Model {
                 ->where_lt('date', $dateEnd->format('Y-m-d H:i:s'));
         } catch(Exception $ex) {
             // Return nothing
-            return $orm->where('id', 1)->where_not_equal('id', 1);
+            return $orm->where_id_is(-1);
         }
     }
 }
