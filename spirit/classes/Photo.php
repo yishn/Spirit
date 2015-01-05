@@ -60,11 +60,16 @@ class Photo extends Model {
     }
 
     public static function in_month($orm, $month) {
-        $dateStart = new DateTime($month . '-01');
-        $dateEnd = new DateTime($month . '-01');
-        $dateEnd->add(new DateInterval('P1M'));
+        try {
+            $dateStart = new DateTime($month . '-01');
+            $dateEnd = new DateTime($month . '-01');
+            $dateEnd->add(new DateInterval('P1M'));
 
-        return $orm->where_gte('date', $dateStart->format('Y-m-d H:i:s'))
-            ->where_lt('date', $dateEnd->format('Y-m-d H:i:s'));
+            return $orm->where_gte('date', $dateStart->format('Y-m-d H:i:s'))
+                ->where_lt('date', $dateEnd->format('Y-m-d H:i:s'));
+        } catch(Exception $ex) {
+            // Return nothing
+            return $orm->where('id', 1)->where_not_equal('id', 1);
+        }
     }
 }
