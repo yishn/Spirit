@@ -246,7 +246,7 @@
             if (is_null($specified_table_name)) {
                 return self::$auto_prefix_tables . self::_class_name_to_table_name($class_name);
             }
-            return $specified_table_name;
+            return self::$auto_prefix_tables . $specified_table_name;
         }
 
         /**

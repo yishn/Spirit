@@ -24,8 +24,7 @@ define('CONTENTDIR', 'spirit-content/');
 // Configure Dispatcher
 Dispatcher::config(array(
     'url' => BASEURL,
-    'contentDir' => CONTENTDIR,
-    'abspath' => dirname(__FILE__)
+    'contentDir' => CONTENTDIR
 ));
 
 // Configure Idiorm

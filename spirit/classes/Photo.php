@@ -48,4 +48,23 @@ class Photo extends Model {
 
         return $result;
     }
+
+    public static function in_album($orm, $album) {
+        $photoTable = DB_PREFIX . 'photo';
+        $albumTable = DB_PREFIX . 'album';
+        $table = DB_PREFIX . 'album_photo';
+
+        return $orm->select("{$photoTable}.*")
+            ->join($table, array("{$table}.photo_id", '=', "{$photoTable}.id"))
+            ->join($albumTable, array("{$albumTable}.id", '=', "{$table}.album_id"));
+    }
+
+    public static function in_month($orm, $month) {
+        $dateStart = new DateTime($month . '-01');
+        $dateEnd = new DateTime($month . '-01');
+        $dateEnd->add(new DateInterval('P1M'));
+
+        return $orm->where_gte('date', $dateStart->format('Y-m-d H:i:s'))
+            ->where_lt('date', $dateEnd->format('Y-m-d H:i:s'));
+    }
 }
