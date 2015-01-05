@@ -15,6 +15,7 @@ class Spirit {
         // Filter
         if (isset($filter['album'])) $query = $query->filter('in_album', $filter['album']);
         if (isset($filter['month'])) $query = $query->filter('in_month', $filter['month']);
+        if (isset($filter['search'])) $query = $query->filter('search', $filter['search']);
 
         $photos = $query->order_by_desc('date')
             ->limit($limit + 1)
@@ -33,7 +34,8 @@ class Spirit {
             'hasPhotos' => count($photos) != 0,
             'photos' => $photos,
 
-            'hasFilters' => isset($filter['album']) || isset($filter['month']),
+            'hasFilters' => isset($filter['album']) || isset($filter['month']) || isset($filter['search']),
+            'filterSearch' => !isset($fitler['search']) ? false : $filter['search'],
             'filterAlbum' => !isset($filter['album']) ? false : $filter['album']->as_array(),
             'filterMonth' => !isset($filter['month']) ? false : [
                 'year' => substr($filter['month'], 0, 4),
@@ -46,5 +48,11 @@ class Spirit {
         ];
 
         return $context;
+    }
+
+    public static function getAlbumsContext($limit, array $filter = [], $page = 1) {
+        $query = Model::factory('Album');
+
+        if (isset($filter['search'])) $query = $query->filter('search', $filter['search']);
     }
 }

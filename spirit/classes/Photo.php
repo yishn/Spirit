@@ -72,4 +72,11 @@ class Photo extends Model {
             return $orm->where_id_is(-1);
         }
     }
+
+    public static function search($orm, $input) {
+        return $orm->where_any_is([
+            [ 'title' => "%{$input}%" ],
+            [ 'description' => "%{$input}%" ]
+        ], 'LIKE');
+    }
 }

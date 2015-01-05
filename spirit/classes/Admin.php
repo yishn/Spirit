@@ -36,8 +36,8 @@ class Admin {
 
         if ($main == 'photos') {
             $context = array_merge($context, Spirit::getPhotosContext($limit, $params['filter'], $params['page']));
-            $context['previousPageLink'] = Route::buildAdminPhotosRoute($params, $params['page'] - 1);
-            $context['nextPageLink'] = Route::buildAdminPhotosRoute($params, $params['page'] + 1);
+            $context['previousPageLink'] = Route::buildAdminPhotosRoute($params['filter'], $params['page'] - 1);
+            $context['nextPageLink'] = Route::buildAdminPhotosRoute($params['filter'], $params['page'] + 1);
         }
 
         return Mustache::renderByFile('spirit/views/' . $main, $context);
