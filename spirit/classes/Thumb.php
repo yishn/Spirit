@@ -108,7 +108,7 @@ class Thumb {
                     $files = glob(self::$thumb_cache . '*.img.txt');
                     if (is_array($files) && count($files) > 0) {
                         foreach ($files as $file) {
-                            if (time() - self::$thumb_cache_AGE > filemtime($file)) {
+                            if (time() - THUMB_CACHE_AGE > filemtime($file)) {
                                 unlink($file);
                             }
                         }
