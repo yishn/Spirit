@@ -35,7 +35,7 @@ class Admin {
         $limit = intval(Setting::get('adminPhotosPerPage'));
 
         if ($main == 'photos') {
-            $context = array_merge(Photo::getPhotos($limit, $params['filter'], $params['page']), $context);
+            $context = array_merge($context, Photo::getPhotos($limit, $params['filter'], $params['page']));
             $context['previousPageLink'] = Route::buildAdminPhotosRoute($params['filter'], $params['page'] - 1);
             $context['nextPageLink'] = Route::buildAdminPhotosRoute($params['filter'], $params['page'] + 1);
         }

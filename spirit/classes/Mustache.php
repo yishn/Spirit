@@ -1,12 +1,13 @@
 <?php
 
 /**
+ * Mustache class based on
+ * 
  * Mustache
  * @package Simplon\Mustache
  * @author Tino Ehrich (tino@bigpun.me)
  */
-class Mustache
-{
+class Mustache {
     /**
      * @var array
      */
@@ -24,8 +25,7 @@ class Mustache
      *
      * @return string
      */
-    public static function render($template, array $data = [], array $customParsers = [])
-    {
+    public static function render($template, array $data = [], array $customParsers = []) {
         // cache data
         self::$data = $data;
 
@@ -48,25 +48,21 @@ class Mustache
      * @return string
      * @throws MustacheException
      */
-    public static function renderByFile($pathTemplate, array $data = [], array $customParsers = [], $fileExtension = 'html')
-    {
+    public static function renderByFile($pathTemplate, array $data = [], array $customParsers = [], $fileExtension = 'html') {
         // set filename
         $fileName = $pathTemplate . '.' . $fileExtension;
 
         // test cache
-        if (isset(self::$templates[$pathTemplate]) === false)
-        {
+        if (isset(self::$templates[$pathTemplate]) === false) {
             // make sure the file exists
-            if (file_exists($fileName) === false)
-            {
+            if (file_exists($fileName) === false) {
                 throw new MustacheException('Missing given template file: ' . $fileName);
             }
 
             // fetch template
             $template = file_get_contents($fileName);
 
-            if ($template === false)
-            {
+            if ($template === false) {
                 throw new MustacheException('Could not load template file: ' . $fileName);
             }
 
@@ -83,63 +79,49 @@ class Mustache
      *
      * @return string
      */
-    private static function parse($template, array $data = [])
-    {
-        foreach ($data as $key => $val)
-        {
-            if (is_array($val) && empty($val) === false)
-            {
-                // find loops
-                preg_match_all('|{{#' . $key . '}}(.*?){{/' . $key . '}}|sm', $template, $foreachPattern);
+    private static function parse($template, array $data = []) {
+        foreach ($data as $key => $val) {
+            if (!is_array($val) || empty($val) === true) continue;
 
-                // handle loops
-                if (isset($foreachPattern[1][0]))
-                {
-                    foreach ($foreachPattern[1] as $patternId => $patternContext)
-                    {
-                        $loopContent = '';
+            // find loops
+            preg_match_all('|{{#' . $key . '}}(.*?){{/' . $key . '}}|sm', $template, $foreachPattern);
 
-                        // handle array objects
-                        if (isset($val[0]))
-                        {
-                            foreach ($val as $loopVal)
-                            {
-                                // make simple lists available
-                                if (is_array($loopVal) === false)
-                                {
-                                    $loopVal = ['_' => $loopVal];
-                                }
+            // handle loops
+            if (isset($foreachPattern[1][0])) {
+                foreach ($foreachPattern[1] as $patternId => $patternContext) {
+                    $loopContent = '';
 
-                                $loopContent .= self::parse($patternContext, $loopVal);
+                    // handle array objects
+                    if (isset($val[0])) {
+                        foreach ($val as $loopVal) {
+                            // make simple lists available
+                            if (is_array($loopVal) === false) {
+                                $loopVal = ['_' => $loopVal];
                             }
-                        }
 
-                        // normal array only
-                        else
-                        {
-                            $loopContent = self::parse($patternContext, $val);
+                            $loopContent .= self::parse($patternContext, $loopVal);
                         }
-
-                        // replace pattern context
-                        $template = preg_replace(
-                            '|' . preg_quote($foreachPattern[0][$patternId]) . '|s',
-                            $loopContent,
-                            $template,
-                            1
-                        );
                     }
+
+                    // normal array only
+                    else {
+                        $loopContent = self::parse($patternContext, $val);
+                    }
+
+                    // replace pattern context
+                    $template = preg_replace(
+                        '|' . preg_quote($foreachPattern[0][$patternId]) . '|s',
+                        $loopContent,
+                        $template,
+                        1
+                    );
                 }
-            }
+            }    
+        }
 
-            elseif (is_array($val) && empty($val) === true) {
-                // remove
-                $template = preg_replace('|{{#' . $key . '}}(.*?){{/' . $key . '}}|sm', '', $template);
-            }
-
-            // ----------------------------------
-
-            elseif (is_bool($val) || is_array($val) && empty($val) === true)
-            {
+        foreach ($data as $key => $val) {
+            if (is_array($val) && empty($val) === false) {}
+            else if (is_bool($val) || is_array($val) && empty($val) === true) {
                 // determine true/false
                 $conditionChar = $val === true ? '\#' : '\^';
                 $negationChar = $val === true ? '\^' : '\#';
@@ -150,10 +132,8 @@ class Mustache
                 preg_match_all('|{{' . $conditionChar . $key . '}}(.*?){{/' . $key . '}}|s', $template, $boolPattern);
 
                 // handle bools
-                if (isset($boolPattern[1][0]))
-                {
-                    foreach ($boolPattern[1] as $patternId => $patternContext)
-                    {
+                if (isset($boolPattern[1][0])) {
+                    foreach ($boolPattern[1] as $patternId => $patternContext) {
                         // parse and replace pattern context
                         $template = preg_replace(
                             '|' . preg_quote($boolPattern[0][$patternId]) . '|s',
@@ -167,8 +147,14 @@ class Mustache
 
             // ----------------------------------
 
-            elseif ($val instanceof \Closure)
-            {
+            else if (is_array($val) && empty($val) === true) {
+                // remove
+                $template = preg_replace('|{{#' . $key . '}}(.*?){{/' . $key . '}}|sm', '', $template);
+            }
+
+            // ----------------------------------
+
+            elseif ($val instanceof Closure) {
                 // set closure return
                 $template = str_replace('{{{' . $key . '}}}', $val(), $template);
                 $template = str_replace('{{' . $key . '}}', htmlspecialchars($val()), $template);
@@ -176,8 +162,7 @@ class Mustache
 
             // ----------------------------------
 
-            else
-            {
+            else {
                 // set var: unescaped
                 $template = str_replace('{{{' . $key . '}}}', $val, $template);
 
@@ -195,16 +180,12 @@ class Mustache
      *
      * @return string
      */
-    private static function handleCustomParsers($template, array $parsers = [])
-    {
-        foreach ($parsers as $parser)
-        {
-            if (isset($parser['pattern']) && isset($parser['callback']))
-            {
+    private static function handleCustomParsers($template, array $parsers = []) {
+        foreach ($parsers as $parser) {
+            if (isset($parser['pattern']) && isset($parser['callback'])) {
                 preg_match_all('|' . $parser['pattern'] . '|', $template, $match);
 
-                if (isset($match[1][0]))
-                {
+                if (isset($match[1][0])) {
                     $template = $parser['callback']($template, $match);
                 }
             }
@@ -218,8 +199,7 @@ class Mustache
      *
      * @return string
      */
-    private static function finaliseTemplate($template)
-    {
+    private static function finaliseTemplate($template) {
         // remove left over wrappers
         $template = preg_replace('|{{.*?}}.*?{{/.*?}}\n*|s', '', $template);
 
