@@ -20,9 +20,13 @@ $$('.photostream li input').removeEvents('change').addEvent('change', function()
  * Load more button
  */
 
-$$('#pagination .previous').getParent().setStyle('display', 'none');
+var throbbersrc = $$('.throbber').get('src');
+
+$$('#pagination .previous').getParent().dispose();
 $$('#pagination .next').set('text', 'Load more photos').removeEvents('click').addEvent('click', function(e) {
     e.preventDefault();
+
+    this.set('html', '<img src="' + throbbersrc[0] + '" alt="Loading&hellip;" />');
 
     var next = this;
     var request = new Request.HTML({ 

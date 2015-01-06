@@ -23,12 +23,14 @@
     <ol class="photostream">{{#photos}}<li>
             <input type="checkbox" name="photoId[]" value="{{id}}" />
             <a class="permalink" href="{{permalink}}" title="Permalink to &lsquo;{{title}}&rsquo;">Permalink</a>
-            <a href="#" title="Edit &lsquo;{{title}}&rsquo;"><img src="{{thumbnailLink}}" alt="{{title}}" /></a>
+            <a href="{{baseUrl}}spirit/photos/edit/{{id}}" title="Edit &lsquo;{{title}}&rsquo;">
+                <img src="{{thumbnailLink}}" alt="{{title}}" />
+            </a>
         </li>{{/photos}}
     </ol>
 {{/hasPhotos}}
 {{^hasPhotos}}
-    Nothing found. Why not <em>upload</em> some photos?
+    Nothing found. Why not <em>upload</em> some photo?
 {{/hasPhotos}}
 </main>
 
@@ -38,7 +40,12 @@
         <li><a class="previous" href="{{previousPageLink}}">&laquo; Previous page</a></li>
     {{/hasPreviousPage}}
     {{#hasNextPage}}
-        <li><a class="next" href="{{nextPageLink}}">Next page &raquo;</a></li>
+        <li>
+            <a class="next" href="{{nextPageLink}}">
+                <img class="throbber" src="{{baseUrl}}spirit/views/resources/throbber.gif" alt="" />
+                Next page &raquo;
+            </a>
+        </li>
     {{/hasNextPage}}
     </ol>
 {{/hasPagination}}
