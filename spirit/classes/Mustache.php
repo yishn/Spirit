@@ -35,8 +35,7 @@ class Mustache {
         // run custom parsers
         $template = self::handleCustomParsers($template, $customParsers);
 
-        // clean left overs and reset data
-        return self::finaliseTemplate($template);
+        return $template;
     }
 
     /**
@@ -190,21 +189,6 @@ class Mustache {
                 }
             }
         }
-
-        return (string)$template;
-    }
-
-    /**
-     * @param string $template
-     *
-     * @return string
-     */
-    private static function finaliseTemplate($template) {
-        // remove left over wrappers
-        $template = preg_replace('|{{.*?}}.*?{{/.*?}}\n*|s', '', $template);
-
-        // remove left over variables
-        $template = preg_replace('|{{.*?}}\n*|s', '', $template);
 
         return (string)$template;
     }
