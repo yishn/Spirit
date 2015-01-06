@@ -15,7 +15,7 @@ class Admin {
 
     public function renderAdmin($main, $params = []) {
         $context = [
-            'title' => Setting::where('key', 'title')->find_one()->value,
+            'title' => Setting::get('title'),
             'baseUrl' => Route::config('url'),
             'user' => $this->user->as_array(),
 
@@ -32,10 +32,10 @@ class Admin {
     }
 
     public function renderAdminMain($main, array $context, array $params = []) {
-        $limit = intval(Setting::where('key', 'adminPhotosPerPage')->find_one()->value);
+        $limit = intval(Setting::get('adminPhotosPerPage'));
 
         if ($main == 'photos') {
-            $context = array_merge($context, Spirit::getPhotosContext($limit, $params['filter'], $params['page']));
+            $context = array_merge(Photo::getPhotos($limit, $params['filter'], $params['page']), $context);
             $context['previousPageLink'] = Route::buildAdminPhotosRoute($params['filter'], $params['page'] - 1);
             $context['nextPageLink'] = Route::buildAdminPhotosRoute($params['filter'], $params['page'] + 1);
         }

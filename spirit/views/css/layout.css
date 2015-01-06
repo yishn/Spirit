@@ -72,3 +72,17 @@ main {
     main > .photostream {
         margin: 0;
 }
+
+#pagination {
+        margin: 0;
+        list-style: 0;
+    }
+    #pagination a {
+        display: block;
+        padding: 1em;
+        font-size: 1.5em;
+        font-weight: lighter;
+        text-align: center;
+        text-decoration: none;
+        text-transform: lowercase;
+}

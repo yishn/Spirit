@@ -56,3 +56,9 @@ nav li.current a, nav li a:hover {
         background: #D1370E;
         color: white;   
 }
+
+#pagination a {
+    background: #26292A;
+    color: white;
+}
+#pagination a:hover { background: #323534; }

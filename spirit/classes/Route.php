@@ -19,9 +19,7 @@ class Route extends Dispatcher {
                 exit();
             }
             
-            $size = Setting::where('key', $params['size'] == 'thumb' ? 'thumbSize' : 'largeImageSize')
-                ->find_one()
-                ->value;
+            $size = Setting::get($params['size'] == 'thumb' ? 'thumbSize' : 'largeImageSize');
             $photo->generateThumbnail($size, [ 'zoom' => $params['size'] == 'thumb' ]);
         });
 

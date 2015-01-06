@@ -79,4 +79,43 @@ class Photo extends Model {
             [ 'description' => "%{$input}%" ]
         ], 'LIKE');
     }
+
+    public static function getPhotos($limit, array $filter = [], $page = 1) {
+        $query = Model::factory('Photo');
+
+        // Filter
+        if (isset($filter['album'])) $query = $query->filter('in_album', $filter['album']);
+        if (isset($filter['month'])) $query = $query->filter('in_month', $filter['month']);
+        if (isset($filter['search'])) $query = $query->filter('search', $filter['search']);
+
+        $photos = $query->order_by_desc('date')
+            ->limit($limit + 1)
+            ->offset(($page - 1) * $limit)
+            ->find_many();
+
+        $hasPreviousPage = $page != 1 && count($photos) != 0;
+        $hasNextPage = count($photos) == $limit + 1;
+        if ($hasNextPage) array_pop($photos);
+        
+        $photos = array_map(function($photo) {
+            return $photo->as_array();
+        }, $photos);
+
+        return [
+            'hasPhotos' => count($photos) != 0,
+            'photos' => $photos,
+
+            'hasFilters' => isset($filter['album']) || isset($filter['month']) || isset($filter['search']),
+            'filterSearch' => !isset($fitler['search']) ? false : $filter['search'],
+            'filterAlbum' => !isset($filter['album']) ? false : $filter['album']->as_array(),
+            'filterMonth' => !isset($filter['month']) ? false : [
+                'year' => substr($filter['month'], 0, 4),
+                'month' => date('F', mktime(0, 0, 0, intval(substr($filter['month'], -2)), 1, 2000))
+            ],
+
+            'hasPagination' => $hasPreviousPage || $hasNextPage,
+            'hasPreviousPage' => $hasPreviousPage,
+            'hasNextPage' => $hasNextPage
+        ];
+    }
 }

@@ -11,19 +11,27 @@
         outline: 5px solid transparent;
         transition: outline .2s;
     }
-    .photostream li a {
+    .photostream li input {
+        position: absolute;
+        left: 5px;
+        top: 5px;
+        visibility: hidden;
+        z-index: 1;
+    }
+    .photostream li:hover input, .photostream li.selected input { visibility: visible; }
+    .photostream li a.permalink {
         display: none;
         overflow: hidden;
         width: 0;
         height: 0;
         text-decoration: none;
     }
-    .photostream li:hover a, .photostream li.selected a { display: block; }
+    .photostream li:hover a.permalink, .photostream li.selected a.permalink { display: block; }
     .photostream li:hover img, .photostream li.selected img { opacity: .9; }
     .photostream li.selected {
         outline: 5px solid #0082f0;
     }
-    .photostream li a::before {
+    .photostream li a.permalink::before {
         display: block;
         position: absolute;
         width: 1.5em;
@@ -36,7 +44,7 @@
         text-shadow: 0 0 5px rgba(0, 0, 0, .7);
         z-index: 1;
     }
-    .photostream li a:hover::before { 
+    .photostream li a.permalink:hover::before { 
         background: #26292A; 
         text-shadow: none;
     }
@@ -47,7 +55,3 @@
     }
     .photostream li { max-width: 42%; }
 .photostream li img { max-width: 100%; }
-
-.pagination {
-    clear: both;
-}

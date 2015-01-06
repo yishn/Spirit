@@ -23,8 +23,9 @@
     <ol class="photostream">
         {{#photos}}
         <li>
+            <input type="checkbox" name="photoId[]" value="{{id}}" />
             <a class="permalink" href="{{permalink}}" title="Permalink to &lsquo;{{title}}&rsquo;">Permalink</a>
-            <img src="{{thumbnailLink}}" alt="{{title}}" />
+            <a href="#" title="Edit &lsquo;{{title}}&rsquo;"><img src="{{thumbnailLink}}" alt="{{title}}" /></a>
         </li>
         {{/photos}}
     </ol>
@@ -32,17 +33,17 @@
 {{^hasPhotos}}
     Nothing found. Why not <em>upload</em> some photos?
 {{/hasPhotos}}
+</main>
 
 {{#hasPagination}}
-    <ol class="pagination">
+    <ol id="pagination">
     {{#hasPreviousPage}}
-        <li><a href="{{previousPageLink}}">Previous page</a></li>
+        <li><a class="previous" href="{{previousPageLink}}">&laquo; Previous page</a></li>
     {{/hasPreviousPage}}
     {{#hasNextPage}}
-        <li><a href="{{nextPageLink}}">Next page</a></li>
+        <li><a class="next" href="{{nextPageLink}}">Next page &raquo;</a></li>
     {{/hasNextPage}}
     </ol>
 {{/hasPagination}}
-</main>
 
 <script type="text/javascript" src="{{baseUrl}}spirit/views/js/photos.js"></script>
