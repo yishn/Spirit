@@ -199,21 +199,14 @@ class Thumb {
                     }
                 }
             }
-            $array = explode('x', str_replace('<', '', $size));
-            array_push($array, '');
-            list($w,$h) = $array;
-            $w = ($w != '') ? floor(max(8, min(1500, $w))) : '';
-            $h = ($h != '') ? floor(max(8, min(1500, $h))) : '';
-            if (strstr($size, '<')) {
-                $h = $w;
-                $crop = 0;
-                $trim = 1;
-            } elseif (!strstr($size, 'x')) {
-                $h = $w;
-            } elseif ($w == '' || $h == '') {
+
+            list($w, $h) = self::getSize($size);
+
+            if (strstr($size, '<') || $w == '' || $h == '') {
                 $crop = 0;
                 $trim = 1;
             }
+
             $trim_w = ($trim) ? 1 : ($w == '') ? 1 : 0;
             $trim_h = ($trim) ? 1 : ($h == '') ? 1 : 0;
             if ($crop) {
@@ -310,5 +303,19 @@ class Thumb {
         }
 
         readfile($file_temp);
+    }
+
+    public static function getSize($size) {
+        $array = explode('x', str_replace('<', '', $size));
+        $array[] = '';
+        list($w,$h) = $array;
+
+        $w = ($w != '') ? floor(max(8, min(1500, $w))) : '';
+        $h = ($h != '') ? floor(max(8, min(1500, $h))) : '';
+
+        if (strstr($size, '<') || !strstr($size, 'x'))
+            $h = $w;
+
+        return [ $w, $h ];
     }
 }

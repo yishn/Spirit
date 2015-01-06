@@ -101,9 +101,14 @@ class Photo extends Model {
             return $photo->as_array();
         }, $photos);
 
+        list($w, $h) = Thumb::getSize(Setting::get('thumbSize'));
+
         return [
             'hasPhotos' => count($photos) != 0,
             'photos' => $photos,
+
+            'thumbWidth' => $w,
+            'thumbHeight' => $h,
 
             'hasFilters' => isset($filter['album']) || isset($filter['month']) || isset($filter['search']),
             'filterSearch' => !isset($fitler['search']) ? false : $filter['search'],
