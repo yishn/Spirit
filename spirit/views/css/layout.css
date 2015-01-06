@@ -65,12 +65,9 @@ nav ul li:last-child a::before { content: "\f213"; }
 #toolbox ul li.filter a::after { content: "\f35f"; }
 
 main {
-        display: block;
-        overflow: hidden;
-        padding: 1em;
-    }
-    main > .photostream {
-        margin: 0;
+    display: block;
+    overflow: hidden;
+    padding: 1px 1em;
 }
 
 #pagination {

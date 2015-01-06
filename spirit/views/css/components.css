@@ -1,11 +1,12 @@
 .photostream {
+        display: inline-block;
         list-style: none;
+        text-align: center;
     }
     .photostream li {
         background: black;
         position: relative;
-        display: block;
-        float: left;
+        display: inline-block;
         margin-bottom: 1em;
         margin-right: 1em;
         outline: 5px solid transparent;
@@ -20,38 +21,34 @@
     }
     .photostream li:hover input, .photostream li.selected input { visibility: visible; }
     .photostream li a.permalink {
-        display: none;
+        display: block;
         overflow: hidden;
         width: 0;
         height: 0;
         text-decoration: none;
+        visibility: hidden;
     }
-    .photostream li:hover a.permalink, .photostream li.selected a.permalink { display: block; }
+    .photostream li:hover a.permalink, .photostream li.selected a.permalink { visibility: visible; }
     .photostream li:hover img, .photostream li.selected img { opacity: .9; }
     .photostream li.selected {
         outline: 5px solid #0082f0;
     }
     .photostream li a.permalink::before {
+        content: '\f1fe';
         display: block;
         position: absolute;
+        top: 0;
+        right: 0;
         width: 1.5em;
         height: 1.5em;
+        background: #26292A; 
         color: white;
         font-family: Ionicons;
         line-height: 1.5em;
         text-align: center;
         text-decoration: none;
-        text-shadow: 0 0 5px rgba(0, 0, 0, .7);
         z-index: 1;
     }
-    .photostream li a.permalink:hover::before { 
-        background: #26292A; 
-        text-shadow: none;
-    }
-    .photostream li a.permalink::before {
-        top: 0;
-        right: 0;
-        content: '\f1fe';
-    }
+    .photostream li a.permalink:hover::before { background: #0082f0; }
     .photostream li { max-width: 42%; }
 .photostream li img { max-width: 100%; }

@@ -20,14 +20,11 @@
 
 <main>
 {{#hasPhotos}}
-    <ol class="photostream">
-        {{#photos}}
-        <li>
+    <ol class="photostream">{{#photos}}<li>
             <input type="checkbox" name="photoId[]" value="{{id}}" />
             <a class="permalink" href="{{permalink}}" title="Permalink to &lsquo;{{title}}&rsquo;">Permalink</a>
             <a href="#" title="Edit &lsquo;{{title}}&rsquo;"><img src="{{thumbnailLink}}" alt="{{title}}" /></a>
-        </li>
-        {{/photos}}
+        </li>{{/photos}}
     </ol>
 {{/hasPhotos}}
 {{^hasPhotos}}
