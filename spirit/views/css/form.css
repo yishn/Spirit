@@ -39,7 +39,7 @@ textarea, #ace {
     font-family: Consolas, Monaco, 'Courier New', monospace;
     height: 10em;
 }
-.ace_hidden-cursors { opacity: 0; }
+#ace { height: auto; }
 
 button, .button {
     padding: .3em .6em;
