@@ -6,20 +6,33 @@
 
 <main>
     <form method="post" action="{{baseUrl}}spirit/photos/edit/{{id}}">
-        <p>
-            <label><span>Title:</span>
-                <input type="text" value="{{title}}" name="title" />
-            </label>
-        </p>
-        <p>
-            <label><span>Description:</span>
-                <textarea name="description">{{description}}</textarea>
-            </label>
-        </p>
-        <p><button type="submit">Update</button></p>
-    </form>
+        <p class="photo"><img src="{{largeImageLink}}" alt="{{title}}" /></p>
 
-    <p><img src="{{largeImageLink}}" alt="{{title}}" /></p>
+        <ul class="form">
+            <li class="title">
+                <label><span>Title:</span>
+                    <input type="text" value="{{title}}" name="title" />
+                </label>
+            </li>
+            <li class="date">
+                <label><span>Date:</span>
+                    <input type="date" value="{{date}}" name="date" />
+                </label>
+            </li>
+            <li>
+                <label><span>Albums:</span>
+                    <input type="text" value="{{#albums}}{{name}}, {{/albums}}Add album" />
+                </label>
+            </li>
+            <li>
+                <label><span>Description:</span>
+                    <textarea name="description">{{description}}</textarea>
+                </label>
+            </li>
+        </ul>
+
+        <p><button type="submit">Update</button> <button type="reset">Reset</button></p>
+    </form>
 </main>
 
 <script type="text/javascript" src="//cdn.jsdelivr.net/ace/1.1.8/min/ace.js"></script>

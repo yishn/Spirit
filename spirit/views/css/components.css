@@ -37,25 +37,19 @@
     }
     .photostream li:hover a.permalink, .photostream li.selected a.permalink { visibility: visible; }
     .photostream li:hover img, .photostream li.selected img { opacity: .9; }
-    .photostream li.selected {
-        border-color: #0082f0;
-    }
     .photostream li a.permalink::before {
-        content: '\f1fe';
         display: block;
         position: absolute;
         top: 0;
         right: 0;
         width: 1.5em;
         height: 1.5em;
+        margin: 0;
         background: #26292A; 
         color: white;
-        font-family: Ionicons;
         line-height: 1.5em;
         text-align: center;
         text-decoration: none;
         z-index: 1;
     }
-    .photostream li a.permalink:hover::before { background: #0082f0; }
-    .photostream li { max-width: 42%; max-height: 42%; }
-.photostream li img { max-width: 100%; max-height: 100%; }
+.photostream li { max-width: 42%; }

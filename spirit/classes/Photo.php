@@ -41,43 +41,15 @@ class Photo extends Model {
     public function as_array() {
         $result = parent::as_array();
 
+        $albums = $this->albums()->find_many();
+
+        $result['albums'] = array_map(function($album) { return $album->as_array(); }, $albums);
         $result['permalink'] = $this->getPermalink();
         $result['thumbnailLink'] = $this->getThumbnailLink();
         $result['largeImageLink'] = $this->getLargeImageLink();
         $result['formattedDescription'] = function() { return $this->getFormattedDescription(); };
 
         return $result;
-    }
-
-    public static function in_album($orm, $album) {
-        $photoTable = DB_PREFIX . 'photo';
-        $albumTable = DB_PREFIX . 'album';
-        $table = DB_PREFIX . 'album_photo';
-
-        return $orm->select("{$photoTable}.*")
-            ->join($table, array("{$table}.photo_id", '=', "{$photoTable}.id"))
-            ->join($albumTable, array("{$albumTable}.id", '=', "{$table}.album_id"));
-    }
-
-    public static function in_month($orm, $month) {
-        try {
-            $dateStart = new DateTime($month . '-01');
-            $dateEnd = new DateTime($month . '-01');
-            $dateEnd->add(new DateInterval('P1M'));
-
-            return $orm->where_gte('date', $dateStart->format('Y-m-d H:i:s'))
-                ->where_lt('date', $dateEnd->format('Y-m-d H:i:s'));
-        } catch(Exception $ex) {
-            // Return nothing
-            return $orm->where_id_is(-1);
-        }
-    }
-
-    public static function search($orm, $input) {
-        return $orm->where_any_is([
-            [ 'title' => "%{$input}%" ],
-            [ 'description' => "%{$input}%" ]
-        ], 'LIKE');
     }
 
     public static function getPhotos($limit, array $filter = [], $page = 1) {
@@ -122,5 +94,36 @@ class Photo extends Model {
             'hasPreviousPage' => $hasPreviousPage,
             'hasNextPage' => $hasNextPage
         ];
+    }
+
+    public static function in_album($orm, $album) {
+        $photoTable = DB_PREFIX . 'photo';
+        $albumTable = DB_PREFIX . 'album';
+        $table = DB_PREFIX . 'album_photo';
+
+        return $orm->select("{$photoTable}.*")
+            ->join($table, array("{$table}.photo_id", '=', "{$photoTable}.id"))
+            ->join($albumTable, array("{$albumTable}.id", '=', "{$table}.album_id"));
+    }
+
+    public static function in_month($orm, $month) {
+        try {
+            $dateStart = new DateTime($month . '-01');
+            $dateEnd = new DateTime($month . '-01');
+            $dateEnd->add(new DateInterval('P1M'));
+
+            return $orm->where_gte('date', $dateStart->format('Y-m-d H:i:s'))
+                ->where_lt('date', $dateEnd->format('Y-m-d H:i:s'));
+        } catch(Exception $ex) {
+            // Return nothing
+            return $orm->where_id_is(-1);
+        }
+    }
+
+    public static function search($orm, $input) {
+        return $orm->where_any_is([
+            [ 'title' => "%{$input}%" ],
+            [ 'description' => "%{$input}%" ]
+        ], 'LIKE');
     }
 }

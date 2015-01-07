@@ -1,32 +1,30 @@
-main form p {
+.form {
+        margin-left: 0;
+        list-style: none;
+    }
+    .form li {
         background: white;
         border: 1px solid #ccc;
         border-top: none;
         margin: 0;
     }
-    main form p:first-child {
+    .form li:first-child {
         border-top: 1px solid #ccc;
     }
-    main form p:last-child {
-        background: transparent;
-        border: none;
-        margin: 1em 0;
-        text-align: right;
-}
-
-main label {
+    .form label {
         display: block;
         padding: .5em;
         padding-top: 0;
     }
-    main label > span:first-child {
+    .form label > span:first-child {
         color: #aaa;
         font-size: .8em;
         letter-spacing: 2px;
         text-transform: uppercase;
 }
 
-main label input[type="text"], main label textarea , main label #ace {
+.form label input[type="text"], .form label textarea , .form label #ace,
+.form label input[type="date"] {
     display: block;
     margin-top: .3em;
     background: transparent;
@@ -34,19 +32,30 @@ main label input[type="text"], main label textarea , main label #ace {
     width: 100%;
 }
 
+.form + p {
+    text-align: right;
+}
+
 textarea, #ace {
     position: relative;
-    font-family: Consolas, Monaco, 'Courier New', monospace;
     height: 10em;
 }
 #ace { height: auto; }
 
 button, .button {
     padding: .3em .6em;
-    background: #ccc;
     border: none;
     cursor: pointer;
     line-height: 1em;
     opacity: .7;
 }
 button:hover, .button:hover { opacity: 1; }
+
+/**
+ * Custom forms
+ */
+
+.title label input { 
+    font-size: 1.2em;
+    font-weight: bold; 
+}

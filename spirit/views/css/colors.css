@@ -54,8 +54,14 @@ nav li.current a, nav li a:hover {
         color: white;   
 }
 
+.photostream li.selected { border-color: #0082f0; }
+.photostream li a.permalink:hover::before { background: #0082f0; }
+
 #pagination a {
     background: #26292A;
     color: white;
 }
 #pagination a:hover { background: #323534; }
+
+button, .button { background: #ccc; }
+button[type="submit"]:hover { background: #0082f0; color: white; }

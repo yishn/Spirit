@@ -13,3 +13,14 @@ nav ul li a, #toolbox ul li a { margin-top: 0; margin-bottom: 0; }
 
 #toolbox { top: 3.6em; }
 main { margin-top: 6.5em; }
+
+main p.photo {
+        float: left;
+        margin-right: 2%;
+        width: 48%;
+        text-align: right;
+    }
+    main p.photo + .form {
+        float: left;
+        width: 50%;
+}

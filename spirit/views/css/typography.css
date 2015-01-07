@@ -3,6 +3,8 @@ body, input, textarea, #ace, button {
     word-wrap: break-word;
 }
 
+textarea, #ace { font-family: Consolas, Monaco, 'Courier New', monospace; }
+
 h1, h2 { font-weight: lighter; }
 h1 { font-size: 3em; }
 h2 { font-size: 2em; }
@@ -12,6 +14,6 @@ h2, h3, h4, h5, h6, p, ol, ul, blockquote, form {
 }
 
 img {
-    max-width: 99%;
+    max-width: 100%;
     vertical-align: middle;
 }

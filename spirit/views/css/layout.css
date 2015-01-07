@@ -1,4 +1,5 @@
 .throbber { display: none; }
+hr { clear: both; }
 
 * {
     margin: 0;
@@ -34,10 +35,6 @@ nav ul, #toolbox ul {
         margin: .3em 1em .2em 0;
         padding: .4em .7em;
         text-decoration: none;
-    }
-    nav ul li a::before, #toolbox li a::before, #toolbox li a::after {
-        margin-right: .5em;
-        font: 1em Ionicons;
 }
 
 #toolbox { padding: .5em 1em; }
@@ -50,10 +47,6 @@ nav ul, #toolbox ul {
     }
     #toolbox ul li a {
         padding: .3em .6em;
-    }
-    #toolbox ul li a::after {
-        margin-right: 0;
-        margin-left: .5em;
 }
 
 main {
