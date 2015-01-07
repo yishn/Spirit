@@ -1,4 +1,4 @@
-body {
+body, input, textarea, #ace, button {
     font: 100% 'Source Sans Pro', sans-serif;
     word-wrap: break-word;
 }
@@ -7,8 +7,11 @@ h1, h2 { font-weight: lighter; }
 h1 { font-size: 3em; }
 h2 { font-size: 2em; }
 
-h2, h3, h4, h5, h6, p, ol, ul, blockquote {
+h2, h3, h4, h5, h6, p, ol, ul, blockquote, form {
     margin: 1em 0;
 }
 
-img { vertical-align: middle; }
+img {
+    max-width: 99%;
+    vertical-align: middle;
+}

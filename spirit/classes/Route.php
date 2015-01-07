@@ -2,10 +2,11 @@
 
 class Route extends Dispatcher {
     public static function map() {
-        /**
-         * Theme routes
-         */
+        self::mapTheme();
+        self::mapAdmin();
+    }
 
+    private static function mapTheme() {
         parent::map('GET', '/', function() { echo "Void."; });
         parent::map(404, function() { echo "Error 404"; });
 
@@ -22,11 +23,9 @@ class Route extends Dispatcher {
             $size = Setting::get($params['size'] == 'thumb' ? 'thumbSize' : 'largeImageSize');
             $photo->generateThumbnail($size, [ 'zoom' => $params['size'] == 'thumb' ]);
         });
+    }
 
-        /**
-         * Admin routes
-         */
-
+    private static function mapAdmin() {
         parent::map('GET', '/spirit/login', function() { 
             print parent::renderLogin();
         });
@@ -58,7 +57,12 @@ class Route extends Dispatcher {
         parent::map('GET', '/spirit/photos/{page:\d*}', $photosRoute);
         parent::map('GET', '/spirit/photos/album/{album:\d+}/{page:\d*}', $photosRoute);
         parent::map('GET', '/spirit/photos/{year:\d\d\d\d}-{month:\d\d}/{page:\d*}', $photosRoute);
-        //parent::map('GET', '/spirit/photos/{year:\d\d\d\d}-{month:\d\d}/album/{album:\d+}/{page:\d*}', $photosRoute);
+        // parent::map('GET', '/spirit/photos/{year:\d\d\d\d}-{month:\d\d}/album/{album:\d+}/{page:\d*}', $photosRoute);
+        
+        parent::map('GET', '/spirit/photos/edit/{id:\d+}', function($params) {
+            $admin = new Admin();
+            print $admin->renderAdmin('photo-edit', $params);
+        });
     }
 
     public static function buildAdminPhotosRoute(array $filter = [], $page = 1) {

@@ -1,0 +1,52 @@
+main form p {
+        background: white;
+        border: 1px solid #ccc;
+        border-top: none;
+        margin: 0;
+    }
+    main form p:first-child {
+        border-top: 1px solid #ccc;
+    }
+    main form p:last-child {
+        background: transparent;
+        border: none;
+        margin: 1em 0;
+        text-align: right;
+}
+
+main label {
+        display: block;
+        padding: .5em;
+        padding-top: 0;
+    }
+    main label > span:first-child {
+        color: #aaa;
+        font-size: .8em;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+}
+
+main label input[type="text"], main label textarea , main label #ace {
+    display: block;
+    margin-top: .3em;
+    background: transparent;
+    border: none;
+    width: 100%;
+}
+
+textarea, #ace {
+    position: relative;
+    font-family: Consolas, Monaco, 'Courier New', monospace;
+    height: 10em;
+}
+.ace_hidden-cursors { opacity: 0; }
+
+button, .button {
+    padding: .3em .6em;
+    background: #ccc;
+    border: none;
+    cursor: pointer;
+    line-height: 1em;
+    opacity: .7;
+}
+button:hover, .button:hover { opacity: 1; }

@@ -1,7 +1,7 @@
 <div id="toolbox">
     <ul>
         {{#hasFilters}}
-        <li class="clearFilters">
+        <li class="clearFilter">
             {{#filterAlbum}}
             <a href="{{baseUrl}}spirit/photos" title="Clear filter">Filter: {{name}}</a>
             {{/filterAlbum}}
@@ -21,13 +21,12 @@
 <main>
 {{#hasPhotos}}
     <ol class="photostream">{{#photos}}<li>
-            <input type="checkbox" name="photoId[]" value="{{id}}" />
-            <a class="permalink" href="{{permalink}}" title="Permalink to &lsquo;{{title}}&rsquo;">Permalink</a>
-            <a href="{{baseUrl}}spirit/photos/edit/{{id}}" title="Edit &lsquo;{{title}}&rsquo;">
-                <img width="{{thumbWidth}}" height="{{thumbHeight}}" src="{{thumbnailLink}}" alt="{{title}}" />
-            </a>
-        </li>{{/photos}}
-    </ol>
+        <label>Select photo: <input type="checkbox" name="photoId[]" value="{{id}}" /></label>
+        <a class="permalink" href="{{permalink}}" title="Permalink to &lsquo;{{title}}&rsquo;">Permalink</a>
+        <a href="{{baseUrl}}spirit/photos/edit/{{id}}" title="Edit &lsquo;{{title}}&rsquo;">
+            <img src="{{thumbnailLink}}" alt="{{title}}" />
+        </a>
+    </li>{{/photos}}</ol>
 {{/hasPhotos}}
 {{^hasPhotos}}
     Nothing found. Why not <em>upload</em> some photo?
@@ -51,3 +50,4 @@
 {{/hasPagination}}
 
 <script type="text/javascript" src="{{baseUrl}}spirit/views/js/photos.js"></script>
+<script type="text/javascript" src="{{baseUrl}}spirit/views/js/loadmore.js"></script>

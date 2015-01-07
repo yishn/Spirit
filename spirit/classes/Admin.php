@@ -19,8 +19,8 @@ class Admin {
             'baseUrl' => Route::config('url'),
             'user' => $this->user->as_array(),
 
-            'mainPhotos' => $main == 'photos',
-            'mainAlbums' => $main == 'albums',
+            'mainPhotos' => $main == 'photos' || $main == 'photo-edit',
+            'mainAlbums' => $main == 'albums' || $main == 'album-edit',
             'mainUsers' => $main == 'users',
             'mainSettings' => $main == 'settings'
         ];
@@ -32,12 +32,14 @@ class Admin {
     }
 
     public function renderAdminMain($main, array $context, array $params = []) {
-        $limit = intval(Setting::get('adminPhotosPerPage'));
-
         if ($main == 'photos') {
-            $context = array_merge($context, Photo::getPhotos($limit, $params['filter'], $params['page']));
+            $context = array_merge($context, Photo::getPhotos(
+                intval(Setting::get('adminPhotosPerPage')), $params['filter'], $params['page'])
+            );
             $context['previousPageLink'] = Route::buildAdminPhotosRoute($params['filter'], $params['page'] - 1);
             $context['nextPageLink'] = Route::buildAdminPhotosRoute($params['filter'], $params['page'] + 1);
+        } else if ($main == 'photo-edit') {
+            $context = array_merge($context, Photo::find_one($params['id'])->as_array());
         }
 
         return Mustache::renderByFile('spirit/views/' . $main, $context);

@@ -38,12 +38,7 @@ nav ul, #toolbox ul {
     nav ul li a::before, #toolbox li a::before, #toolbox li a::after {
         margin-right: .5em;
         font: 1em Ionicons;
-    }
-    nav ul li:nth-child(1) a::before { content: "\f147"; }
-    nav ul li:nth-child(2) a::before { content: "\f148"; }
-    nav ul li:nth-child(3) a::before { content: "\f212"; }
-    nav ul li:nth-child(4) a::before { content: "\f2ad"; }
-nav ul li:last-child a::before { content: "\f213"; }
+}
 
 #toolbox { padding: .5em 1em; }
     #toolbox ul { 
@@ -59,12 +54,7 @@ nav ul li:last-child a::before { content: "\f213"; }
     #toolbox ul li a::after {
         margin-right: 0;
         margin-left: .5em;
-    }
-    #toolbox ul li.upload a::before { content: "\f366"; }
-    #toolbox ul li.edit a::before { content: "\f2bf"; }
-    #toolbox ul li.delete a::before { content: "\f252"; }
-    #toolbox ul li.clearFilters a::before { content: "\f36e"; }
-#toolbox ul li.filter a::after { content: "\f35f"; }
+}
 
 main {
     display: block;

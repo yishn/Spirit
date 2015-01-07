@@ -1,25 +1,32 @@
 .photostream {
-        display: inline-block;
+        display: block;
         list-style: none;
-        text-align: center;
     }
     .photostream li {
-        background: black;
         position: relative;
         display: inline-block;
-        margin-bottom: 1em;
-        margin-right: 1em;
-        outline: 5px solid transparent;
-        transition: outline .2s;
+        margin-right: .3em;
+        margin-bottom: .3em;
+        border: .35em solid transparent;
+        transition: border .2s;
     }
-    .photostream li input {
+    .photostream li label {
+        display: block;
         position: absolute;
-        left: 5px;
-        top: 5px;
+        left: 0;
+        top: 0;
+        width: 2em;
+        height: 2em;
+        text-indent: -9999em;
         visibility: hidden;
         z-index: 1;
     }
-    .photostream li:hover input, .photostream li.selected input { visibility: visible; }
+    .photostream li label input {
+        position: absolute;
+        left: 5px;
+        top: 5px;
+    }
+    .photostream li:hover label, .photostream li.selected label { visibility: visible; }
     .photostream li a.permalink {
         display: block;
         overflow: hidden;
@@ -31,7 +38,7 @@
     .photostream li:hover a.permalink, .photostream li.selected a.permalink { visibility: visible; }
     .photostream li:hover img, .photostream li.selected img { opacity: .9; }
     .photostream li.selected {
-        outline: 5px solid #0082f0;
+        border-color: #0082f0;
     }
     .photostream li a.permalink::before {
         content: '\f1fe';
@@ -50,5 +57,5 @@
         z-index: 1;
     }
     .photostream li a.permalink:hover::before { background: #0082f0; }
-    .photostream li { max-width: 42%; }
-.photostream li img { max-width: 100%; }
+    .photostream li { max-width: 42%; max-height: 42%; }
+.photostream li img { max-width: 100%; max-height: 100%; }

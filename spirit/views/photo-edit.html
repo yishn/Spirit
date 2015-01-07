@@ -1,0 +1,27 @@
+<div id="toolbox">
+    <ul>
+        <li class="back"><a href="{{baseUrl}}spirit/photos">Back</a></li>
+    </ul>
+</div>
+
+<main>
+    <form method="post" action="{{baseUrl}}spirit/photos/edit/{{id}}">
+        <p>
+            <label><span>Title:</span>
+                <input type="text" value="{{title}}" name="title" />
+            </label>
+        </p>
+        <p>
+            <label><span>Description:</span>
+                <textarea name="description">{{description}}</textarea>
+            </label>
+        </p>
+        <p><button type="submit">Update</button></p>
+    </form>
+
+    <p><img src="{{largeImageLink}}" alt="{{title}}" /></p>
+</main>
+
+<script type="text/javascript" src="//cdn.jsdelivr.net/ace/1.1.8/min/ace.js"></script>
+<script type="text/javascript" src="{{baseUrl}}spirit/views/js/backbutton.js"></script>
+<script type="text/javascript" src="{{baseUrl}}spirit/views/js/markdown-editor.js"></script>
