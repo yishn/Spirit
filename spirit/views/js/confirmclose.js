@@ -15,4 +15,6 @@ $$('.ace').retrieve('ace').each(function(ace) {
     ace.on('change', lambda);
 });
 
+$$('button').addEvent('click', function() { confirm = false; })
+
 });
