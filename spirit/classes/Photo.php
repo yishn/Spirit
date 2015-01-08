@@ -122,17 +122,20 @@ class Photo extends Model {
 
         return $orm->select("{$photoTable}.*")
             ->join($table, array("{$table}.photo_id", '=', "{$photoTable}.id"))
-            ->join($albumTable, array("{$albumTable}.id", '=', "{$table}.album_id"));
+            ->join($albumTable, array("{$albumTable}.id", '=', "{$table}.album_id"))
+            ->where("{$table}.album_id", $album->id);
     }
 
     public static function in_month($orm, $month) {
+        $photoTable = DB_PREFIX . 'photo';
+
         try {
             $dateStart = new DateTime($month . '-01');
             $dateEnd = new DateTime($month . '-01');
             $dateEnd->add(new DateInterval('P1M'));
 
-            return $orm->where_gte('date', $dateStart->format('Y-m-d H:i:s'))
-                ->where_lt('date', $dateEnd->format('Y-m-d H:i:s'));
+            return $orm->where_gte("{$photoTable}.date", $dateStart->format('Y-m-d H:i:s'))
+                ->where_lt("{$photoTable}.date", $dateEnd->format('Y-m-d H:i:s'));
         } catch(Exception $ex) {
             // Return nothing
             return $orm->where_id_is(-1);

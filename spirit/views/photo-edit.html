@@ -6,7 +6,12 @@
 
 <main>
     <form method="post" action="{{baseUrl}}spirit/photos/edit/{{id}}">
-        <p class="photo"><img src="{{largeImageLink}}" alt="{{title}}" /></p>
+        <p class="photo">
+            <img src="{{largeImageLink}}" alt="{{title}}" />
+            <em>
+                {{#user}}Uploaded by <a href="{{baseUrl}}spirit/users/{{id}}" title="{{fullname}}">@{{name}}</a>{{/user}}
+            </em>
+        </p>
 
         <ul class="form">
             <li class="title">

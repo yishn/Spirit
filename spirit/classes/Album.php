@@ -24,34 +24,16 @@ class Album extends Model {
             $photo = $this->getPhoto();
             return !$photo ? false : $photo->getThumbnailLink();
         };
+        $result['largeImageLink'] = function() {
+            $photo = $this->getPhoto();
+            return !$photo ? false : $photo->getLargeImageLink();
+        };
+        $result['count'] = function() { return $this->photos()->count(); };
         $result['date'] = function() { return $this->getFormattedDate(); };
+        $result['month'] = function() { return $this->getFormattedDate('Y-m'); };
         $result['formattedDate'] = function() { return $this->getFormattedDate(Setting::get('albumDateFormat')); };
 
         return $result;
-    }
-
-    public static function search($orm, $input) {
-        $albumTable = DB_PREFIX . 'album';
-        return $orm->where_any_is([
-            [ "{$albumTable}.name" => "%{$input}%" ],
-            [ "{$albumTable}.description" => "%{$input}%" ]
-        ], 'LIKE');
-    }
-
-    public static function in_month($orm, $month) {
-        $photoTable = DB_PREFIX . 'photo';
-
-        try {
-            $dateStart = new DateTime($month . '-01');
-            $dateEnd = new DateTime($month . '-01');
-            $dateEnd->add(new DateInterval('P1M'));
-
-            return $orm->where_gte("{$photoTable}.date", $dateStart->format('Y-m-d H:i:s'))
-                ->where_lt("{$photoTable}.date", $dateEnd->format('Y-m-d H:i:s'));
-        } catch(Exception $ex) {
-            // Return nothing
-            return $orm->where_id_is(-1);
-        }
     }
 
     public static function getAlbums($limit, array $filter = [], $page = 1) {
@@ -94,5 +76,17 @@ class Album extends Model {
             'hasPreviousPage' => $hasPreviousPage,
             'hasNextPage' => $hasNextPage
         ];
+    }
+
+    public static function search($orm, $input) {
+        $albumTable = DB_PREFIX . 'album';
+        return $orm->where_any_is([
+            [ "{$albumTable}.name" => "%{$input}%" ],
+            [ "{$albumTable}.description" => "%{$input}%" ]
+        ], 'LIKE');
+    }
+
+    public static function in_month($orm, $month) {
+        return Photo::in_month($orm, $month);
     }
 }

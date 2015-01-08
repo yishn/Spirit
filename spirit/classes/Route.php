@@ -44,12 +44,17 @@ class Route extends Dispatcher {
             $admin = new Admin();
 
             $temp = [ 'filter' => [] ];
-            if (isset($params['album']))
+            if (isset($params['album'])) {
                 $temp['filter']['album'] = Album::find_one($params['album']);
+                if (!$temp['filter']['album']) {
+                    self::error(404);
+                    exit();
+                }
+            }
             if (isset($params['search']))
                 $temp['filter']['search'] = $params['search'];
-            if (isset($params['year']) && isset($params['month']))
-                $temp['filter']['month'] = $params['year'] . '-' . $params['month'];
+            if (isset($params['month']))
+                $temp['filter']['month'] = $params['month'];
             if (isset($params['page']))
                 $temp['page'] = $params['page'] !== '' ? intval($params['page']) : 1;
 
@@ -59,7 +64,7 @@ class Route extends Dispatcher {
         parent::map('GET', '/spirit/photos/{page:\d*}', $photosRoute);
         parent::map('GET', '/spirit/photos/search/{search:.+}/{page:\d*}', $photosRoute);
         parent::map('GET', '/spirit/photos/album/{album:\d+}/{page:\d*}', $photosRoute);
-        parent::map('GET', '/spirit/photos/{year:\d\d\d\d}-{month:\d\d}/{page:\d*}', $photosRoute);
+        parent::map('GET', '/spirit/photos/{month:\d\d\d\d-\d\d}/{page:\d*}', $photosRoute);
         
         parent::map('GET', '/spirit/photos/edit/{id:\d+}', function($params) {
             $admin = new Admin();
@@ -74,8 +79,8 @@ class Route extends Dispatcher {
             $temp = [ 'filter' => [] ];
             if (isset($params['search']))
                 $temp['filter']['search'] = $params['search'];
-            if (isset($params['year']) && isset($params['month']))
-                $temp['filter']['month'] = $params['year'] . '-' . $params['month'];
+            if (isset($params['month']))
+                $temp['filter']['month'] = $params['month'];
             if (isset($params['page']))
                 $temp['page'] = $params['page'] !== '' ? intval($params['page']) : 1;
 
@@ -84,7 +89,7 @@ class Route extends Dispatcher {
 
         parent::map('GET', '/spirit/albums/{page:\d*}', $albumsRoute);
         parent::map('GET', '/spirit/albums/search/{search:.+}/{page:\d*}', $albumsRoute);
-        parent::map('GET', '/spirit/albums/{year:\d\d\d\d}-{month:\d\d}/{page:\d*}', $albumsRoute);
+        parent::map('GET', '/spirit/albums/{month:\d\d\d\d-\d\d}/{page:\d*}', $albumsRoute);
     }
 
     public static function buildAdminPhotosRoute(array $filter = [], $page = 1) {

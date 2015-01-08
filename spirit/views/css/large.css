@@ -30,5 +30,10 @@ main p.photo {
 .form .date {
     float: right; 
     width: 10em;
-    height: 3.6em;
+}
+
+.albumstream > li {
+    float: left;
+    margin-right: 1em;
+    width: 300px;
 }
