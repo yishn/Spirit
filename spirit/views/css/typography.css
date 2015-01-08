@@ -1,9 +1,9 @@
-body, input, textarea, #ace, button {
+body, input, textarea, .ace, button {
     font: 100% 'Source Sans Pro', sans-serif;
     word-wrap: break-word;
 }
 
-textarea, #ace { font-family: Consolas, Monaco, 'Courier New', monospace; }
+textarea { font-family: Consolas, Monaco, 'Courier New', monospace; }
 
 h1, h2 { font-weight: lighter; }
 h1 { font-size: 3em; }

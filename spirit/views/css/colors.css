@@ -49,7 +49,7 @@ nav li.current a, nav li a:hover {
         background: #0082f0;
         color: white;
     }
-    #toolbox li.delete a:hover {
+    #toolbox li.delete a:hover, .button.delete:hover {
         background: #D1370E;
         color: white;   
 }

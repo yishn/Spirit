@@ -23,7 +23,7 @@
         text-transform: uppercase;
 }
 
-.form label input[type="text"], .form label textarea , .form label #ace,
+.form label input[type="text"], .form label textarea , .form label .ace,
 .form label input[type="date"] {
     display: block;
     margin-top: .3em;
@@ -36,11 +36,8 @@
     text-align: right;
 }
 
-textarea, #ace {
-    position: relative;
-    height: 10em;
-}
-#ace { height: auto; }
+textarea { height: 10em; }
+.ace { position: relative; }
 
 button, .button {
     padding: .3em .6em;
@@ -48,6 +45,11 @@ button, .button {
     cursor: pointer;
     line-height: 1em;
     opacity: .7;
+}
+.button {
+    display: inline-block;
+    color: black;
+    text-decoration: none;
 }
 button:hover, .button:hover { opacity: 1; }
 
