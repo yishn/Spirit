@@ -14,4 +14,12 @@ class Setting {
 
         return self::$settings[$key];
     }
+
+    public static function set($key, $value) {
+        $settings[$key] = $value;
+        
+        $setting = ORM::for_table(DB_PREFIX . 'setting')->where('key', $key)->find_one();
+        $setting->value = $value;
+        $setting->save();
+    }
 }

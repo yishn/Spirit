@@ -8,6 +8,9 @@
             {{#filterMonth}}
             <a href="{{baseUrl}}spirit/photos" title="Clear filter">Filter: {{month}} {{year}}</a>
             {{/filterMonth}}
+            {{#filterSearch}}
+            <a href="{{baseUrl}}spirit/photos" title="Clear filter">Filter: {{search}}</a>
+            {{/filterSearch}}
         </li>
         {{/hasFilters}}
         <li class="filter"><a href="#">Album</a></li>
@@ -19,17 +22,19 @@
 </div>
 
 <main>
+    <h2>Photos</h2>
+    
 {{#hasPhotos}}
     <ol class="photostream">{{#photos}}<li>
         <label>Select photo: <input type="checkbox" name="photoId[]" value="{{id}}" /></label>
         <a class="permalink" href="{{permalink}}" title="Permalink to &lsquo;{{title}}&rsquo;">Permalink</a>
         <a href="{{baseUrl}}spirit/photos/edit/{{id}}" title="Edit &lsquo;{{title}}&rsquo;">
-            <img width="{{thumbWidth}}" src="{{thumbnailLink}}" alt="{{title}}" />
+            <img src="{{thumbnailLink}}" alt="{{title}}" />
         </a>
     </li>{{/photos}}</ol>
 {{/hasPhotos}}
 {{^hasPhotos}}
-    Nothing found. Why not <em>upload</em> some photo?
+    Nothing found. Why not <em>upload</em> some photos?
 {{/hasPhotos}}
 </main>
 

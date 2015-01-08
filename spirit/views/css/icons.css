@@ -1,6 +1,6 @@
 nav ul li a::before, #toolbox ul li a::before,
 button::before, .button::before,
-.photostream li a.permalink::before
+.photostream li a.permalink::before, .albums li a::before
 { font-family: Ionicons; margin-right: .5em; }
 
 #toolbox ul li a::after
@@ -13,6 +13,7 @@ nav ul li:nth-child(4) a::before { content: "\f2ad"; }
 nav ul li:last-child a::before { content: "\f213"; }
 
 #toolbox ul li.back a::before { content: "\f2ca"; }
+#toolbox ul li.add a::before { content: "\f218"; }
 #toolbox ul li.upload a::before { content: "\f366"; }
 #toolbox ul li.edit a::before { content: "\f2bf"; }
 #toolbox ul li.delete a::before, .button.delete::before { content: "\f252"; }
@@ -22,4 +23,6 @@ nav ul li:last-child a::before { content: "\f213"; }
 .photostream li a.permalink::before { content: '\f1fe'; }
 
 button[type="submit"]::before { content: "\f122"; }
-button[type="reset"]::before { content: "\f12a"; }
+button[type="reset"]::before, .albums li a::before { content: "\f12a"; }
+
+.albums li:last-child a::before { content: "\f218"; }

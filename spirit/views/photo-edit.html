@@ -15,13 +15,19 @@
                 </label>
             </li>
             <li class="date">
-                <label><span>Date:</span>
+                <label><span>Date &amp; Time:</span>
                     <input type="date" value="{{date}}" name="date" />
                 </label>
             </li>
-            <li>
+            <li class="albums">
                 <label><span>Albums:</span>
-                    <input type="text" value="{{#albums}}{{name}}, {{/albums}}Add album" />
+                    <input type="text" value="{{#albums}}{{id}},{{/albums}}" name="albums" />
+                    <ul class="albums">
+                        {{#albums}}
+                        <li>{{name}} <a href="#remove" title="Remove from album">Remove from album</a></li>
+                        {{/albums}}
+                        <li><a href="#add" title="Add to album">Add to album</a></li>
+                    </ul>
                 </label>
             </li>
             <li>
@@ -40,4 +46,5 @@
 
 <script type="text/javascript" src="//cdn.jsdelivr.net/ace/1.1.8/min/ace.js"></script>
 <script type="text/javascript" src="{{baseUrl}}spirit/views/js/backbutton.js"></script>
+<script type="text/javascript" src="{{baseUrl}}spirit/views/js/photo-edit.js"></script>
 <script type="text/javascript" src="{{baseUrl}}spirit/views/js/markdown-editor.js"></script>

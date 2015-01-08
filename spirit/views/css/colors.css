@@ -25,10 +25,7 @@ header {
 }
 
 nav li.current a, nav li a:hover {
-        background: #181818;
-    }
-    nav li:last-child a:hover {
-        background: #0082f0;
+    background: #181818;
 }
 
 #toolbox {
@@ -42,20 +39,9 @@ nav li.current a, nav li a:hover {
         background: #ccc;
         opacity: 1;
     }
-    #toolbox li.back a, #toolbox li.clearFilter a {
-        background: #ccc;
-    }
-    #toolbox li.edit a:hover {
-        background: #0082f0;
-        color: white;
-    }
-    #toolbox li.delete a:hover, .button.delete:hover {
-        background: #D1370E;
-        color: white;   
-}
+#toolbox li.back a, #toolbox li.clearFilter a { background: #ccc; }
 
 .photostream li.selected { border-color: #0082f0; }
-.photostream li a.permalink:hover::before { background: #0082f0; }
 
 #pagination a {
     background: #26292A;
@@ -63,5 +49,15 @@ nav li.current a, nav li a:hover {
 }
 #pagination a:hover { background: #323534; }
 
-button, .button { background: #ccc; }
-button[type="submit"]:hover { background: #0082f0; color: white; }
+button, .button, .albums li
+{ background: #ccc; opacity: .7; }
+button:hover, .button:hover, .albums li:hover 
+{ opacity: 1; }
+
+#toolbox li.delete a:hover, .button.delete:hover, .albums li:hover 
+{ background: #D1370E; color: white; }
+
+nav li:last-child a:hover, button[type="submit"]:hover, 
+.photostream li a.permalink:hover::before, #toolbox li.edit a:hover,
+.albums li:last-child:hover, #toolbox li.add a:hover
+{ background: #0082f0; color: white; }

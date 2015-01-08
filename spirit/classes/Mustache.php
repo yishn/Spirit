@@ -82,7 +82,8 @@ class Mustache {
         foreach ($data as $key => $val) {
             if (is_array($val) && empty($val) === false) {
                 // find loops
-                preg_match_all('|{{#' . $key . '}}(.*?){{/' . $key . '}}|sm', $template, $foreachPattern);
+                $template = preg_replace('|{{\^' . $key . '}}.*?{{/' . $key . '}}|s', '', $template);
+                preg_match_all('|{{\#' . $key . '}}(.*?){{/' . $key . '}}|sm', $template, $foreachPattern);
 
                 // handle loops
                 if (isset($foreachPattern[1][0])) {
@@ -125,7 +126,7 @@ class Mustache {
                 $negationChar = $val === true ? '\^' : '\#';
 
                 // remove bools
-                $template = preg_replace('|{{' . $negationChar . $key . '}}.*?{{/' . $key . '}}\n*|s', '', $template);
+                $template = preg_replace('|{{' . $negationChar . $key . '}}.*?{{/' . $key . '}}|s', '', $template);
                 // find bools
                 preg_match_all('|{{' . $conditionChar . $key . '}}(.*?){{/' . $key . '}}|s', $template, $boolPattern);
 
@@ -150,7 +151,9 @@ class Mustache {
             // ----------------------------------
 
             elseif ($val instanceof Closure) {
-                // set closure return
+                // only evaluate function if there are any
+                if (strpos($template, '{{' . $key . '}}') === false) continue;
+
                 $template = str_replace('{{{' . $key . '}}}', $val(), $template);
                 $template = str_replace('{{' . $key . '}}', htmlspecialchars($val()), $template);
             }

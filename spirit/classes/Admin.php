@@ -7,9 +7,7 @@ class Admin {
     }
 
     public function isLoggedIn() {
-        $this->user = User::create();
-        $this->user->name = "admin";
-        $this->user->id = 1;
+        $this->user = User::where('name', 'yishn')->find_one();
         return true;
     }
 
@@ -40,6 +38,10 @@ class Admin {
             $context['nextPageLink'] = Route::buildAdminPhotosRoute($params['filter'], $params['page'] + 1);
         } else if ($main == 'photo-edit') {
             $context = array_merge($context, Photo::find_one($params['id'])->as_array());
+        } else if ($main == 'albums') {
+            $context = array_merge($context, Album::getAlbums(
+                intval(Setting::get('adminAlbumsPerPage')), $params['filter'], $params['page'])
+            );
         }
 
         return Mustache::renderByFile('spirit/views/' . $main, $context);

@@ -30,6 +30,11 @@ class Photo extends Model {
         return $parsedown->text($this->description);
     }
 
+    public function getFormattedDate($format = 'Y-m-d H:i') {
+        $date = new DateTime($this->date);
+        return $date->format($format);
+    }
+
     public function generateThumbnail($size) {
         $filename = $this->filename;
         $contentDir = Route::config('contentDir');
@@ -38,12 +43,26 @@ class Photo extends Model {
         Thumb::render($path, $size);
     }
 
-    public function as_array() {
+    public function as_array($includeAlbums = true, $includeUser = true) {
         $result = parent::as_array();
 
-        $albums = $this->albums()->find_many();
+        if ($includeAlbums) {
+            $albums = $this->albums()->find_many();
+            $result['albums'] = array_map(function($album) { return $album->as_array(); }, $albums);
+        } else {
+            $result['albums'] = false;
+        }
 
-        $result['albums'] = array_map(function($album) { return $album->as_array(); }, $albums);
+        if ($includeUser) {
+            $user = $this->user()->find_one();
+            $result['user'] = !$user ? false : $user->as_array();
+        } else {
+            $result['user'] = false;
+        }
+
+        $result['hasAlbums'] = $result['albums'] !== false;
+        $result['date'] = $this->getFormattedDate();
+        $result['formattedDate'] = $this->getFormattedDate(Setting::get('dateFormat'));
         $result['permalink'] = $this->getPermalink();
         $result['thumbnailLink'] = $this->getThumbnailLink();
         $result['largeImageLink'] = $this->getLargeImageLink();
@@ -70,7 +89,7 @@ class Photo extends Model {
         if ($hasNextPage) array_pop($photos);
         
         $photos = array_map(function($photo) {
-            return $photo->as_array();
+            return $photo->as_array(false, false);
         }, $photos);
 
         list($w, $h) = Thumb::getSize(Setting::get('thumbSize'));
@@ -83,7 +102,7 @@ class Photo extends Model {
             'thumbHeight' => $h,
 
             'hasFilters' => isset($filter['album']) || isset($filter['month']) || isset($filter['search']),
-            'filterSearch' => !isset($fitler['search']) ? false : $filter['search'],
+            'filterSearch' => !isset($filter['search']) ? false : [ 'search' => $filter['search'] ],
             'filterAlbum' => !isset($filter['album']) ? false : $filter['album']->as_array(),
             'filterMonth' => !isset($filter['month']) ? false : [
                 'year' => substr($filter['month'], 0, 4),

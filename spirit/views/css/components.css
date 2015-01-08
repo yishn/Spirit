@@ -1,5 +1,6 @@
 .photostream {
         display: block;
+        margin-left: 0;
         list-style: none;
     }
     .photostream li {
@@ -53,3 +54,35 @@
         z-index: 1;
     }
 .photostream li { max-width: 42%; }
+
+.albumstream {
+    margin-left: 0;
+    list-style: none;
+}
+
+.albums {
+        margin-left: 0;
+        list-style: none;
+    }
+    .albums li {
+        display: inline-block;
+        padding: .2em .4em;
+        margin-bottom: .2em;
+        font-size: .8em;
+    }
+    .albums li a {
+        display: inline-block;
+        height: 1.1em;
+        width: 1em;
+        overflow: hidden;
+        margin-left: 2px;
+        font-size: .8em;
+        color: transparent;
+    }
+    .albums li a::before {
+        display: inline-block;
+        margin: 0; 
+        color: black;
+    }
+    .albums li:hover { opacity: 1; }
+.albums li:hover a::before { color: white; }

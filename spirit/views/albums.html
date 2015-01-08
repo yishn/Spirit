@@ -1,0 +1,37 @@
+<div id="toolbox">
+    <ul>
+        {{#hasFilters}}
+        <li class="clearFilter">
+            {{#filterSearch}}
+            <a href="{{baseUrl}}spirit/photos" title="Clear filter">Filter: {{search}}</a>
+            {{/filterSearch}}
+            {{#filterMonth}}
+            <a href="{{baseUrl}}spirit/photos" title="Clear filter">Filter: {{month}} {{year}}</a>
+            {{/filterMonth}}
+        </li>
+        {{/hasFilters}}
+        <li class="filter"><a href="#">Month</a></li>
+        <li class="add"><a href="#">Add</a></li>
+    </ul>
+</div>
+
+<main>
+    <h2>Albums</h2>
+
+{{#hasAlbums}}
+    <ol class="albumstream">{{#albums}}<li>
+        <img src="{{thumbnailLink}}" alt="{{name}}" />
+        <h3>{{name}}</h3>
+        <ul>
+            <li><a href="#">{{{formattedDate}}}</a></li>
+            <li><a href="#">Browse photos</a></li>
+            <li><a href="#">Edit</a></li>
+            <li><a href="#">Delete</a></li>
+        </ul>
+        <p>{{description}}</p>
+    </li>{{/albums}}</ol>
+{{/hasAlbums}}
+{{^hasAlbums}}
+    Nothing found. Why not <em>add</em> some albums?
+{{/hasAlbums}}
+</main>

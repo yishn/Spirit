@@ -13,6 +13,10 @@ h2, h3, h4, h5, h6, p, ol, ul, blockquote, form {
     margin: 1em 0;
 }
 
+ol, ul, blockquote {
+    margin-left: 1.5em;
+}
+
 img {
     max-width: 100%;
     vertical-align: middle;

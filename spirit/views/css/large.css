@@ -26,3 +26,9 @@ main p.photo {
         width: 50%;
         margin-top: 0;
 }
+
+.form .date {
+    float: right; 
+    width: 10em;
+    height: 3.6em;
+}

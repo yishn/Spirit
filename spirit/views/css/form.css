@@ -2,34 +2,38 @@
         margin-left: 0;
         list-style: none;
     }
-    .form li {
+    .form > li {
         background: white;
         border: 1px solid #ccc;
         border-top: none;
         margin: 0;
     }
-    .form li:first-child {
+    .form > li:first-child {
         border-top: 1px solid #ccc;
     }
-    .form label {
+    .form > li ul {
+        margin: 0;
+}
+
+.form label {
         display: block;
         padding: .5em;
         padding-top: 0;
     }
     .form label > span:first-child {
+        display: block;
+        padding: .3em 0;
         color: #aaa;
         font-size: .8em;
         letter-spacing: 2px;
         text-transform: uppercase;
-}
-
-.form label input[type="text"], .form label textarea , .form label .ace,
-.form label input[type="date"] {
-    display: block;
-    margin-top: .3em;
-    background: transparent;
-    border: none;
-    width: 100%;
+    }
+    .form label input[type="text"], .form label textarea , .form label .ace,
+    .form label input[type="date"] {
+        display: block;
+        background: transparent;
+        border: none;
+        width: 100%;
 }
 
 .form + p {
@@ -44,7 +48,6 @@ button, .button {
     border: none;
     cursor: pointer;
     line-height: 1em;
-    opacity: .7;
 }
 .button {
     display: inline-block;
@@ -57,7 +60,9 @@ button:hover, .button:hover { opacity: 1; }
  * Custom forms
  */
 
-.title label input { 
+.form .title input { 
     font-size: 1.2em;
     font-weight: bold; 
 }
+
+.form .albums input + .albums { display: none; }

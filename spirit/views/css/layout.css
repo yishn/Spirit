@@ -50,9 +50,14 @@ nav ul, #toolbox ul {
 }
 
 main {
-    display: block;
-    overflow: hidden;
-    padding: 1px 1em;
+        display: block;
+        overflow: hidden;
+        padding: 1px 1em;
+    }
+    main h2 {
+        position: absolute;
+        left: -9999em;
+        top: -9999em;
 }
 
 #pagination {
