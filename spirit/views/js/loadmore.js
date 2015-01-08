@@ -17,7 +17,7 @@ $$('#pagination .next').set('text', 'Load more').removeEvents('click').addEvent(
         url: next.get('href'), 
         evalScripts: false,
         onSuccess: function(tree, ell, html, js) {
-            $$('.photostream').adopt(ell.filter('.photostream')[0].getElements('li'));
+            $$('.stream').adopt(ell.filter('.stream')[0].getChildren('li'));
             $('pagination').adopt(ell.filter('#pagination')[0].getElements('li'));
 
             // Update history

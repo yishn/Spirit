@@ -34,14 +34,19 @@ class Admin {
             $context = array_merge($context, Photo::getPhotos(
                 intval(Setting::get('adminPhotosPerPage')), $params['filter'], $params['page'])
             );
-            $context['previousPageLink'] = Route::buildAdminPhotosRoute($params['filter'], $params['page'] - 1);
-            $context['nextPageLink'] = Route::buildAdminPhotosRoute($params['filter'], $params['page'] + 1);
+            $context['previousPageLink'] = Route::buildFilterRoute('spirit/photos', $params['filter'], $params['page'] - 1);
+            $context['nextPageLink'] = Route::buildFilterRoute('spirit/photos', $params['filter'], $params['page'] + 1);
         } else if ($main == 'photo-edit') {
             $context = array_merge($context, Photo::find_one($params['id'])->as_array());
         } else if ($main == 'albums') {
             $context = array_merge($context, Album::getAlbums(
                 intval(Setting::get('adminAlbumsPerPage')), $params['filter'], $params['page'])
             );
+            $context['previousPageLink'] = Route::buildFilterRoute('spirit/albums', $params['filter'], $params['page'] - 1);
+            $context['nextPageLink'] = Route::buildFilterRoute('spirit/albums', $params['filter'], $params['page'] + 1);
+        } else if ($main == 'album-edit') {
+            $album = $params['id'] == 'new' ? Album::create() : Album::find_one($params['id']);
+            $context = array_merge($context, $album->as_array());
         }
 
         return Mustache::renderByFile('spirit/views/' . $main, $context);

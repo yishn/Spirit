@@ -1,0 +1,29 @@
+<div id="toolbox">
+    <ul>
+        <li class="back"><a href="{{baseUrl}}spirit/albums">Back</a></li>
+    </ul>
+</div>
+
+<main>
+    <form method="post" action="{{baseUrl}}spirit/albums/edit/{{id}}">
+        <ul class="form">
+            <li class="title">
+                <label><span>Name:</span>
+                    <input type="text" value="{{name}}" name="name" placeholder="(Untitled)" />
+                </label>
+            </li>
+            <li>
+                <label><span>Description:</span>
+                    <input type="text" value="{{description}}" name="description" />
+                </label>
+            </li>
+        </ul>
+
+        <p>
+            <button type="submit">Update</button>
+        </p>
+    </form>
+</main>
+
+<script type="text/javascript" src="{{baseUrl}}spirit/views/js/backbutton.js"></script>
+<script type="text/javascript" src="{{baseUrl}}spirit/views/js/confirmclose.js"></script>

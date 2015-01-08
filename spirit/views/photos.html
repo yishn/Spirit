@@ -24,18 +24,19 @@
 <main>
     <h2>Photos</h2>
     
-{{#hasPhotos}}
-    <ol class="photostream">{{#photos}}<li>
+    {{#hasPhotos}}
+    <ol class="photostream stream">{{#photos}}<li>
         <label>Select photo: <input type="checkbox" name="photoId[]" value="{{id}}" /></label>
         <a class="permalink" href="{{permalink}}" title="Permalink to &lsquo;{{title}}&rsquo;">Permalink</a>
         <a href="{{baseUrl}}spirit/photos/edit/{{id}}" title="Edit &lsquo;{{title}}&rsquo;">
             <img src="{{thumbnailLink}}" alt="{{title}}" />
         </a>
     </li>{{/photos}}</ol>
-{{/hasPhotos}}
-{{^hasPhotos}}
+    {{/hasPhotos}}
+    
+    {{^hasPhotos}}
     <p>Nothing found. Why not <em>upload</em> some photos?</p>
-{{/hasPhotos}}
+    {{/hasPhotos}}
 </main>
 
 {{#hasPagination}}
@@ -56,3 +57,4 @@
 
 <script type="text/javascript" src="{{baseUrl}}spirit/views/js/photos.js"></script>
 <script type="text/javascript" src="{{baseUrl}}spirit/views/js/loadmore.js"></script>
+<script type="text/javascript" src="{{baseUrl}}spirit/views/js/confirmdelete.js"></script>

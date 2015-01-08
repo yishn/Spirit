@@ -43,6 +43,11 @@ class Photo extends Model {
         Thumb::render($path, $size);
     }
 
+    public function delete() {
+        AlbumPhoto::where('photo_id', $this->id)->delete_many();
+        parent::delete();
+    }
+
     public function as_array($includeAlbums = true, $includeUser = true) {
         $result = parent::as_array();
 

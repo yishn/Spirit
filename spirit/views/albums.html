@@ -11,33 +11,52 @@
         </li>
         {{/hasFilters}}
         <li class="filter"><a href="#">Month</a></li>
-        <li class="add"><a href="#">Add</a></li>
+        <li class="add"><a href="{{baseUrl}}spirit/albums/edit/new">Add</a></li>
     </ul>
 </div>
 
 <main>
     <h2>Albums</h2>
 
-{{#hasAlbums}}
-    <ol class="albumstream">
-    {{#albums}}
-        <li>
-            <h3>{{name}} <em>({{count}})</em></h3>
-            <img src="{{largeImageLink}}" alt="{{name}}" />
-            <ul>
-                <li><a href="{{baseUrl}}spirit/albums/{{month}}" title="Filter by month">{{{formattedDate}}}</a></li>
-                <li><a href="{{baseUrl}}spirit/photos/album/{{id}}" title="Show photos">Browse</a></li>
-                <li><a href="{{baseUrl}}spirit/albums/edit/{{id}}">Edit</a></li>
-                <li><a href="{{baseUrl}}spirit/albums/delete/{{id}}">Delete</a></li>
-            </ul>
-            <p>{{description}}</p>
-        </li>
-    {{/albums}}
-    </ol>
-{{/hasAlbums}}
-{{^hasAlbums}}
-    <p>Nothing found. Why not <em>add</em> some albums?</p>
-{{/hasAlbums}}
+    {{#hasAlbums}}
+        <ol class="albumstream stream">
+        {{#albums}}
+            <li>
+                <h3>{{name}}</h3>
+                <img src="{{largeImageLink}}" alt="{{name}}" />
+                <ul>
+                    <li><a href="{{baseUrl}}spirit/albums/{{month}}" title="Filter by month">{{{formattedDate}}}</a></li>
+                    <li><a href="{{baseUrl}}spirit/photos/album/{{id}}" title="Show photos">Browse</a></li>
+                    <li class="edit"><a href="{{baseUrl}}spirit/albums/edit/{{id}}">Edit</a></li>
+                    <li class="delete"><a href="{{baseUrl}}spirit/albums/delete/{{id}}">Delete</a></li>
+                </ul>
+                <p>{{description}}</p>
+            </li>
+        {{/albums}}
+        </ol>
+    {{/hasAlbums}}
+
+    {{^hasAlbums}}
+        <p>Nothing found. Why not <em>add</em> some albums?</p>
+    {{/hasAlbums}}
 </main>
 
+{{#hasPagination}}
+    <ol id="pagination">
+    {{#hasPreviousPage}}
+        <li><a class="previous" href="{{previousPageLink}}">&laquo; Previous page</a></li>
+    {{/hasPreviousPage}}
+    {{#hasNextPage}}
+        <li>
+            <a class="next" href="{{nextPageLink}}">
+                <img class="throbber" src="{{baseUrl}}spirit/views/resources/throbber.gif" alt="" />
+                Next page &raquo;
+            </a>
+        </li>
+    {{/hasNextPage}}
+    </ol>
+{{/hasPagination}}
+
 <script type="text/javascript" src="{{baseUrl}}spirit/views/js/albums.js"></script>
+<script type="text/javascript" src="{{baseUrl}}spirit/views/js/loadmore.js"></script>
+<script type="text/javascript" src="{{baseUrl}}spirit/views/js/confirmdelete.js"></script>

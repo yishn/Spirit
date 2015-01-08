@@ -6,6 +6,7 @@ $$('textarea').setStyle('display', 'none').grab(new Element('div', {
     text: value
 }), 'before').each(function(textarea) {
     var editor = ace.edit(textarea.getPrevious('.ace'));
+    textarea.getPrevious('.ace').store('ace', editor);
 
     editor.getSession().setMode('ace/mode/markdown');
     editor.getSession().setUseWrapMode(true);

@@ -14,43 +14,25 @@ class Route extends Dispatcher {
             parent::redirect('/photo/' . $params['id'] . '/size/large');
         });
         parent::map('GET', '/photo/{id:\d+}/size/{size:thumb|large}', function($params) {
-            $photo = Photo::find_one($params['id']);
-            if (!$photo) {
-                parent::error(404);
-                exit();
-            }
-            
+            $photo = self::verifyModel('Photo', $params['id']);
             $size = Setting::get($params['size'] == 'thumb' ? 'thumbSize' : 'largeImageSize');
             $photo->generateThumbnail($size, [ 'zoom' => $params['size'] == 'thumb' ]);
         });
     }
 
     private static function mapAdmin() {
-        parent::map('GET', '/spirit/login', function() { 
-            print parent::renderLogin();
-        });
-
-        parent::map('GET', '/spirit', function() { 
-            parent::redirect('/spirit/photos'); 
-        });
+        parent::map('GET', '/spirit', function() { parent::redirect('/spirit/photos'); });
         parent::map('GET', '/spirit/{main:users|settings}', function($params) {
             $admin = new Admin();
             print $admin->renderAdmin($params['main']);
         });
 
-        // Photos
-
-        $photosRoute = function($params) {
+        $prepareFilter = function($params) {
             $admin = new Admin();
-
             $temp = [ 'filter' => [] ];
-            if (isset($params['album'])) {
-                $temp['filter']['album'] = Album::find_one($params['album']);
-                if (!$temp['filter']['album']) {
-                    self::error(404);
-                    exit();
-                }
-            }
+
+            if (isset($params['album']))
+                $temp['filter']['album'] = self::verifyModel('Album', $params['album']);
             if (isset($params['search']))
                 $temp['filter']['search'] = $params['search'];
             if (isset($params['month']))
@@ -58,47 +40,63 @@ class Route extends Dispatcher {
             if (isset($params['page']))
                 $temp['page'] = $params['page'] !== '' ? intval($params['page']) : 1;
 
-            print $admin->renderAdmin('photos', $temp);
+            print $admin->renderAdmin($params['main'], $temp);
         };
 
-        parent::map('GET', '/spirit/photos/{page:\d*}', $photosRoute);
-        parent::map('GET', '/spirit/photos/search/{search:.+}/{page:\d*}', $photosRoute);
-        parent::map('GET', '/spirit/photos/album/{album:\d+}/{page:\d*}', $photosRoute);
-        parent::map('GET', '/spirit/photos/{month:\d\d\d\d-\d\d}/{page:\d*}', $photosRoute);
+        // Photos
+
+        parent::map('GET', '/spirit/{main:photos}/{page:\d*}', $prepareFilter);
+        parent::map('GET', '/spirit/{main:photos}/search/{search:.+}/{page:\d*}', $prepareFilter);
+        parent::map('GET', '/spirit/{main:photos}/album/{album:\d+}/{page:\d*}', $prepareFilter);
+        parent::map('GET', '/spirit/{main:photos}/{month:\d\d\d\d-\d\d}/{page:\d*}', $prepareFilter);
         
         parent::map('GET', '/spirit/photos/edit/{id:\d+}', function($params) {
             $admin = new Admin();
+            self::verifyModel('Photo', $params['id']);
             print $admin->renderAdmin('photo-edit', $params);
         });
 
         // Albums
+
+        parent::map('GET', '/spirit/{main:albums}/{page:\d*}', $prepareFilter);
+        parent::map('GET', '/spirit/{main:albums}/search/{search:.+}/{page:\d*}', $prepareFilter);
+        parent::map('GET', '/spirit/{main:albums}/{month:\d\d\d\d-\d\d}/{page:\d*}', $prepareFilter);
         
-        $albumsRoute = function($params) {
+        parent::map('GET', '/spirit/albums/edit/{id:\d+|new}', function($params) {
             $admin = new Admin();
+            if ($params['id'] != 'new') self::verifyModel('Album', $params['id']);
+            print $admin->renderAdmin('album-edit', $params);
+        });
 
-            $temp = [ 'filter' => [] ];
-            if (isset($params['search']))
-                $temp['filter']['search'] = $params['search'];
-            if (isset($params['month']))
-                $temp['filter']['month'] = $params['month'];
-            if (isset($params['page']))
-                $temp['page'] = $params['page'] !== '' ? intval($params['page']) : 1;
+        // Actions
 
-            print $admin->renderAdmin('albums', $temp);
-        };
-
-        parent::map('GET', '/spirit/albums/{page:\d*}', $albumsRoute);
-        parent::map('GET', '/spirit/albums/search/{search:.+}/{page:\d*}', $albumsRoute);
-        parent::map('GET', '/spirit/albums/{month:\d\d\d\d-\d\d}/{page:\d*}', $albumsRoute);
+        parent::map('GET', '/spirit/{main:photos|albums}/delete/{id:\d+}', function($params) {
+            $admin = new Admin();
+            $album = self::verifyModel($params['main'] == 'albums' ? 'Album' : 'Photo', $params['id']);
+            $album->delete();
+            self::redirect('/spirit/' . $params['main']);
+        });
     }
 
-    public static function buildAdminPhotosRoute(array $filter = [], $page = 1) {
-        $result = parent::config('url') . 'spirit/photos';
+    public static function verifyModel($model, $id) {
+        $item = Model::factory($model)->find_one($id);
+        if (!$item) {
+            parent::error(404);
+            exit();
+        }
 
-        if (isset($filter['month']))
-            $result .= '/' . $filter['month'];
+        return $item;
+    }
+
+    public static function buildFilterRoute($base, array $filter = [], $page = 1) {
+        $result = parent::config('url') . $base;
+
         if (isset($filter['album']))
             $result .= '/album/' . $filter['album']->id;
+        if (isset($filter['month']))
+            $result .= '/' . $filter['month'];
+        if (isset($filter['search']))
+            $result .= '/search/' . urlencode($filter['search']);
         if ($page != 1)
             $result .= "/{$page}";
 

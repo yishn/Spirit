@@ -17,6 +17,11 @@ class Album extends Model {
         return $date->format($format);
     }
 
+    public function delete() {
+        AlbumPhoto::where('album_id', $this->id)->delete_many();
+        parent::delete();
+    }
+
     public function as_array() {
         $result = parent::as_array();
 
@@ -36,6 +41,16 @@ class Album extends Model {
         return $result;
     }
 
+    public static function create() {
+        $album = parent::factory('Album')->create();
+        $album->set([
+            'id' => 'new',
+            'name' => '',
+            'description' => ''
+        ]);
+        return $album;
+    }
+
     public static function getAlbums($limit, array $filter = [], $page = 1) {
         $photoTable = DB_PREFIX . 'photo';
         $albumTable = DB_PREFIX . 'album';
@@ -47,6 +62,7 @@ class Album extends Model {
 
         $albums = $query->left_outer_join($table, array("{$table}.album_id", '=', "{$albumTable}.id"))
             ->left_outer_join($photoTable, array("{$photoTable}.id", '=', "{$table}.photo_id"))
+            ->distinct()
             ->order_by_desc("{$albumTable}.id")
             ->order_by_desc("{$photoTable}.date")
             ->limit($limit + 1)
@@ -77,6 +93,7 @@ class Album extends Model {
             'hasNextPage' => $hasNextPage
         ];
     }
+
 
     public static function search($orm, $input) {
         $albumTable = DB_PREFIX . 'album';

@@ -8,15 +8,17 @@
     <form method="post" action="{{baseUrl}}spirit/photos/edit/{{id}}">
         <p class="photo">
             <img src="{{largeImageLink}}" alt="{{title}}" />
+            {{#user}}
             <em>
-                {{#user}}Uploaded by <a href="{{baseUrl}}spirit/users/{{id}}" title="{{fullname}}">@{{name}}</a>{{/user}}
+                Uploaded by <a href="{{baseUrl}}spirit/users/{{id}}" title="{{fullname}}">@{{name}}</a>
             </em>
+            {{/user}}
         </p>
 
         <ul class="form">
             <li class="title">
                 <label><span>Title:</span>
-                    <input type="text" value="{{title}}" name="title" />
+                    <input type="text" value="{{title}}" name="title" placeholder="(Untitled)" />
                 </label>
             </li>
             <li class="date">
@@ -53,3 +55,5 @@
 <script type="text/javascript" src="{{baseUrl}}spirit/views/js/backbutton.js"></script>
 <script type="text/javascript" src="{{baseUrl}}spirit/views/js/photo-edit.js"></script>
 <script type="text/javascript" src="{{baseUrl}}spirit/views/js/markdown-editor.js"></script>
+<script type="text/javascript" src="{{baseUrl}}spirit/views/js/confirmclose.js"></script>
+<script type="text/javascript" src="{{baseUrl}}spirit/views/js/confirmdelete.js"></script>
