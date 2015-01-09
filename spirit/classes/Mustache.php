@@ -69,7 +69,18 @@ class Mustache {
             self::$templates[$pathTemplate] = $template;
         }
 
-        return self::render(self::$templates[$pathTemplate], $data, $customParsers);
+        $template = self::$templates[$pathTemplate];
+
+        // find partials
+        preg_match_all('|({{>(\S+?)}})|s', $template, $partialPatterns)
+
+        foreach ($partialPatterns as $patternId => $patternContext) {
+            // parse and replace pattern context
+            $path = dirname($pathTemplate) . '/' . $patternContext[2] . '.' . $fileExtension;
+            $template = str_replace($patternContext[1], self::renderByFile($path), $template);
+        }
+
+        return self::render($template, $data, $customParsers);
     }
 
     /**
