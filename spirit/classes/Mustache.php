@@ -72,12 +72,16 @@ class Mustache {
         $template = self::$templates[$pathTemplate];
 
         // find partials
-        preg_match_all('|({{>(\S+?)}})|s', $template, $partialPatterns)
+        preg_match_all('|({{>(\S+?)}})|s', $template, $partialPattern);
 
-        foreach ($partialPatterns as $patternId => $patternContext) {
-            // parse and replace pattern context
-            $path = dirname($pathTemplate) . '/' . $patternContext[2] . '.' . $fileExtension;
-            $template = str_replace($patternContext[1], self::renderByFile($path), $template);
+        print_r($partialPattern);
+
+        if (isset($partialPattern[2][0])) {
+            foreach ($partialPattern[1] as $patternId => $patternContext) {
+                // parse and replace pattern context
+                $path = dirname($pathTemplate) . '/' . $partialPattern[2][$patternId];
+                $template = str_replace($patternContext, self::renderByFile($path, [], [], $fileExtension), $template);
+            }
         }
 
         return self::render($template, $data, $customParsers);
