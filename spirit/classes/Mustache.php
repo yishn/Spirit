@@ -74,8 +74,6 @@ class Mustache {
         // find partials
         preg_match_all('|({{>(\S+?)}})|s', $template, $partialPattern);
 
-        print_r($partialPattern);
-
         if (isset($partialPattern[2][0])) {
             foreach ($partialPattern[1] as $patternId => $patternContext) {
                 // parse and replace pattern context
