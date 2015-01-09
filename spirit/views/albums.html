@@ -19,25 +19,25 @@
     <h2>Albums</h2>
 
     {{#hasAlbums}}
-        <ol class="albumstream stream">
+    <ol class="albumstream stream">
         {{#albums}}
-            <li>
-                <h3>{{name}}</h3>
-                <img src="{{largeImageLink}}" alt="{{name}}" />
-                <ul>
-                    <li><a href="{{baseUrl}}spirit/albums/{{month}}" title="Filter by month">{{{formattedDate}}}</a></li>
-                    <li><a href="{{baseUrl}}spirit/photos/album/{{id}}" title="Show photos">Browse</a></li>
-                    <li class="edit"><a href="{{baseUrl}}spirit/albums/edit/{{id}}">Edit</a></li>
-                    <li class="delete"><a href="{{baseUrl}}spirit/albums/delete/{{id}}">Delete</a></li>
-                </ul>
-                <p>{{description}}</p>
-            </li>
+        <li>
+            <h3>{{name}}</h3>
+            <img src="{{largeImageLink}}" alt="{{name}}" />
+            <ul>
+                <li><a href="{{baseUrl}}spirit/albums/{{month}}" title="Filter by month">{{{formattedDate}}}</a></li>
+                <li><a href="{{baseUrl}}spirit/photos/album/{{id}}" title="Show photos">Browse</a></li>
+                <li class="edit"><a href="{{baseUrl}}spirit/albums/edit/{{id}}">Edit</a></li>
+                <li class="delete"><a href="{{baseUrl}}spirit/albums/delete/{{id}}">Delete</a></li>
+            </ul>
+            <p>{{description}}</p>
+        </li>
         {{/albums}}
-        </ol>
+    </ol>
     {{/hasAlbums}}
 
     {{^hasAlbums}}
-        <p>Nothing found. Why not <em>add</em> some albums?</p>
+    <p>Nothing found. Why not <em>add</em> some albums?</p>
     {{/hasAlbums}}
 </main>
 

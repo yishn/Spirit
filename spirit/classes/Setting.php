@@ -16,10 +16,15 @@ class Setting {
     }
 
     public static function set($key, $value) {
-        $settings[$key] = $value;
+        self::$settings[$key] = $value;
         
         $setting = ORM::for_table(DB_PREFIX . 'setting')->where('key', $key)->find_one();
         $setting->value = $value;
         $setting->save();
+    }
+
+    public static function as_array() {
+        self::get('title');
+        return self::$settings;
     }
 }
