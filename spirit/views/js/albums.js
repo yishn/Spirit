@@ -8,4 +8,12 @@ $$('.albumstream > li').each(function(li) {
     li.setStyle('background-position', 'center');
 });
 
+$$('#toolbox .add a').addEvent('click', function(e) {
+    e.preventDefault();
+    $('dialog').load(this.get('href'));
+    $('dialog').addEvent('shown', function() {
+        $$('#dialog main input')[0].focus();
+    });
+});
+
 });

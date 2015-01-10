@@ -386,7 +386,7 @@ class Dispatcher {
 
         $path = trim($path, '/');
         $verb = strtoupper($_SERVER['REQUEST_METHOD']);
-        Dispatcher::stash('route', '/' . $path);
+        self::stash('route', '/' . $path);
 
         # for POST requests, check for method override header or _method
         if ($verb == 'POST') {

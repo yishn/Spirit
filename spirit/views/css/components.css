@@ -138,3 +138,34 @@
     }
     .albums li:hover { opacity: 1; }
 .albums li:hover a::before { color: white; }
+
+#dialog {
+        position: fixed;
+        left: 0;
+        bottom: -100%;
+        width: 100%;
+        max-height: 100%;
+        overflow: auto;
+        background: white;
+        z-index: 100;
+        transition: bottom .5s;
+    }
+    #dialog.show {
+        bottom: 0;
+}
+
+#overlay {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: none;
+        background: #26292A;
+        opacity: 0;
+        z-index: 99;
+    }
+    #overlay.show {
+        display: block;
+        opacity: .1;
+}
