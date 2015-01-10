@@ -40,15 +40,7 @@ main p.photo {
 }
 
 #dialog {
-        top: -100%;
-        bottom: auto;
-        left: 50%;
-        width: 30em;
-        margin-left: -15em;
-        transition: .5s top;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, .1);
-    }
-    #dialog.show {
-        top: 0;
-        bottom: auto;
+    left: 50%;
+    width: 30em;
+    margin-left: -15em;
 }

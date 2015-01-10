@@ -142,16 +142,17 @@
 #dialog {
         position: fixed;
         left: 0;
-        bottom: -100%;
+        top: -100%;
         width: 100%;
         max-height: 100%;
         overflow: auto;
         background: white;
         z-index: 100;
-        transition: bottom .5s;
+        transition: top .5s;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, .1);
     }
     #dialog.show {
-        bottom: 0;
+        top: 0;
 }
 
 #overlay {
