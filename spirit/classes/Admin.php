@@ -51,4 +51,8 @@ class Admin {
 
         return Mustache::renderByFile('spirit/views/' . $main, $context);
     }
+
+    public function executeAction($action, $params) {
+        include("spirit/actions/{$action}.php");
+    }
 }

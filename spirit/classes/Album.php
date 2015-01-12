@@ -25,13 +25,14 @@ class Album extends Model {
     public function as_array() {
         $result = parent::as_array();
 
+        $result['hasDescription'] = trim($this->description) != '';
         $result['thumbnailLink'] = function() {
             $photo = $this->getPhoto();
-            return !$photo ? false : $photo->getThumbnailLink();
+            return !$photo ? Route::link('/') : $photo->getThumbnailLink();
         };
         $result['largeImageLink'] = function() {
             $photo = $this->getPhoto();
-            return !$photo ? false : $photo->getLargeImageLink();
+            return !$photo ? Route::link('/') : $photo->getLargeImageLink();
         };
         $result['count'] = function() { return $this->photos()->count(); };
         $result['date'] = function() { return $this->getFormattedDate(); };

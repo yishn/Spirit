@@ -8,7 +8,7 @@ document.addEvent('domready', function() {
 var confirm = false;
 var lambda = function() { confirm = true; };
 
-window.addEvent('beforeunload', function(e) { if (confirm) e.stop(); });
+window.addEvent('beforeunload', function(event) { if (confirm) event.stop(); });
 
 $$('input, textarea').addEvent('change', lambda);
 $$('.ace').retrieve('ace').each(function(ace) {

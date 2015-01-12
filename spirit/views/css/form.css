@@ -29,7 +29,7 @@
         text-transform: uppercase;
     }
     .form label input[type="text"], .form label textarea , .form label .ace,
-    .form label input[type="date"] {
+    .form label input[type="datetime"] {
         display: block;
         background: transparent;
         border: none;
@@ -65,4 +65,8 @@ button:hover, .button:hover { opacity: 1; }
     font-weight: bold; 
 }
 
-.form .albums input + .albums { display: none; }
+.form .albums label { padding-bottom: 0; }
+.form .albums label + .albums { 
+    padding: 0 .5em .5em .5em;
+    display: none;
+}

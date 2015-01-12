@@ -1,0 +1,10 @@
+{{#hasAlbums}}
+<ol>
+    {{#albums}}
+    <li><a href="#{{id}}"><strong>{{name}}</strong> {{description}}</a></li>
+    {{/albums}}
+</ol>
+{{/hasAlbums}}
+{{^hasAlbums}}
+<p>Nothing found.</p>
+{{/hasAlbums}}

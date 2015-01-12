@@ -11,11 +11,17 @@ dialog.load = function(url) {
         'url': url,
         onSuccess: function(tree, ell, html, js) {
             dialog.empty().adopt(ell.filter('main')[0]);
-            dialog.addClass('show');
-            dialog.fireEvent('shown');
+            dialog.show();
         }
     }).get();
 };
+
+dialog.show = function() {
+    overlay.addClass('show');
+    dialog.addClass('show');
+
+    dialog.fireEvent('shown');
+}
 
 dialog.close = function() {
     dialog.fireEvent('closing');

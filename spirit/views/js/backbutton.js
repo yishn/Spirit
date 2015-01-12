@@ -4,8 +4,8 @@ document.addEvent('domready', function() {
  * Prepare back button
  */
 
-$$('.back a').addEvent('click', function(e) {
-    e.preventDefault();
+$$('.back a').addEvent('click', function(event) {
+    event.preventDefault();
     window.history.back();
 });
 

@@ -8,8 +8,8 @@ $$('.albumstream > li').each(function(li) {
     li.setStyle('background-position', 'center');
 });
 
-$$('#toolbox .add a, .albumstream ul li.edit a').addEvent('click', function(e) {
-    e.preventDefault();
+$$('#toolbox .add a, .albumstream ul li.edit a').addEvent('click', function(event) {
+    event.preventDefault();
     var link = this;
 
     $('dialog').load(this.get('href'));

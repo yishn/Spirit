@@ -23,19 +23,19 @@
             </li>
             <li class="date">
                 <label><span>Date &amp; Time:</span>
-                    <input type="date" value="{{date}}" name="date" />
+                    <input type="text" value="{{date}}" name="date" />
                 </label>
             </li>
             <li class="albums">
                 <label><span>Albums:</span>
                     <input type="text" value="{{#albums}}{{id}},{{/albums}}" name="albums" />
-                    <ul class="albums">
-                        {{#albums}}
-                        <li>{{name}} <a href="#remove" title="Remove from album">Remove from album</a></li>
-                        {{/albums}}
-                        <li><a href="#add" title="Add to album">Add to album</a></li>
-                    </ul>
                 </label>
+                <ul class="albums">{{#albums}}<li class="album{{id}}">
+                        {{name}} <a href="#" title="Remove from album">Remove from album</a>
+                    </li>{{/albums}}<li><a href="{{baseUrl}}spirit/partial/albums" title="Add to album" class="albumpicker">
+                        Add to album
+                    </a></li>
+                </ul>
             </li>
             <li>
                 <label><span>Description:</span>
@@ -52,8 +52,10 @@
 </main>
 
 <script type="text/javascript" src="//cdn.jsdelivr.net/ace/1.1.8/min/ace.js"></script>
-<script type="text/javascript" src="{{baseUrl}}spirit/views/js/backbutton.js"></script>
-<script type="text/javascript" src="{{baseUrl}}spirit/views/js/photo-edit.js"></script>
 <script type="text/javascript" src="{{baseUrl}}spirit/views/js/markdown-editor.js"></script>
+<script type="text/javascript" src="{{baseUrl}}spirit/views/js/dialog.js"></script>
+<script type="text/javascript" src="{{baseUrl}}spirit/views/js/albumpicker.js"></script>
+<script type="text/javascript" src="{{baseUrl}}spirit/views/js/photo-edit.js"></script>
+<script type="text/javascript" src="{{baseUrl}}spirit/views/js/backbutton.js"></script>
 <script type="text/javascript" src="{{baseUrl}}spirit/views/js/confirmclose.js"></script>
 <script type="text/javascript" src="{{baseUrl}}spirit/views/js/confirmdelete.js"></script>

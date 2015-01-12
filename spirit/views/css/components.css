@@ -3,7 +3,6 @@
         text-align: right;
     }
     .photo img {
-        /*display: block;*/
         margin-bottom: .5em;
     }
     .photo em {
@@ -120,6 +119,7 @@
     .albums li {
         display: inline;
         padding: .2em .4em;
+        margin-right: .2em;
         margin-bottom: .2em;
         font-size: .8em;
     }

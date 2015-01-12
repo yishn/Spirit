@@ -4,6 +4,7 @@ class Route extends Dispatcher {
     public static function map() {
         self::mapTheme();
         self::mapAdmin();
+        self::mapPartials();
     }
 
     private static function mapTheme() {
@@ -56,6 +57,11 @@ class Route extends Dispatcher {
             print $admin->renderAdmin('photo-edit', $params);
         });
 
+        parent::map('POST', '/spirit/photos/edit/{id:\d+}', function($params) {
+            $admin = new Admin();
+            $admin->executeAction('photo-edit', $params);
+        });
+
         // Albums
 
         parent::map('GET', '/spirit/{main:albums}/{page:\d*}', $prepareFilter);
@@ -68,6 +74,11 @@ class Route extends Dispatcher {
             print $admin->renderAdmin('album-edit', $params);
         });
 
+        parent::map('POST', '/spirit/albums/edit/{id:\d+|new}', function($params) {
+            $admin = new Admin();
+            $admin->executeAction('album-edit', $params);
+        });
+
         // Actions
 
         parent::map('GET', '/spirit/{main:photos|albums}/delete/{id:\d+}', function($params) {
@@ -75,6 +86,15 @@ class Route extends Dispatcher {
             $album = self::verifyModel($params['main'] == 'albums' ? 'Album' : 'Photo', $params['id']);
             $album->delete();
             self::redirect('/spirit/' . $params['main']);
+        });
+    }
+
+    private static function mapPartials() {
+        parent::map('GET', '/spirit/partial/albums/{search:.*}', function($params) {
+            $limit = intval(Setting::get('albumPickerItemsPerPage'));
+            $context = Album::getAlbums($limit, [ 'search' => $params['search'] ]);
+
+            print Mustache::renderByFile('spirit/views/partials/albums', $context);
         });
     }
 
