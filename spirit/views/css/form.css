@@ -1,3 +1,5 @@
+input { padding: .2em .3em; }
+
 .form {
         margin-left: 0;
         list-style: none;
@@ -28,9 +30,9 @@
         letter-spacing: 2px;
         text-transform: uppercase;
     }
-    .form label input[type="text"], .form label textarea , .form label .ace,
-    .form label input[type="datetime"] {
+    .form label input[type="text"], .form label textarea , .form label .ace {
         display: block;
+        padding: 0;
         background: transparent;
         border: none;
         width: 100%;

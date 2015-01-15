@@ -8,7 +8,20 @@ $$('form button[type="submit"]').addEvent('click', function() {
     var editor = form.getElement('.ace').retrieve('ace');
 
     form.getElement('textarea[name="description"]').set('value', editor.getValue());
+
+    form.getElement('input[name="albums"]').set('value', '');
+    form.getElements('ul.albums > li:not(:last-child) > a').each(function(el) {
+        var albumId = el.get('href').replace('#', '');
+        form.getElement('input[name="albums"]').value += albumId + ','
+    });
 });
+
+var removeAlbum = function(e) {
+    e.preventDefault();
+    this.getParent('li').destroy();
+};
+
+$$('ul.albums > li:not(:last-child) > a').addEvent('click', removeAlbum);
 
 $$('.albumpicker').addEvent('albumlinkclicked', function(link) {
     var id = link.get('href').replace('#', '');
@@ -18,9 +31,14 @@ $$('.albumpicker').addEvent('albumlinkclicked', function(link) {
     if (this.getParent('ul.albums').getElement('.album' + id) != null) return false;
 
     this.getParent('ul.albums').grab(
-        new Element('li', { class: 'album' + id }).set(
-            'html', name + ' <a href="#" title="Remove from album">Remove from album</a>'
-        ), 'top'
+        new Element('li').set('text', name + ' ').adopt(new Element('a', {
+            'href': '#' + id,
+            'title': 'Remove from album',
+            'text': 'Remove from album',
+            'events': {
+                'click': removeAlbum
+            }
+        })), 'top'
     );
 });
 

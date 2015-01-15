@@ -16,7 +16,7 @@ header {
         background: rgba(38, 41, 42, .95);
         color: white;
     }
-    header a {
+    header a, header a:hover, header a:focus {
         color: white;
         opacity: .7;
     }
@@ -24,7 +24,7 @@ header {
         opacity: 1;
 }
 
-nav li.current a, nav li a:hover {
+nav li.current a, nav li a:hover, nav li a:focus {
     background: #181818;
 }
 
@@ -35,7 +35,7 @@ nav li.current a, nav li a:hover {
         color: black;
         opacity: .7;
     }
-    #toolbox a:hover {
+    #toolbox a:hover, #toolbox a:focus {
         background: #ccc;
         opacity: 1;
     }
@@ -47,17 +47,21 @@ nav li.current a, nav li a:hover {
     background: #26292A;
     color: white;
 }
-#pagination a:hover { background: #323534; }
+#pagination a:hover, #pagination a:focus { background: #323534; }
 
 button, .button, .albums li
 { background: #ccc; opacity: .7; }
-button:hover, .button:hover, .albums li:hover 
+button:hover, .button:hover, .albums li:hover,
+button:focus, .button:focus
 { opacity: 1; }
 
-#toolbox li.delete a:hover, .button.delete:hover, .albums li:hover 
+#toolbox li.delete a:hover, .button.delete:hover, .albums li:hover
 { background: #D1370E; color: white; }
 
 nav li:last-child a:hover, button[type="submit"]:hover, 
 .photostream li a.permalink:hover::before, #toolbox li.edit a:hover,
 .albums li:last-child:hover, #toolbox li.add a:hover
 { background: #0082f0; color: white; }
+
+a { color: #0082f0; }
+a:hover, a:focus { color: #333; }

@@ -30,9 +30,8 @@
                 <label><span>Albums:</span>
                     <input type="text" value="{{#albums}}{{id}},{{/albums}}" name="albums" />
                 </label>
-                <ul class="albums">{{#albums}}<li class="album{{id}}">
-                        {{name}} <a href="#" title="Remove from album">Remove from album</a>
-                    </li>{{/albums}}<li><a href="{{baseUrl}}spirit/partial/albums" title="Add to album" class="albumpicker">
+                <ul class="albums">{{#albums}}<li>{{name}}
+                    <a href="#{{id}}" title="Remove from album">Remove from album</a></li>{{/albums}}<li><a href="{{baseUrl}}spirit/partial/albums" title="Add to album" class="albumpicker">
                         Add to album
                     </a></li>
                 </ul>

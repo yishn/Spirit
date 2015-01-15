@@ -12,7 +12,9 @@ $$('.albumpicker').addEvent('click', function(event) {
     $('overlay').addClass('show');
 
     $('dialog').empty().adopt(new Element('main', { id: 'albumpicker' }).adopt(
-        new Element('input', { type: 'text', name: 'search', placeholder: 'Filter' }),
+        new Element('p').adopt(
+            new Element('input', { type: 'text', name: 'search', placeholder: 'Filter' })
+        ),
         new Element('div')
     ));
 
@@ -26,6 +28,7 @@ $$('.albumpicker').addEvent('click', function(event) {
                     link.fireEvent('albumlinkclicked', this);
                 });
                 $('dialog').show();
+                $$('#dialog input')[0].focus();
             }
         }).get();
     }).addEvent('keyup', function(e) {
