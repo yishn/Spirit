@@ -92,7 +92,9 @@ class Route extends Dispatcher {
     private static function mapPartials() {
         parent::map('GET', '/spirit/partial/albums/{search:.*}', function($params) {
             $limit = intval(Setting::get('albumPickerItemsPerPage'));
+            
             $context = Album::getAlbums($limit, [ 'search' => $params['search'] ]);
+            $context['baseUrl'] = Route::config('url');
 
             print Mustache::renderByFile('spirit/views/partials/albums', $context);
         });

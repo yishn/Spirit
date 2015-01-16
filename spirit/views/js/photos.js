@@ -16,4 +16,8 @@ $$('.photostream li input').removeEvents('change').addEvent('change', function()
     );
 });
 
+$$('.albumpicker').addEvent('albumlinkclick', function(link) {
+    window.location = link.href;
+});
+
 });

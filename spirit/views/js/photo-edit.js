@@ -23,12 +23,13 @@ var removeAlbum = function(e) {
 
 $$('ul.albums > li:not(:last-child) > a').addEvent('click', removeAlbum);
 
-$$('.albumpicker').addEvent('albumlinkclicked', function(link) {
-    var id = link.get('href').replace('#', '');
+$$('.albumpicker').addEvent('albumlinkclick', function(link) {
+    var path = link.get('href').split('/');
+    var id = path[path.length - 1];
     var name = link.getElement('strong').get('text');
-    $('dialog').close();
 
-    if (this.getParent('ul.albums').getElement('.album' + id) != null) return false;
+    $('dialog').close();
+    if (this.getParent('ul.albums').getElement('[href="#' + id + '"]') != null) return false;
 
     this.getParent('ul.albums').grab(
         new Element('li').set('text', name + ' ').adopt(new Element('a', {
