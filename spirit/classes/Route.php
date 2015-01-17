@@ -59,7 +59,7 @@ class Route extends Dispatcher {
 
         parent::map('POST', '/spirit/photos/edit/{ids:(\d+,?)+}', function($params) {
             $admin = new Admin();
-            $admin->executeAction('photo-edit', $ids);
+            $admin->executeAction('photo-edit', $params['ids']);
         });
 
         // Albums
