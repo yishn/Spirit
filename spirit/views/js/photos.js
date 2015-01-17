@@ -4,6 +4,11 @@ document.addEvent('domready', function() {
  * Photostream selection
  */
 
+$$('#toolbox .upload a').addEvent('click', function(event) {
+    event.preventDefault();
+    $('dialog').load(this.get('href'));
+});
+
 $$('#toolbox li.edit, #toolbox li.delete').setStyle(
     'display', $$('.photostream .selected').length != 0 ? 'block' : 'none'
 );

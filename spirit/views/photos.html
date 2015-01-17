@@ -15,9 +15,9 @@
         {{/hasFilters}}
         <li class="filter"><a href="{{baseUrl}}spirit/partial/albums" class="albumpicker">Album</a></li>
         <li class="filter"><a href="#">Month</a></li>
-        <li class="upload"><a href="#">Upload</a></li>
-        <li class="edit"><a href="#">Edit</a></li>
-        <li class="delete"><a href="#">Delete</a></li>
+        <li class="upload"><a href="{{baseUrl}}spirit/photos/upload">Upload</a></li>
+        <li class="edit"><a href="{{baseUrl}}spirit/photos/edit">Edit</a></li>
+        <li class="delete"><a href="{{baseUrl}}spirit/photos/delete">Delete</a></li>
     </ul>
 </div>
 
@@ -26,7 +26,7 @@
     
     {{#hasPhotos}}
     <ol class="photostream stream">{{#photos}}<li>
-        <label>Select photo: <input type="checkbox" name="photoId[]" value="{{id}}" /></label>
+        <label>Select photo: <input type="checkbox" name="id[]" value="{{id}}" /></label>
         <a class="permalink" href="{{permalink}}" title="Permalink to &lsquo;{{title}}&rsquo;">Permalink</a>
         <a href="{{baseUrl}}spirit/photos/edit/{{id}}" title="Edit &lsquo;{{title}}&rsquo;">
             <img width="{{thumbWidth}}" height="{{thumbHeight}}" src="{{thumbnailLink}}" alt="{{title}}" />

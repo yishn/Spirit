@@ -51,6 +51,16 @@ class Route extends Dispatcher {
         parent::map('GET', '/spirit/{main:photos}/album/{album:\d+}/{page:\d*}', $prepareFilter);
         parent::map('GET', '/spirit/{main:photos}/{month:\d\d\d\d-\d\d}/{page:\d*}', $prepareFilter);
         
+        parent::map('GET', '/spirit/photos/upload', function() {
+            $admin = new Admin();
+            print $admin->renderAdmin('upload');
+        });
+
+        parent::map('POST', '/spirit/photos/upload', function() {
+            $admin = new Admin();
+            $admin->executeAction('upload');
+        });
+
         parent::map('GET', '/spirit/photos/edit/{ids:(\d+,?)+}', function($params) {
             $admin = new Admin();
             $ids = self::verifyModels('Photo', $params['ids']);

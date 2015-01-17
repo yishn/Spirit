@@ -17,7 +17,7 @@ class Admin {
             'baseUrl' => Route::config('url'),
             'user' => $this->user->as_array(),
 
-            'mainPhotos' => $main == 'photos' || $main == 'photo-edit',
+            'mainPhotos' => $main == 'photos' || $main == 'photo-edit' || $main == 'upload',
             'mainAlbums' => $main == 'albums' || $main == 'album-edit',
             'mainUsers' => $main == 'users',
             'mainSettings' => $main == 'settings'
@@ -60,7 +60,7 @@ class Admin {
         return Mustache::renderByFile('spirit/views/' . $main, $context);
     }
 
-    public function executeAction($action, $params) {
+    public function executeAction($action, $params = []) {
         include("spirit/actions/{$action}.php");
     }
 }
