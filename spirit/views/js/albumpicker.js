@@ -24,8 +24,7 @@ $$('.albumpicker').addEvent('click', function(event) {
             update: $$('#albumpicker div')[0],
             onSuccess: function() {
                 $$('#albumpicker div ol li a').addEvent('click', function(e) {
-                    e.preventDefault();
-                    link.fireEvent('albumlinkclick', this);
+                    link.fireEvent('albumlinkclick', [e, this]);
                 });
                 $('dialog').show();
                 $$('#dialog input')[0].focus();

@@ -27,7 +27,9 @@ var removeAlbum = function(e) {
 
 $$('ul.albums > li:not(:last-child) > a').addEvent('click', removeAlbum);
 
-$$('.albumpicker').addEvent('albumlinkclick', function(link) {
+$$('.albumpicker').addEvent('albumlinkclick', function(e, link) {
+    e.preventDefault();
+    
     var path = link.get('href').split('/');
     var id = path[path.length - 1];
     var name = link.getElement('strong').get('text');

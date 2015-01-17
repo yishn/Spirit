@@ -16,8 +16,11 @@ $$('.photostream li input').removeEvents('change').addEvent('change', function()
     );
 });
 
-$$('.albumpicker').addEvent('albumlinkclick', function(link) {
-    window.location = link.href;
+$$('#toolbox .edit a').addEvent('click', function(e) {
+    e.preventDefault();
+    var ids = $$('.photostream .selected input[name="id[]"]').get('value').join();
+
+    window.location = this.get('href') + '/' + ids;
 });
 
 });
