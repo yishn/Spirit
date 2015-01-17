@@ -36,15 +36,19 @@ class Photo extends Model {
     }
 
     public function generateThumbnail($size) {
-        $filename = $this->filename;
         $contentDir = Route::config('contentDir');
-        $path = "{$contentDir}photos/" . $filename;
+        $path = "{$contentDir}photos/" . $this->filename;
 
         Thumb::render($path, $size);
     }
 
     public function delete() {
+        $contentDir = Route::config('contentDir');
+        $path = "{$contentDir}photos/" . $this->filename;
+        unlink($path);
+
         AlbumPhoto::where('photo_id', $this->id)->delete_many();
+
         parent::delete();
     }
 
