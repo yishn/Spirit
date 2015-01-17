@@ -24,12 +24,14 @@ dialog.show = function() {
 }
 
 dialog.close = function() {
-    dialog.fireEvent('closing');
+    var e;
+    dialog.fireEvent('closing', e);
 
+    if (e.cancel) return;
     dialog.removeClass('show');
     overlay.removeClass('show');
 
-    dialog.fireEvent('closed');
+    dialog.fireEvent('closed', e);
 };
 
 overlay.addEvent('click', dialog.close);
