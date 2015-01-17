@@ -5,14 +5,18 @@ $$('.form .albums label + .albums').setStyle('display', 'block');
 
 $$('form button[type="submit"]').addEvent('click', function() {
     var form = this.getParent('form');
-    var editor = form.getElement('.ace').retrieve('ace');
 
-    form.getElement('textarea[name="description"]').set('value', editor.getValue());
+    form.getElements('.ace').each(function(ace) {
+        var ulform = ace.getParent('.form');
+        var editor = ulform.getElement('.ace').retrieve('ace');
 
-    form.getElement('input[name="albums"]').set('value', '');
-    form.getElements('ul.albums > li:not(:last-child) > a').each(function(el) {
-        var albumId = el.get('href').replace('#', '');
-        form.getElement('input[name="albums"]').value += albumId + ','
+        ulform.getElement('textarea[name="description[]"]').set('value', editor.getValue());
+        ulform.getElement('input[name="albums[]"]').set('value', '');
+
+        ulform.getElements('ul.albums > li:not(:last-child) > a').each(function(el) {
+            var albumId = el.get('href').replace('#', '');
+            ulform.getElement('input[name="albums[]"]').value += albumId + ','
+        });
     });
 });
 

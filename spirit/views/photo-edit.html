@@ -5,47 +5,52 @@
 </div>
 
 <main>
-    <form method="post" action="{{baseUrl}}spirit/photos/edit/{{id}}">
-        <p class="photo">
-            <img src="{{largeImageLink}}" alt="{{title}}" />
-            {{#user}}
-            <em>
-                Uploaded by <a href="{{baseUrl}}spirit/users/{{id}}" title="{{fullname}}">@{{name}}</a>
-            </em>
-            {{/user}}
-        </p>
+    <form method="post" action="{{baseUrl}}spirit/photos/edit/{{ids}}">
+        {{#photos}}
+            <p class="photo">
+                <input type="hidden" name="id[]" value="{{id}}" />
+                <img src="{{largeImageLink}}" alt="{{title}}" />
+                {{#user}}
+                <em>
+                    Uploaded by <a href="{{baseUrl}}spirit/users/{{id}}" title="{{fullname}}">@{{name}}</a>
+                </em>
+                {{/user}}
+            </p>
 
-        <ul class="form">
-            <li class="title">
-                <label><span>Title:</span>
-                    <input type="text" value="{{title}}" name="title" placeholder="(Untitled)" />
-                </label>
-            </li>
-            <li class="date">
-                <label><span>Date &amp; Time:</span>
-                    <input type="text" value="{{date}}" name="date" />
-                </label>
-            </li>
-            <li class="albums">
-                <label><span>Albums:</span>
-                    <input type="text" value="{{#albums}}{{id}},{{/albums}}" name="albums" />
-                </label>
-                <ul class="albums">{{#albums}}<li>{{name}}
-                    <a href="#{{id}}" title="Remove from album">Remove from album</a></li>{{/albums}}<li><a href="{{baseUrl}}spirit/partial/albums" title="Add to album" class="albumpicker">
-                        Add to album
-                    </a></li>
-                </ul>
-            </li>
-            <li>
-                <label><span>Description:</span>
-                    <textarea name="description">{{description}}</textarea>
-                </label>
-            </li>
-        </ul>
+            <ul class="form">
+                <li class="title">
+                    <label><span>Title:</span>
+                        <input type="text" value="{{title}}" name="title[]" placeholder="(Untitled)" />
+                    </label>
+                </li>
+                <li class="date">
+                    <label><span>Date &amp; Time:</span>
+                        <input type="text" value="{{date}}" name="date[]" />
+                    </label>
+                </li>
+                <li class="albums">
+                    <label><span>Albums:</span>
+                        <input type="text" value="{{#albums}}{{id}},{{/albums}}" name="albums[]" />
+                    </label>
+                    <ul class="albums">{{#albums}}<li>{{name}}
+                        <a href="#{{id}}" title="Remove from album">Remove from album</a></li>{{/albums}}<li><a href="{{baseUrl}}spirit/partial/albums" title="Add to album" class="albumpicker">
+                            Add to album
+                        </a></li>
+                    </ul>
+                </li>
+                <li>
+                    <label><span>Description:</span>
+                        <textarea name="description[]">{{description}}</textarea>
+                    </label>
+                </li>
+            </ul>
+
+            {{^isSingle}}<hr />{{/isSingle}}
+        {{/photos}}
 
         <p>
             <button type="submit">Update</button>
-            <a href="{{baseUrl}}spirit/photos/delete/{{id}}" class="button delete">Delete Photo</a>
+            <a href="{{baseUrl}}spirit/photos/delete/{{ids}}" class="button delete">Delete Photo{{^isSingle}}s{{/isSingle}}</a>
         </p>
     </form>
 </main>

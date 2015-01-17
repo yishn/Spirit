@@ -51,15 +51,15 @@ class Route extends Dispatcher {
         parent::map('GET', '/spirit/{main:photos}/album/{album:\d+}/{page:\d*}', $prepareFilter);
         parent::map('GET', '/spirit/{main:photos}/{month:\d\d\d\d-\d\d}/{page:\d*}', $prepareFilter);
         
-        parent::map('GET', '/spirit/photos/edit/{id:\d+}', function($params) {
+        parent::map('GET', '/spirit/photos/edit/{ids:(\d+,?)+}', function($params) {
             $admin = new Admin();
-            self::verifyModel('Photo', $params['id']);
-            print $admin->renderAdmin('photo-edit', $params);
+            $ids = self::verifyModels('Photo', $params['ids']);
+            print $admin->renderAdmin('photo-edit', $ids);
         });
 
-        parent::map('POST', '/spirit/photos/edit/{id:\d+}', function($params) {
+        parent::map('POST', '/spirit/photos/edit/{ids:(\d+,?)+}', function($params) {
             $admin = new Admin();
-            $admin->executeAction('photo-edit', $params);
+            $admin->executeAction('photo-edit', $ids);
         });
 
         // Albums
@@ -81,11 +81,22 @@ class Route extends Dispatcher {
 
         // Actions
 
-        parent::map('GET', '/spirit/{main:photos|albums}/delete/{id:\d+}', function($params) {
+        parent::map('GET', '/spirit/photos/delete/{ids:(\d+,?)+}', function($params) {
             $admin = new Admin();
-            $album = self::verifyModel($params['main'] == 'albums' ? 'Album' : 'Photo', $params['id']);
+            $ids = self::verifyModels('Photo', $params['ids']);
+            
+            foreach ($ids as $id) {
+                Photo::find_one($id)->delete();
+            }
+
+            self::redirect('/spirit/photos');
+        });
+
+        parent::map('GET', '/spirit/albums/delete/{id:\d+}', function($params) {
+            $admin = new Admin();
+            $album = self::verifyModel('Album', $params['id']);
             $album->delete();
-            self::redirect('/spirit/' . $params['main']);
+            self::redirect('/spirit/albums');
         });
     }
 
@@ -108,6 +119,15 @@ class Route extends Dispatcher {
         }
 
         return $item;
+    }
+
+    public static function verifyModels($model, $ids) {
+        $array = explode(',', $ids);
+        foreach ($array as $id) {
+            self::verifyModel($model, $id);
+        }
+
+        return $array;
     }
 
     public static function buildFilterRoute($base, array $filter = [], $page = 1) {

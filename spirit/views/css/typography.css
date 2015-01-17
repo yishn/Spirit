@@ -3,13 +3,19 @@ body, input, textarea, .ace, button {
     word-wrap: break-word;
 }
 
+hr {
+    display: block;
+    border: none;
+    height: 1px;
+}
+
 textarea { font-family: Consolas, Monaco, 'Courier New', monospace; }
 
 h1, h2 { font-weight: lighter; }
 h1 { font-size: 3em; }
 h2 { font-size: 2em; }
 
-h2, h3, h4, h5, h6, p, ol, ul, blockquote, form {
+h2, h3, h4, h5, h6, p, ol, ul, blockquote, form, hr {
     margin: 1em 0;
 }
 

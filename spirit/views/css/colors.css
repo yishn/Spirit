@@ -8,9 +8,9 @@
  * #26292A
  */
 
-body {
-    background: #F7FEFF;
-}
+hr { background: #83CCBC; }
+
+body { background: #F7FEFF; }
 
 header {
         background: rgba(38, 41, 42, .95);

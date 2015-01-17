@@ -1,10 +1,8 @@
 document.addEvent('domready', function() {
 
-var value = $$('textarea').get('value');
-$$('textarea').setStyle('display', 'none').grab(new Element('div', { 
-    class: 'ace',
-    text: value
-}), 'before').each(function(textarea) {
+$$('textarea').setStyle('display', 'none').each(function(textarea) {
+    textarea.grab(new Element('div', { class: 'ace', text: textarea.get('value') }), 'before');
+
     var editor = ace.edit(textarea.getPrevious('.ace'));
     textarea.getPrevious('.ace').store('ace', editor);
 

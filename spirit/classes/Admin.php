@@ -37,7 +37,15 @@ class Admin {
             $context['previousPageLink'] = Route::buildFilterRoute('spirit/photos', $params['filter'], $params['page'] - 1);
             $context['nextPageLink'] = Route::buildFilterRoute('spirit/photos', $params['filter'], $params['page'] + 1);
         } else if ($main == 'photo-edit') {
-            $context = array_merge($context, Photo::find_one($params['id'])->as_array());
+            $ids = $params;
+            $context['ids'] = implode(',', $ids);
+            $context['photos'] = [];
+
+            foreach ($ids as $id) {
+                $context['photos'][] = Photo::find_one($id)->as_array();
+            }
+
+            $context['isSingle'] = count($context['photos']) == 1;
         } else if ($main == 'albums') {
             $context = array_merge($context, Album::getAlbums(
                 intval(Setting::get('adminAlbumsPerPage')), $params['filter'], $params['page'])
