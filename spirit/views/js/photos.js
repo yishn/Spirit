@@ -21,9 +21,13 @@ $$('.photostream li input').removeEvents('change').addEvent('change', function()
     );
 });
 
-$$('#toolbox .edit a').addEvent('click', function(e) {
+$$('#toolbox .edit a, #toolbox .delete a').addEvent('click', function(e) {
     e.preventDefault();
     var ids = $$('.photostream .selected input[name="id[]"]').get('value').join();
+    
+    if (this.getParent().hasClass('delete') &&
+        !window.confirm("Are you sure you want to delete this? This action cannot be undone."))
+        return;
 
     window.location = this.get('href') + '/' + ids;
 });
