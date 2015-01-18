@@ -103,6 +103,10 @@
         font-size: .8em;
         font-weight: normal; 
     }
+    .albumstream p { 
+        overflow: hidden;
+        white-space: nowrap;
+    }
     .albumstream a {
         color: white;
         opacity: .7;
