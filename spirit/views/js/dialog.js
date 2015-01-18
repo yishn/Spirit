@@ -24,7 +24,7 @@ dialog.show = function() {
 }
 
 dialog.close = function() {
-    var e;
+    var e = { cancel: false };
     dialog.fireEvent('closing', e);
 
     if (e.cancel) return;
