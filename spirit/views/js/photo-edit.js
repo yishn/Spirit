@@ -6,8 +6,7 @@ $$('.form .albums label + .albums').setStyle('display', 'block');
 $$('form button[type="submit"]').addEvent('click', function() {
     var form = this.getParent('form');
 
-    form.getElements('.ace').each(function(ace) {
-        var ulform = ace.getParent('.form');
+    form.getElements('ul.form').each(function(ulform) {
         var editor = ulform.getElement('.ace').retrieve('ace');
 
         ulform.getElement('textarea[name="description[]"]').set('value', editor.getValue());
