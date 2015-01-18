@@ -94,7 +94,10 @@
         z-index: 0;
     }
     .albumstream > li > * { position: relative; z-index: 1; }
-    .albumstream h3 { text-transform: uppercase; }
+    .albumstream h3 {
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
     .albumstream h3 em { 
         font-style: normal; 
         font-size: .8em;
@@ -111,7 +114,7 @@
     }
     .albumstream img { display: none; }
     .albumstream ul {
-        margin-top: -1.3em;
+        margin-top: -1em;
         margin-left: 0;
         list-style: none;
     }
