@@ -44,12 +44,12 @@ class Route extends Dispatcher {
             print $admin->renderAdmin($params['main'], $temp);
         };
 
-        // Photos
+        // Photos & Albums
 
-        parent::map('GET', '/spirit/{main:photos}/{page:\d*}', $prepareFilter);
-        parent::map('GET', '/spirit/{main:photos}/search/{search:.+}/{page:\d*}', $prepareFilter);
+        parent::map('GET', '/spirit/{main:photos|albums}/{page:\d*}', $prepareFilter);
+        parent::map('GET', '/spirit/{main:photos|albums}/search/{search:.+}/{page:\d*}', $prepareFilter);
+        parent::map('GET', '/spirit/{main:photos|albums}/{month:\d\d\d\d-\d\d}/{page:\d*}', $prepareFilter);
         parent::map('GET', '/spirit/{main:photos}/album/{album:\d+}/{page:\d*}', $prepareFilter);
-        parent::map('GET', '/spirit/{main:photos}/{month:\d\d\d\d-\d\d}/{page:\d*}', $prepareFilter);
         
         parent::map('GET', '/spirit/photos/upload', function() {
             $admin = new Admin();
@@ -72,13 +72,7 @@ class Route extends Dispatcher {
             $ids = self::verifyModels('Photo', $params['ids']);
             $admin->executeAction('photo-edit', $ids);
         });
-
-        // Albums
-
-        parent::map('GET', '/spirit/{main:albums}/{page:\d*}', $prepareFilter);
-        parent::map('GET', '/spirit/{main:albums}/search/{search:.+}/{page:\d*}', $prepareFilter);
-        parent::map('GET', '/spirit/{main:albums}/{month:\d\d\d\d-\d\d}/{page:\d*}', $prepareFilter);
-        
+                
         parent::map('GET', '/spirit/albums/edit/{id:\d+|new}', function($params) {
             $admin = new Admin();
             if ($params['id'] != 'new') self::verifyModel('Album', $params['id']);
