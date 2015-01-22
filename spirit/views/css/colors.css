@@ -55,7 +55,8 @@ button:hover, .button:hover, .albums li:hover,
 button:focus, .button:focus
 { opacity: 1; }
 
-#toolbox li.delete a:hover, .button.delete:hover, .albums li:hover
+#toolbox li.delete a:hover, .button.delete:hover, .albums li:hover,
+.dz-remove:hover::before
 { background: #D1370E; color: white; }
 
 nav li:last-child a:hover, button[type="submit"]:hover, 

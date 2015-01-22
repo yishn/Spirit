@@ -1,6 +1,7 @@
 nav ul li a::before, #toolbox li a::before,
 button::before, .button::before,
-.photostream li a.permalink::before, .albums li a::before
+.photostream li a.permalink::before, .albums li a::before,
+.dz-remove::before
 { font-family: Ionicons; margin-right: .5em; }
 
 #toolbox li a::after
@@ -30,5 +31,5 @@ nav ul li:last-child a::before { content: "\f213"; }
 { content: '\f1fe'; }
 button[type="submit"]::before 
 { content: "\f122"; }
-button[type="reset"]::before, .albums li a::before 
+button[type="reset"]::before, .albums li a::before, .dz-remove::before
 { content: "\f12a"; }

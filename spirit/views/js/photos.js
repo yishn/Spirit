@@ -11,9 +11,13 @@ $$('#toolbox .upload a').addEvent('click', function(event) {
     $('dialog').load(this.get('href'));
     $('dialog').removeEvents('shown').addEvent('shown', function() {
         var form = $$('#dialog form')[0];
-        form.grab(new Element('div', { class: 'uploadqueue' }), 'bottom');
+        form.grab(new Element('div', {
+                class: 'dropzone',
+            }).grab(form.getElement('.fallback')), 'top')
+            .grab(new Element('div', { class: 'uploadqueue' }), 'bottom');
 
-        form.store('dropzone', new Dropzone(form, {
+        form.store('dropzone', new Dropzone(form.getElement('.dropzone'), {
+            url: form.get('action'),
             uploadMultiple: true,
             addRemoveLinks: true,
             acceptedFiles: 'image/*',

@@ -202,4 +202,45 @@
     }
     #albumpicker ol li a strong {
         display: block;
+}
+
+.uploadqueue {}
+    .dz-preview {
+        margin-bottom: .5em;
+        margin-right: .5em;
+        position: relative;
+    }
+    .dz-preview, .dz-details {
+        display: inline-block;
+    }
+    .dz-details, .dz-details img {
+        background: #ccc;
+        width: 100px;
+        height: 100px;
+    }
+    .dz-filename, .dz-size,
+    .dz-progress, .dz-success-mark,
+    .dz-error-mark, .dz-error-message {
+        display: none;
+    }
+    .dz-remove::before {
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 1.7em;
+        height: 1.7em;
+        margin: 0;
+        background: #26292A; 
+        color: white;
+        font-size: .8em;
+        line-height: 1.7em;
+        text-align: center;
+        text-decoration: none;
+    }
+    .dz-remove {
+        display: block;
+        height: 0;
+        width: 0;
+        overflow: hidden;
     }
