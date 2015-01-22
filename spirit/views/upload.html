@@ -1,6 +1,8 @@
 <main>
     <form enctype="multipart/form-data" method="post" action="{{baseUrl}}spirit/photos/upload">
-        <p><input type="file" name="file[]" multiple /></p>
+        <div class="fallback">
+            <p><input type="file" name="file[]" multiple /></p>
+        </div>
         <p><button type="submit">Upload</button></p>
     </form>
 </main>
