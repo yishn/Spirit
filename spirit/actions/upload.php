@@ -27,7 +27,7 @@ for ($i = 0; $i < count($_FILES['file']['name']); $i++) {
     if (!move_uploaded_file($_FILES['file']['tmp_name'][$i], $path)) continue;
 
     $title = substr($title, 0, strpos($title, '.'));
-    $date = getExifDate($path);
+    $date = Setting::get('readExif') == 'true' ? getExifDate($path) : new DateTime('now');
 
     $photo = Photo::create();
     $photo->set([
