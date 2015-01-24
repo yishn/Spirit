@@ -23,8 +23,8 @@ $$('#toolbox .upload a').addEvent('click', function(event) {
             acceptedFiles: 'image/*',
             autoProcessQueue: false,
             previewsContainer: form.getElement('.uploadqueue'),
-            thumbnailWidth: 100,
-            thumbnailHeight: 100
+            thumbnailWidth: 99,
+            thumbnailHeight: 99
         }));
 
         $$('#dialog button[type="submit"]').addEvent('click', function(e) {
