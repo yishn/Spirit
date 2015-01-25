@@ -220,12 +220,13 @@
     }
     .dropzone .dz-message { cursor: pointer; }
     .dropzone .progress {
-        background: #22A4f2;
+        background: white;
         left: 0;
         top: 0;
         bottom: 0;
         width: 0;
         position: absolute;
+        opacity: .3;
         transition: width .5s;
     }
     .dz-preview {
