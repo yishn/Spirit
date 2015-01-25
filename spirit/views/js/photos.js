@@ -11,13 +11,14 @@ $$('#toolbox .upload a').addEvent('click', function(event) {
     $('dialog').load(this.get('href'));
     $('dialog').removeEvents('shown').addEvent('shown', function() {
         var form = $$('#dialog form')[0];
+
         form.grab(new Element('div', {
                 class: 'dropzone',
             }).grab(form.getElement('.fallback')), 'top')
             .grab(new Element('div', { class: 'uploadqueue' }), 'bottom');
 
         form.store('dropzone', new Dropzone(form.getElement('.dropzone'), {
-            url: form.get('action'),
+            url: form.get('action') + '/id',
             uploadMultiple: true,
             addRemoveLinks: true,
             acceptedFiles: 'image/*',
@@ -31,7 +32,8 @@ $$('#toolbox .upload a').addEvent('click', function(event) {
             $$('#dialog .dropzone .progress').setStyle('width', progress + '%');
         });
         form.retrieve('dropzone').on('successmultiple', function(file, response) {
-            console.log(response);
+            var ids = response.split('\n')[0];
+            document.location.href = form.get('action').replace('upload', 'edit') + '/' + ids;
         });
 
         $$('#dialog button[type="submit"]').addEvent('click', function(e) {
@@ -45,7 +47,6 @@ $$('#toolbox .upload a').addEvent('click', function(event) {
                 .removeEventListener('click', form.retrieve('dropzone').listeners[1].events.click);
 
             form.retrieve('dropzone').processQueue();
-            form.retrieve('dropzone').options.clickable = false;
         });
     });
 });

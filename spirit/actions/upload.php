@@ -41,7 +41,11 @@ for ($i = 0; $i < count($_FILES['file']['name']); $i++) {
     $ids[] = $photo->id;
 }
 
-if (count($ids) > 0)
-    Route::redirect('spirit/photos/edit/' . implode(',', $ids));
-else
-    Route::redirect('spirit/photos');
+if ($params['mode'] != 'id') {
+    if (count($ids) > 0)
+        Route::redirect('spirit/photos/edit/' . implode(',', $ids));
+    else
+        Route::redirect('spirit/photos');
+} else {
+    echo implode(',', $ids);
+}

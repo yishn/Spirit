@@ -56,21 +56,10 @@ class Route extends Dispatcher {
             print $admin->renderAdmin('upload');
         });
 
-        parent::map('POST', '/spirit/photos/upload', function() {
-            $admin = new Admin();
-            $admin->executeAction('upload');
-        });
-
         parent::map('GET', '/spirit/photos/edit/{ids:(\d+,?)+}', function($params) {
             $admin = new Admin();
             $ids = self::verifyModels('Photo', $params['ids']);
             print $admin->renderAdmin('photo-edit', $ids);
-        });
-
-        parent::map('POST', '/spirit/photos/edit/{ids:(\d+,?)+}', function($params) {
-            $admin = new Admin();
-            $ids = self::verifyModels('Photo', $params['ids']);
-            $admin->executeAction('photo-edit', $ids);
         });
                 
         parent::map('GET', '/spirit/albums/edit/{id:\d+|new}', function($params) {
@@ -79,12 +68,23 @@ class Route extends Dispatcher {
             print $admin->renderAdmin('album-edit', $params);
         });
 
+        // Actions
+
+        parent::map('POST', '/spirit/photos/edit/{ids:(\d+,?)+}', function($params) {
+            $admin = new Admin();
+            $ids = self::verifyModels('Photo', $params['ids']);
+            $admin->executeAction('photo-edit', $ids);
+        });
+
         parent::map('POST', '/spirit/albums/edit/{id:\d+|new}', function($params) {
             $admin = new Admin();
             $admin->executeAction('album-edit', $params);
         });
 
-        // Actions
+        parent::map('POST', '/spirit/photos/upload/{mode:(id)?}', function($params) {
+            $admin = new Admin();
+            $admin->executeAction('upload', $params);
+        });
 
         parent::map('GET', '/spirit/photos/delete/{ids:(\d+,?)+}', function($params) {
             $admin = new Admin();
