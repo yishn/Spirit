@@ -27,9 +27,25 @@ $$('#toolbox .upload a').addEvent('click', function(event) {
             thumbnailHeight: 99
         }));
 
+        form.retrieve('dropzone').on('totaluploadprogress', function(progress, total, sent) {
+            $$('#dialog .dropzone .progress').setStyle('width', progress + '%');
+        });
+        form.retrieve('dropzone').on('successmultiple', function(file, response) {
+            console.log(response);
+        });
+
         $$('#dialog button[type="submit"]').addEvent('click', function(e) {
             e.preventDefault();
+            if ($$('#dialog .dz-preview').length == 0) return;
+
+            this.set('disabled', 'disabled');
+            $$('#dialog .dz-message').setStyle('visibility', 'hidden');
+            $$('#dialog .dropzone')[0].grab(new Element('div', { class: 'progress' }))
+                .addClass('progress')
+                .removeEventListener('click', form.retrieve('dropzone').listeners[1].events.click);
+
             form.retrieve('dropzone').processQueue();
+            form.retrieve('dropzone').options.clickable = false;
         });
     });
 });
