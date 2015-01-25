@@ -214,7 +214,7 @@
         transition: .5s border,
                     .5s background;
     }
-    .dropzone.progress {
+    .dropzone.loading {
         background: #0082f0;
         border: 5px solid #0082f0;
     }
@@ -263,7 +263,7 @@
         text-decoration: none;
     }
     .dz-preview:hover .dz-remove::before { display: block; }
-    .dropzone.progress ~ .uploadqueue .dz-preview:hover .dz-remove::before { display: none; }
+    .dropzone.loading ~ .uploadqueue .dz-preview:hover .dz-remove::before { display: none; }
     .dz-remove {
         display: block;
         height: 0;

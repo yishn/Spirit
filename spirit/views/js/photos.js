@@ -10,6 +10,11 @@ $$('#toolbox .upload a').addEvent('click', function(event) {
     event.preventDefault();
 
     $('dialog').load(this.get('href'));
+    $('dialog').removeEvents('closing').addEvent('closing', function(e) {
+        if (!$$('#dialog .dropzone')[0].hasClass('loading')) return;
+        if (!confirm('Do you really want to cancel the upload?')) e.cancel = true;
+        else $$('#dialog form')[0].retrieve('dropzone').removeAllFiles(true);
+    });
     $('dialog').removeEvents('shown').addEvent('shown', function() {
         var form = $$('#dialog form')[0];
 
@@ -28,6 +33,7 @@ $$('#toolbox .upload a').addEvent('click', function(event) {
             thumbnailWidth: 99,
             thumbnailHeight: 99
         });
+        form.store('dropzone', dropzone);
 
         dropzone.on('totaluploadprogress', function(progress, total, sent) {
             $$('#dialog .dropzone .progress').setStyle('width', progress + '%');
@@ -44,7 +50,7 @@ $$('#toolbox .upload a').addEvent('click', function(event) {
             this.set('disabled', 'disabled');
             $$('#dialog .dz-message').setStyle('visibility', 'hidden');
             $$('#dialog .dropzone')[0].grab(new Element('div', { class: 'progress' }))
-                .addClass('progress')
+                .addClass('loading')
                 .removeEventListener('click', dropzone.listeners[1].events.click);
 
             dropzone.processQueue();
