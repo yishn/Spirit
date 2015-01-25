@@ -8,6 +8,7 @@ document.addEvent('domready', function() {
 
 $$('#toolbox .upload a').addEvent('click', function(event) {
     event.preventDefault();
+
     $('dialog').load(this.get('href'));
     $('dialog').removeEvents('shown').addEvent('shown', function() {
         var form = $$('#dialog form')[0];
@@ -17,7 +18,7 @@ $$('#toolbox .upload a').addEvent('click', function(event) {
             }).grab(form.getElement('.fallback')), 'top')
             .grab(new Element('div', { class: 'uploadqueue' }), 'bottom');
 
-        form.store('dropzone', new Dropzone(form.getElement('.dropzone'), {
+        var dropzone = new Dropzone(form.getElement('.dropzone'), {
             url: form.get('action') + '/id',
             uploadMultiple: true,
             addRemoveLinks: true,
@@ -26,12 +27,12 @@ $$('#toolbox .upload a').addEvent('click', function(event) {
             previewsContainer: form.getElement('.uploadqueue'),
             thumbnailWidth: 99,
             thumbnailHeight: 99
-        }));
+        });
 
-        form.retrieve('dropzone').on('totaluploadprogress', function(progress, total, sent) {
+        dropzone.on('totaluploadprogress', function(progress, total, sent) {
             $$('#dialog .dropzone .progress').setStyle('width', progress + '%');
         });
-        form.retrieve('dropzone').on('successmultiple', function(file, response) {
+        dropzone.on('successmultiple', function(file, response) {
             var ids = response.split('\n')[0];
             window.location.href = form.get('action').replace('upload', 'edit') + '/' + ids;
         });
@@ -44,9 +45,9 @@ $$('#toolbox .upload a').addEvent('click', function(event) {
             $$('#dialog .dz-message').setStyle('visibility', 'hidden');
             $$('#dialog .dropzone')[0].grab(new Element('div', { class: 'progress' }))
                 .addClass('progress')
-                .removeEventListener('click', form.retrieve('dropzone').listeners[1].events.click);
+                .removeEventListener('click', dropzone.listeners[1].events.click);
 
-            form.retrieve('dropzone').processQueue();
+            dropzone.processQueue();
         });
     });
 });
