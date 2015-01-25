@@ -33,7 +33,7 @@ $$('#toolbox .upload a').addEvent('click', function(event) {
         });
         form.retrieve('dropzone').on('successmultiple', function(file, response) {
             var ids = response.split('\n')[0];
-            document.location.href = form.get('action').replace('upload', 'edit') + '/' + ids;
+            window.location.href = form.get('action').replace('upload', 'edit') + '/' + ids;
         });
 
         $$('#dialog button[type="submit"]').addEvent('click', function(e) {
