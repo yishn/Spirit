@@ -5,12 +5,15 @@ document.addEvent('domready', function() {
  */
 
 var throbbersrc = $$('.throbber').get('src');
+var loading = false;
 
 $$('#pagination .previous').getParent().dispose();
 $$('#pagination .next').set('text', 'Load more').removeEvents('click').addEvent('click', function(e) {
     e.preventDefault();
+    if (loading) return;
 
     this.set('html', '<img src="' + throbbersrc[0] + '" alt="Loading&hellip;" />');
+    loading = true;
 
     var next = this;
     var request = new Request.HTML({ 
@@ -25,6 +28,7 @@ $$('#pagination .next').set('text', 'Load more').removeEvents('click').addEvent(
 
             document.fireEvent('domready');
             next.getParent().dispose();
+            loading.false;
         }
     }).get();
 });
