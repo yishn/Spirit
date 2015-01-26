@@ -12,6 +12,14 @@ nav ul li:last-child { float: right; }
 nav ul li a, #toolbox ul li a { margin-top: 0; margin-bottom: 0; }
 
 #toolbox { top: 3.6em; }
+#toolbox .search {
+    text-align: right;
+}
+#toolbox .search input {
+    margin-top: -.2em;
+    margin-bottom: -.2em;
+}
+
 main { margin-top: 6.5em; }
 #dialog main { margin-top: 0; }
 

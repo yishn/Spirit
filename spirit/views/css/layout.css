@@ -21,10 +21,10 @@ header {
         text-transform: uppercase;
 }
 
+nav { overflow: hidden; }
 nav ul, #toolbox ul {
         list-style: none;
         margin: 1em 0 0;
-        overflow: hidden;
         font-size: .8em;
         letter-spacing: 2px;
         text-transform: uppercase;
@@ -37,7 +37,10 @@ nav ul, #toolbox ul {
         text-decoration: none;
 }
 
-#toolbox { padding: .5em 1em; }
+#toolbox {
+        overflow: hidden;
+        padding: .5em 1em;
+    }
     #toolbox ul { 
         margin: 0;
         font-size: 1em;
@@ -45,8 +48,9 @@ nav ul, #toolbox ul {
         line-height: 1em;
         text-transform: none; 
     }
-    #toolbox ul li a {
-        padding: .3em .6em;
+    #toolbox ul li a { padding: .3em .6em; }
+    #toolbox .search input {
+        margin: .3em 0 .2em 0
 }
 
 main {
