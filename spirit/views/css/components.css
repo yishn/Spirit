@@ -126,10 +126,13 @@
     .albumstream ul li::after { content: ", "; }
 .albumstream ul li:last-child::after { content: ""; }
 
-.globalalbums { margin-left: 50%; }
 .albums {
         margin-left: 0;
         list-style: none;
+        transition: opacity 1s;
+    }
+    .albums.disabled {
+        opacity: .3;
     }
     .albums li {
         display: inline;
