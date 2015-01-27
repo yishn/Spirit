@@ -1,4 +1,4 @@
-.throbber { display: none; }
+.throbber, #toolbox .edit, #toolbox .delete, #toolbox .search { display: none; }
 hr { clear: both; }
 
 * {
