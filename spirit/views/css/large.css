@@ -16,8 +16,8 @@ nav ul li a, #toolbox ul li a { margin-top: 0; margin-bottom: 0; }
     text-align: right;
 }
 #toolbox .search input {
-    margin-top: -.2em;
-    margin-bottom: -.2em;
+    margin-top: -.1em;
+    margin-bottom: -.3em;
 }
 
 main { margin-top: 6.5em; }
