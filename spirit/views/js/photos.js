@@ -10,12 +10,15 @@ $$('#toolbox .upload a').addEvent('click', function(event) {
     event.preventDefault();
 
     $('dialog').load(this.get('href'));
-    $('dialog').removeEvents('closing').addEvent('closing', function(e) {
+    $('dialog').addEvent('closing', function(e) {
         if (!$$('#dialog .dropzone')[0].hasClass('loading')) return;
         if (!confirm('Do you really want to cancel the upload?')) e.cancel = true;
         else $$('#dialog form')[0].retrieve('dropzone').removeAllFiles(true);
     });
-    $('dialog').removeEvents('shown').addEvent('shown', function() {
+    $('dialog').addEvent('closed', function() {
+        $('dialog').removeEvents();
+    });
+    $('dialog').addEvent('shown', function() {
         var form = $$('#dialog form')[0];
 
         form.grab(new Element('div', {
