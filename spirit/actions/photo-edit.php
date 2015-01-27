@@ -1,8 +1,6 @@
 <?php
 
-$ids = $params;
-
-for ($i = 0; $i < count($ids); $i++) {
+for ($i = 0; $i < count($_POST['id']); $i++) {
     $photo = Photo::find_one($_POST['id'][$i]);
     if (!$photo) continue;
 
@@ -15,6 +13,9 @@ for ($i = 0; $i < count($ids); $i++) {
 
     // Save albums
     $albums = explode(',', $_POST['albums'][$i]);
+    if (isset($_POST['globalalbums']) && $_POST['globalalbums'] != '')
+        $albums = explode(',', $_POST['globalalbums']);
+
     AlbumPhoto::where('photo_id', $photo->id)->delete_many();
 
     foreach ($albums as $id) {

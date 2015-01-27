@@ -1,23 +1,29 @@
 document.addEvent('domready', function() {
 
-$$('.form .albums input').setStyle('display', 'none');
+$$('.form .albums input, input[name="globalalbums"]').setStyle('display', 'none');
 $$('.form .albums label + .albums').setStyle('display', 'block');
+
+// Submit button
 
 $$('form button[type="submit"]').addEvent('click', function() {
     var form = this.getParent('form');
 
-    form.getElements('ul.form').each(function(ulform) {
-        var editor = ulform.getElement('.ace').retrieve('ace');
+    form.getElements('.globalalbums, ul.form').each(function(ulform) {
+        if (!ulform.hasClass('globalalbums')) {
+            var editor = ulform.getElement('.ace').retrieve('ace');
+            ulform.getElement('textarea[name="description[]"]').set('value', editor.getValue());
+        }
 
-        ulform.getElement('textarea[name="description[]"]').set('value', editor.getValue());
-        ulform.getElement('input[name="albums[]"]').set('value', '');
+        ulform.getElement('input[name="albums[]"], input[name="globalalbums"]').set('value', '');
 
         ulform.getElements('ul.albums > li:not(:last-child) > a').each(function(el) {
             var albumId = el.get('href').replace('#', '');
-            ulform.getElement('input[name="albums[]"]').value += albumId + ','
+            ulform.getElement('input[name="albums[]"], input[name="globalalbums"]').value += albumId + ','
         });
     });
 });
+
+// Albumpicker
 
 var removeAlbum = function(e) {
     e.preventDefault();
