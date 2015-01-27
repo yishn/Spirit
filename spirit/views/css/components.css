@@ -126,7 +126,7 @@
     .albumstream ul li::after { content: ", "; }
 .albumstream ul li:last-child::after { content: ""; }
 
-.globalalbums { text-align: right; }
+.globalalbums { margin-left: 50%; }
 .albums {
         margin-left: 0;
         list-style: none;
@@ -138,7 +138,6 @@
         margin-bottom: .2em;
         font-size: .8em;
         cursor: default;
-        text-align: left;
     }
     .albums li a {
         display: inline-block;

@@ -12,18 +12,23 @@ for ($i = 0; $i < count($_POST['id']); $i++) {
     }
 
     // Save albums
-    $albums = explode(',', $_POST['albums'][$i]);
+    $albums = NULL;
+
+    if (isset($_POST['albums']))
+        $albums = explode(',', $_POST['albums'][$i]);
     if (isset($_POST['globalalbums']) && $_POST['globalalbums'] != '')
         $albums = explode(',', $_POST['globalalbums']);
 
-    AlbumPhoto::where('photo_id', $photo->id)->delete_many();
+    if (!is_null($albums)) {
+        AlbumPhoto::where('photo_id', $photo->id)->delete_many();
 
-    foreach ($albums as $id) {
-        if (!Album::find_one($id)) continue;
+        foreach ($albums as $id) {
+            if (!Album::find_one($id)) continue;
 
-        $item = AlbumPhoto::create();
-        $item->set([ 'photo_id' => $photo->id, 'album_id' => $id ]);
-        $item->save();
+            $item = AlbumPhoto::create();
+            $item->set([ 'photo_id' => $photo->id, 'album_id' => $id ]);
+            $item->save();
+        }
     }
 
     // Save record
