@@ -12,12 +12,10 @@ for ($i = 0; $i < count($_POST['id']); $i++) {
     }
 
     // Save albums
-    $albums = NULL;
+    $albums = explode(',', $_POST['albums'][$i]);
 
-    if (isset($_POST['albums']))
-        $albums = explode(',', $_POST['albums'][$i]);
     if (isset($_POST['globalalbums']) && $_POST['globalalbums'] != '')
-        $albums = explode(',', $_POST['globalalbums']);
+        $albums = array_merge($albums, explode(',', $_POST['globalalbums']));
 
     if (!is_null($albums)) {
         AlbumPhoto::where('photo_id', $photo->id)->delete_many();

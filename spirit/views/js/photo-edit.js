@@ -23,22 +23,11 @@ $$('form button[type="submit"]').addEvent('click', function() {
     });
 });
 
-// Disable/Enable albumlists
-
-var disenableAlbumlists = function() {
-    var count = $$('.globalalbums .albums > li:not(:last-child) > a').length;
-
-    if (count != 0) $$('ul.form ul.albums').addClass('disabled');
-    else $$('ul.form ul.albums').removeClass('disabled');
-};
-
 // Albumpicker
 
 var removeAlbum = function(e) {
     e.preventDefault();
     this.getParent('li').destroy();
-
-    disenableAlbumlists();
 };
 
 $$('ul.albums > li:not(:last-child) > a').addEvent('click', removeAlbum);
@@ -63,8 +52,6 @@ $$('.albumpicker').addEvent('albumlinkclick', function(e, link) {
             }
         })), 'top'
     );
-
-    disenableAlbumlists();
 });
 
 });
