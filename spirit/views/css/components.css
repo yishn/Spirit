@@ -19,6 +19,7 @@
     .photostream li {
         position: relative;
         display: inline-block;
+        max-width: 42%;
         margin-right: .3em;
         margin-bottom: .3em;
         border: .35em solid transparent;
@@ -65,8 +66,7 @@
         text-align: center;
         text-decoration: none;
         z-index: 1;
-    }
-.photostream li { max-width: 42%; }
+}
 
 .albumstream {
         margin-left: 0;
