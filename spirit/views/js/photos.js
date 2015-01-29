@@ -6,7 +6,7 @@ document.addEvent('domready', function() {
 
 // Configure Dropzone and upload form
 
-$$('#toolbox .upload a').addEvent('click', function(event) {
+$$('#toolbox .upload a').removeEvents('click').addEvent('click', function(event) {
     event.preventDefault();
 
     $('dialog').load(this.get('href'));
@@ -20,6 +20,8 @@ $$('#toolbox .upload a').addEvent('click', function(event) {
     });
     $('dialog').addEvent('shown', function() {
         var form = $$('#dialog form')[0];
+        var ids = '';
+        var count = 0;
 
         form.grab(new Element('div', {
                 class: 'dropzone',
@@ -28,22 +30,32 @@ $$('#toolbox .upload a').addEvent('click', function(event) {
 
         var dropzone = new Dropzone(form.getElement('.dropzone'), {
             url: form.get('action') + '/id',
-            uploadMultiple: true,
             addRemoveLinks: true,
             acceptedFiles: 'image/*',
             autoProcessQueue: false,
+            paramName: 'file[]',
+            parallelUploads: 1,
             previewsContainer: form.getElement('.uploadqueue'),
             thumbnailWidth: 99,
             thumbnailHeight: 99
         });
         form.store('dropzone', dropzone);
 
-        dropzone.on('totaluploadprogress', function(progress, total, sent) {
-            $$('#dialog .dropzone .progress').setStyle('width', progress + '%');
+        dropzone.on('complete', function(file) {
+            this.removeFile(file);
         });
-        dropzone.on('successmultiple', function(file, response) {
-            var ids = response.split('\n')[0];
-            window.location.href = form.get('action').replace('upload', 'edit') + '/' + ids;
+        dropzone.on('uploadprogress', function(file, progress, sent) {
+            var totalprogress = 100.0 / count * (count - this.getAcceptedFiles().length);
+            totalprogress += progress / count;
+
+            $$('#dialog .dropzone .progress').setStyle('width', totalprogress + '%');
+        });
+        dropzone.on('success', function(file, response) {
+            ids += response.split('\n')[0] + ',';
+            dropzone.processQueue();
+        });
+        dropzone.on('queuecomplete', function() {
+            window.location.href = form.get('action').replace('upload', 'edit') + '/' + ids.substr(0, ids.length - 1);
         });
 
         $$('#dialog button[type="submit"]').addEvent('click', function(e) {
@@ -56,6 +68,7 @@ $$('#toolbox .upload a').addEvent('click', function(event) {
                 .addClass('loading')
                 .removeEventListener('click', dropzone.listeners[1].events.click);
 
+            count = dropzone.getAcceptedFiles().length;
             dropzone.processQueue();
         });
     });
@@ -77,7 +90,7 @@ $$('.photostream li input').removeEvents('change').addEvent('change', function()
 
 // Bulk edit/delete
 
-$$('#toolbox .edit a, #toolbox .delete a').addEvent('click', function(e) {
+$$('#toolbox .edit a, #toolbox .delete a').removeEvents('click').addEvent('click', function(e) {
     e.preventDefault();
     var ids = $$('.photostream .selected input[name="id[]"]').get('value').join();
     
