@@ -1,5 +1,16 @@
-<ol>
-    {{#months}}
-    <li><a href="{{baseUrl}}spirit/{{main}}/month/{{id}}">{{name}}</a></li>
-    {{/months}}
-</ol>
+<main id="monthpicker">
+    <ul>
+        <li><a href="{{baseUrl}}spirit/partial/monthpicker/{{main}}/{{previousYear}}">Previous Year</a></li>
+        <li><input type="text" value="{{year}}" /></li>
+        <li><a href="{{baseUrl}}spirit/partial/monthpicker/{{main}}/{{nextYear}}">Next Year</a></li>
+    </ul>
+    <ol>
+        {{#months}}
+        <li>
+            {{#activated}}<a href="{{baseUrl}}spirit/{{main}}/{{year}}-{{id}}">{{/activated}}
+                {{name}}
+            {{#activated}}</a>{{/activated}}
+        </li>
+        {{/months}}
+    </ol>
+</main>

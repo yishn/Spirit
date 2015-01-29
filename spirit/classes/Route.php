@@ -114,6 +114,33 @@ class Route extends Dispatcher {
 
             print Mustache::renderByFile('spirit/views/partials/albumpicker', $context);
         });
+
+        parent::map('GET', '/spirit/partial/monthpicker/{main:photos|albums}', function($params) {
+            parent::redirect('/spirit/partial/monthpicker/' . $params['main'] . '/' . date('Y'));
+        });
+        parent::map('GET', '/spirit/partial/monthpicker/{main:photos|albums}/{year:\d\d\d\d}', function($params) {
+            $context = [
+                'months' => [],
+                'baseUrl' => Route::config('url'),
+                'previousYear' => str_pad(max($params['year'] - 1, 1), 4, '0', STR_PAD_LEFT),
+                'nextYear' => str_pad(min($params['year'] + 1, 9999), 4, '0', STR_PAD_LEFT)
+            ];
+            $context = array_merge($context, $params);
+            $context['year'] = intval($context['year']);
+
+            for ($i = 1; $i <= 12; $i++) {
+                $id = $i < 10 ? '0' . $i : $i;
+                $month = [
+                    'id' => $id,
+                    'name' => date('F', mktime(0, 0, 0, $i, 1, 2000)),
+                    'activated' => Photo::filter('in_month', $params['year'] . '-' . $id)->count() != 0
+                ];
+
+                $context['months'][] = $month;
+            }
+
+            print Mustache::renderByFile('spirit/views/partials/monthpicker', $context);
+        });
     }
 
     public static function verifyModel($model, $id) {
