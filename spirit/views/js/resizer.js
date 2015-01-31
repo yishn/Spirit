@@ -13,7 +13,7 @@ items.setStyles({
 var item = $$('main .stream > li')[0];
 var width = item.getSize().x;
 var height = item.getSize().y;
-var padding = width - item.getStyle('width').toInt() + item.getStyle('margin-right').toInt() + 1;
+var padding = width - item.getStyle('width').toInt() + item.getStyle('margin-right').toInt();
 
 var resize = function() {
     var globalwidth = item.getParent().getSize().x;
@@ -22,8 +22,8 @@ var resize = function() {
     var newheight = newwidth / width * height;
 
     items.setStyles({
-        'height': Math.floor(newheight - padding),
-        'width': Math.floor(newwidth - padding)
+        'height': Math.floor(newheight - padding - 1),
+        'width': Math.floor(newwidth - padding - 1)
     });
 }
 
