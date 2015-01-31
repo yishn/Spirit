@@ -10,7 +10,7 @@ $$('.monthpicker').removeEvents('click').addEvent('click', function(event) {
 
     $('dialog').load(this.get('href'));
 
-    $('dialog').addEvent('shown', function() {
+    $('dialog').removeEvents('shown').addEvent('shown', function() {
         $$('#dialog #monthpicker ul li a').addEvent('click', function(e) {
             e.preventDefault();
             $('dialog').load(this.get('href'));

@@ -11,6 +11,11 @@ class Album extends Model {
             ->find_one();
     }
 
+    public function getFormattedDescription() {
+        $parsedown = new Parsedown();
+        return $parsedown->text($this->description);
+    }
+
     public function getFormattedDate($format = 'Y-m-d H:i') {
         $photo = $this->getPhoto();
         $date = new DateTime(!$photo ? 'now' : $photo->date);
@@ -25,7 +30,6 @@ class Album extends Model {
     public function as_array() {
         $result = parent::as_array();
 
-        $result['hasDescription'] = trim($this->description) != '';
         $result['thumbnailLink'] = function() {
             $photo = $this->getPhoto();
             return !$photo ? Route::link('/') : $photo->getThumbnailLink();
@@ -37,6 +41,7 @@ class Album extends Model {
         $result['count'] = function() { return $this->photos()->count(); };
         $result['date'] = function() { return $this->getFormattedDate(); };
         $result['month'] = function() { return $this->getFormattedDate('Y-m'); };
+        $result['formattedDescription'] = function() { return $this->getFormattedDescription(); };
         $result['formattedDate'] = function() { return $this->getFormattedDate(Setting::get('albumDateFormat')); };
 
         return $result;
