@@ -189,20 +189,62 @@
         opacity: .2;
 }
 
-#albumpicker ol {
+#albumpicker ol, #monthpicker ol, #monthpicker ul {
         list-style: none;
         margin-left: 0;
     }
-    #albumpicker ol li a {
+    #albumpicker ol li a, #monthpicker ol li a {
         display: block;
         padding: .5em;
         color: black;
         text-decoration: none;
     }
     #albumpicker ol li + li a { border-top: 1px solid #DEE6ED; }
-    #albumpicker ol li a:hover, #albumpicker ol li a:focus {
+    #albumpicker ol li a:hover, #albumpicker ol li a:focus,
+    #monthpicker ol li a:hover, #monthpicker ol li a:focus {
         background: #0082f0;
         color: white;
+}
+
+#monthpicker ul {
+        font-size: 1.2em;
+        text-align: center;
+    }
+    #monthpicker ul li, #monthpicker ul li a, #monthpicker ul li a::before {
+        display: inline-block;
+    }
+    #monthpicker ul li a, #monthpicker ul li a::before {
+        height: 1.5em;
+        width: 1.5em;
+        overflow: hidden;
+        text-decoration: none;
+        line-height: 1.5em;
+    }
+    #monthpicker ul li:first-child, #monthpicker ul li:last-child {
+        position: relative;
+        top: .4em;
+    }
+    #monthpicker ul input {
+        border: 1px solid transparent;
+        width: 2.5em;
+        background: transparent;
+        text-align: center;
+        font-weight: bold;
+    }
+    #monthpicker ul input:focus {
+        border: 1px solid #aaa;
+        background: white;
+    }
+    #monthpicker ol {
+        column-count: 2;
+        -moz-column-count: 2;
+        -webkit-column-count: 2;
+    }
+    #monthpicker ol li a { border-bottom: 1px solid #DEE6ED; }
+    #monthpicker ol li a.disabled { color: #aaa; }
+    #monthpicker ol li a.disabled:hover, #monthpicker ol li a.disabled:focus {
+        background: #eee;
+        color: #888;
 }
 
 .dropzone {

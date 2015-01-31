@@ -7,9 +7,9 @@
     <ol>
         {{#months}}
         <li>
-            {{#activated}}<a href="{{baseUrl}}spirit/{{main}}/{{year}}-{{id}}">{{/activated}}
+            <a href="{{baseUrl}}spirit/{{main}}/{{year}}-{{id}}" {{^activated}}class="disabled"{{/activated}}>
                 {{name}}
-            {{#activated}}</a>{{/activated}}
+            </a>
         </li>
         {{/months}}
     </ol>
