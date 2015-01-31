@@ -126,7 +126,6 @@ class Route extends Dispatcher {
                 'nextYear' => str_pad(min($params['year'] + 1, 9999), 4, '0', STR_PAD_LEFT)
             ];
             $context = array_merge($context, $params);
-            $context['year'] = intval($context['year']);
 
             for ($i = 1; $i <= 12; $i++) {
                 $id = $i < 10 ? '0' . $i : $i;

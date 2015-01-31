@@ -5,7 +5,7 @@ document.addEvent('domready', function() {
  * Requires dialog.js
  */
 
-$$('.albumpicker').addEvent('click', function(event) {
+$$('.albumpicker').removeEvents('click').addEvent('click', function(event) {
     event.preventDefault();
     var link = this;
 
