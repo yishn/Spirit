@@ -246,8 +246,8 @@
     #monthpicker ol li a { border-bottom: 1px solid #DEE6ED; }
     #monthpicker ol li a.disabled { color: #aaa; }
     #monthpicker ol li a.disabled:hover, #monthpicker ol li a.disabled:focus {
-        background: #eee;
-        color: #888;
+        background: transparent;
+        color: #aaa;
 }
 
 .dropzone {
