@@ -1,5 +1,7 @@
 <?php
 
+$ids = Route::verifyModels('Photo', $params['ids']);
+
 for ($i = 0; $i < count($_POST['id']); $i++) {
     $photo = Photo::find_one($_POST['id'][$i]);
     if (!$photo) continue;

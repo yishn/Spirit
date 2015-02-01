@@ -72,8 +72,7 @@ class Route extends Dispatcher {
 
         parent::map('POST', '/spirit/photos/edit/{ids:(\d+,?)+}', function($params) {
             $admin = new Admin();
-            $ids = self::verifyModels('Photo', $params['ids']);
-            $admin->executeAction('photo-edit', $ids);
+            $admin->executeAction('photo-edit', $params);
         });
 
         parent::map('POST', '/spirit/albums/edit/{id:\d+|new}', function($params) {
@@ -88,20 +87,12 @@ class Route extends Dispatcher {
 
         parent::map('GET', '/spirit/photos/delete/{ids:(\d+,?)+}', function($params) {
             $admin = new Admin();
-            $ids = self::verifyModels('Photo', $params['ids']);
-            
-            foreach ($ids as $id) {
-                Photo::find_one($id)->delete();
-            }
-
-            self::redirect('/spirit/photos');
+            $admin->executeAction('photo-delete', $params);
         });
 
         parent::map('GET', '/spirit/albums/delete/{id:\d+}', function($params) {
             $admin = new Admin();
-            $album = self::verifyModel('Album', $params['id']);
-            $album->delete();
-            self::redirect('/spirit/albums');
+            $admin->executeAction('album-delete', $params);
         });
     }
 
