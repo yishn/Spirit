@@ -8,16 +8,25 @@ document.addEvent('domready', function() {
 
 $$('#toolbox .upload a').removeEvents('click').addEvent('click', function(event) {
     event.preventDefault();
+    var title = document.title;
 
     $('dialog').load(this.get('href'));
+
     $('dialog').addEvent('closing', function(e) {
         if (!$$('#dialog .dropzone')[0].hasClass('loading')) return;
-        if (!confirm('Do you really want to cancel the upload?')) e.cancel = true;
-        else $$('#dialog form')[0].retrieve('dropzone').removeAllFiles(true);
+
+        if (!confirm('Do you really want to cancel the upload?')) {
+            e.cancel = true;
+        } else {
+            $$('#dialog form')[0].retrieve('dropzone').removeAllFiles(true);
+            document.title = title;
+        }
     });
+
     $('dialog').addEvent('closed', function() {
         $('dialog').removeEvents();
     });
+    
     $('dialog').addEvent('shown', function() {
         var form = $$('#dialog form')[0];
         var ids = '';
@@ -49,6 +58,7 @@ $$('#toolbox .upload a').removeEvents('click').addEvent('click', function(event)
             totalprogress += progress / count;
 
             $$('#dialog .dropzone .progress').setStyle('width', totalprogress + '%');
+            document.title = totalprogress.toInt() + '% ' + title;
         });
         dropzone.on('success', function(file, response) {
             ids += response.split('\n')[0] + ',';
