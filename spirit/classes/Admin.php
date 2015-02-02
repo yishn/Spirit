@@ -7,7 +7,7 @@ class Admin {
     }
 
     public function isLoggedIn() {
-        $this->user = User::where('name', 'yishn')->find_one();
+        $this->user = User::where('email', 'shen.yichuan@gmail.com')->find_one();
         return true;
     }
 

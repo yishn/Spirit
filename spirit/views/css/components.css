@@ -189,7 +189,7 @@
     }
     #overlay.show {
         display: block;
-        opacity: .2;
+        opacity: .1;
 }
 
 #albumpicker ol, #monthpicker ol, #monthpicker ul {
