@@ -1,10 +1,6 @@
-{{#hasAlbums}}
 <ol>
+    <li class="add"><a href="{{baseUrl}}spirit/albums/edit/new"><strong>New Album</strong></a></li>
     {{#albums}}
     <li><a href="{{baseUrl}}spirit/photos/album/{{id}}"><strong>{{name}}</strong> {{formattedDate}}</a></li>
     {{/albums}}
 </ol>
-{{/hasAlbums}}
-{{^hasAlbums}}
-<p>Nothing found.</p>
-{{/hasAlbums}}

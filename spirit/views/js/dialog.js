@@ -14,6 +14,8 @@ dialog.load = function(url) {
             dialog.show();
         }
     }).get();
+
+    return dialog;
 };
 
 dialog.show = function() {
@@ -21,6 +23,7 @@ dialog.show = function() {
     dialog.addClass('show');
 
     dialog.fireEvent('shown');
+    return dialog;
 }
 
 dialog.close = function() {
@@ -32,6 +35,7 @@ dialog.close = function() {
     overlay.removeClass('show');
 
     dialog.fireEvent('closed', e);
+    return dialog;
 };
 
 overlay.addEvent('click', dialog.close);

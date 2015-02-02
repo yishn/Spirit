@@ -55,6 +55,7 @@ class Admin {
         } else if ($main == 'album-edit') {
             $album = $params['id'] == 'new' ? Album::create() : Album::find_one($params['id']);
             $context = array_merge($context, $album->as_array());
+            $context['createNew'] = $params['id'] == 'new';
         }
 
         return Mustache::renderByFile('spirit/views/' . $main, $context);

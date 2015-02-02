@@ -2,7 +2,7 @@ nav ul li a::before, #toolbox li a::before,
 button::before, .button::before,
 .photostream li a.permalink::before, .albums li a::before,
 .dz-remove::before, #monthpicker ul li:first-child a::before,
-#monthpicker ul li:last-child a::before
+#monthpicker ul li:last-child a::before, #albumpicker ol li.add a::before
 { font-family: Ionicons; margin-right: .5em; }
 
 #toolbox li a::after
@@ -16,7 +16,7 @@ nav ul li:last-child a::before { content: "\f213"; }
 
 #toolbox li.back a::before 
 { content: "\f2ca"; }
-#toolbox li.add a::before, .albums li:last-child a::before 
+#toolbox li.add a::before, .albums li:last-child a::before, #albumpicker ol li.add a::before
 { content: "\f218"; }
 #toolbox li.upload a::before 
 { content: "\f366"; }

@@ -23,10 +23,24 @@ $$('.albumpicker').removeEvents('click').addEvent('click', function(event) {
             url: link.get('href') + '/' + encodeURIComponent(this.get('value')),
             update: $$('#albumpicker div')[0],
             onSuccess: function() {
-                $$('#albumpicker div ol li a').addEvent('click', function(e) {
+                $$('#albumpicker div ol li:not(.add) a').addEvent('click', function(e) {
                     link.fireEvent('albumlinkclick', [e, this]);
                 });
-                $('dialog').show();
+                $$('#albumpicker div ol li.add a').addEvent('click', function(e) {
+                    e.preventDefault();
+                    $('dialog').load(this.get('href')).removeEvents('shown').addEvent('shown', function() {
+                        $$('#dialog input')[0].focus();
+                        $$('#dialog form')[0].set('send', {
+                            onSuccess: function() { link.fireEvent('click', event); }
+                        });
+                        $$('#dialog form button[type="submit"]').addEvent('click', function(e) {
+                            e.preventDefault();
+                            this.getParent('form').send();
+                        });
+                    });
+                });
+
+                $('dialog').removeEvents('shown').show();
                 $$('#dialog input')[0].focus();
             }
         }).get();
