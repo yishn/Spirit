@@ -5,6 +5,13 @@ class User extends Model {
         return $this->has_many('Photo');
     }
 
+    public function as_array() {
+        $result = parent::as_array();
+        $result['admin'] = $result['admin'] == 1;
+        
+        return $result;
+    }
+
     public static function getUsers() {
         $users = User::order_by_desc('admin')
             ->order_by_desc('id')
@@ -14,6 +21,8 @@ class User extends Model {
             return $user->as_array();
         }, $users);
 
-        return $users;
+        return [
+            'users' => $users
+        ];
     }
 }

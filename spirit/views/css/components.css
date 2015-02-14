@@ -92,7 +92,6 @@
         content: '';
         opacity: .3;
         z-index: 0;
-        transition: opacity .2s;
     }
     .albumstream > li:hover::after { opacity: .5; }
     .albumstream > li > * { position: relative; z-index: 1; }

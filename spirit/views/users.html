@@ -6,4 +6,10 @@
 
 <main>
     <h2>Users</h2>
+
+    <ul class="userstream">
+        {{#users}}
+        <li><a href="{{baseUrl}}spirit/users/{{id}}">{{name}}</a> {{#admin}}Admin{{/admin}}</li>
+        {{/users}}
+    </ul>
 </main>
