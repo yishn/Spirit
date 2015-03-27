@@ -5,9 +5,18 @@ class User extends Model {
         return $this->has_many('Photo');
     }
 
+    public function getHash() {
+        return md5(strtolower(trim($this->email)));
+    }
+
+    public function getAvatarLink() {
+        return 'http://www.gravatar.com/avatar/' + $this->getHash() + '?d=retro';
+    }
+
     public function as_array() {
         $result = parent::as_array();
         $result['admin'] = $result['admin'] == 1;
+        $result['avatarLink'] = $this->getAvatarLink();
         
         return $result;
     }
