@@ -17,7 +17,6 @@ class User extends Model {
         $result = parent::as_array();
         $result['admin'] = $result['admin'] == 1;
         $result['avatarLink'] = $this->getAvatarLink();
-        echo $this->getHash();
         
         return $result;
     }
