@@ -16,6 +16,7 @@ class Admin {
             'title' => Setting::get('title'),
             'baseUrl' => Route::config('url'),
             'user' => $this->user->as_array(),
+            'userIsRoot' => $this->user->root == 1,
 
             'mainPhotos' => $main == 'photos' || $main == 'photo-edit' || $main == 'upload',
             'mainAlbums' => $main == 'albums' || $main == 'album-edit',
@@ -66,6 +67,7 @@ class Admin {
             $user = $params['id'] == 'new' ? User::create() : User::find_one($params['id']);
             $context = array_merge($context, $user->as_array());
             $context['createNew'] = $params['id'] == 'new';
+            $context['editable'] = $user->id == 'new' || $user->id == $this->user->id || $this->user->root;
         }
 
         return Mustache::renderByFile('spirit/views/' . $main, $context);

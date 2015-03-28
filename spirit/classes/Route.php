@@ -9,7 +9,8 @@ class Route extends Dispatcher {
 
     private static function mapTheme() {
         parent::map('GET', '/', function() { echo "Void."; });
-        parent::map(404, function() { echo "Error 404"; });
+        parent::map(401, function() { echo "Error 401: Unauthorized"; });
+        parent::map(404, function() { echo "Error 404: Not Found"; });
 
         parent::map('GET', '/photo/{id:\d+}', function($params) {
             parent::redirect('/photo/' . $params['id'] . '/size/large');

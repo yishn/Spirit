@@ -3,8 +3,15 @@
 $user = User::find_one($params['id']);
 if (!$user) $user = User::create();
 
+// Check data
 if ($_POST['name'] == '' || $_POST['email'] == '')
     Route::redirect('/spirit/users/' . $user->id);
+
+// Check authorization
+if (!$this->user->root && $user->id != 'new' && $this->user->id != $user->id) {
+    Route::error(401);
+    die();
+}
 
 $user->set([
     'name' => $_POST['name'],

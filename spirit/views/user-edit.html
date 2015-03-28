@@ -9,31 +9,38 @@
         <ul class="form">
             <li>
                 <label><span>Email:</span>
-                    <input type="text" value="{{email}}" name="email" maxlength="254" />
+                    <input type="text" value="{{email}}" {{^editable}}disabled{{/editable}} required name="email" maxlength="254" />
                 </label>
             </li>
             <li>
                 <label><span>Name:</span>
-                    <input type="text" value="{{name}}" name="name" maxlength="64" />
+                    <input type="text" value="{{name}}" {{^editable}}disabled{{/editable}} required name="name" maxlength="64" />
                 </label>
             </li>
+            {{#editable}}
             <li>
                 <label><span>{{#createNew}}P{{/createNew}}{{^createNew}}New p{{/createNew}}assword:</span>
-                    <input type="password" value="" name="password" />
+                    <input type="password" {{#createNew}}required{{/createNew}} name="password" />
                 </label>
             </li>
             <li>
                 <label><span>Verify password:</span>
-                    <input type="password" value="" name="verifypassword" />
+                    <input type="password" {{#createNew}}required{{/createNew}} name="verifypassword" />
                 </label>
             </li>
+            {{/editable}}
         </ul>
 
         <p>
-            <button type="submit">{{#createNew}}Create{{/createNew}}{{^createNew}}Update{{/createNew}}</button>
-            {{^root}}{{^createNew}}
-            <a href="{{baseUrl}}spirit/users/delete/{{id}}" class="button delete">Delete User</a>
-            {{/createNew}}{{/root}}
+            {{#editable}}
+                <button type="submit">{{#createNew}}Create{{/createNew}}{{^createNew}}Update{{/createNew}}</button>
+
+                {{^createNew}}
+                {{^root}}
+                <a href="{{baseUrl}}spirit/users/delete/{{id}}" class="button delete">Delete User</a>
+                {{/root}}
+                {{/createNew}}
+            {{/editable}}
         </p>
     </form>
 </main>
