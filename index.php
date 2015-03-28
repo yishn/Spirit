@@ -2,9 +2,11 @@
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-session_start();
 
 require_once('spirit/includes.php');
+
+session_set_cookie_params(60 * 60 * 24 * 7, Route::config('url'));
+session_start();
 
 Route::map();
 Route::dispatch();
