@@ -10,9 +10,12 @@
     <ul class="userstream">
         {{#users}}
         <li>
-            <img src="{{avatarLink}}&amp;s=50" alt="Avatar" />
-            <a href="{{baseUrl}}spirit/users/{{id}}">{{name}}</a>
-            {{#admin}}<span>Admin</span>{{/admin}}
+            <a href="{{baseUrl}}spirit/users/{{id}}">
+                <img src="{{avatarLink}}&amp;s=50" width="50" height="50" alt="Avatar" />
+                {{name}}
+                {{#admin}}<span>Admin</span>{{/admin}}
+                {{#current}}<span>You</span>{{/current}}
+            </a>
         </li>
         {{/users}}
     </ul>

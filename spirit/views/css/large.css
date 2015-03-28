@@ -41,7 +41,7 @@ main p.photo {
     width: 10em;
 }
 
-.albumstream > li {
+.albumstream > li, .userstream > li {
     float: left;
     margin-right: 1em;
     width: 285px;

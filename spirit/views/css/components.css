@@ -11,7 +11,7 @@
         text-align: right;
 }
 
-.photostream {
+.photostream, .albumstream, .userstream {
         display: block;
         margin-left: 0;
         list-style: none;
@@ -68,11 +68,7 @@
         z-index: 1;
 }
 
-.albumstream {
-        margin-left: 0;
-        list-style: none;
-    }
-    .albumstream > li {
+.albumstream > li {
         position: relative;
         display: block;
         margin-bottom: 1em;
@@ -96,8 +92,11 @@
     .albumstream > li:hover::after { opacity: .5; }
     .albumstream > li > * { position: relative; z-index: 1; }
     .albumstream h3 {
+        height: 1.2em;
+        overflow: hidden;
         letter-spacing: 1px;
         text-transform: uppercase;
+        text-overflow: ellipsis;
     }
     .albumstream h3 em { 
         font-style: normal; 
@@ -126,6 +125,32 @@
     .albumstream ul li { display: inline; }
     .albumstream ul li::after { content: ", "; }
 .albumstream ul li:last-child::after { content: ""; }
+
+.userstream > li > a {
+        position: relative;
+        display: block;
+        margin-bottom: 1em;
+        padding: .5em;
+        padding-left: .5em;
+        background: #e0e0e0;
+        color: black;
+        text-decoration: none;
+    }
+    .userstream > li > a:hover { background: #d0d0d0; }
+    .userstream > li img { margin-right: .5em; }
+    .userstream > li span {
+        background: #D1370E;
+        margin-left: 5px;
+        padding: 2px 5px;
+        color: white;
+        font-size: .7em;
+        font-weight: bold;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+    .userstream > li span + span {
+        background: #0082f0;
+}
 
 .albums {
         margin-left: 0;

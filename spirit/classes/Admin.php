@@ -58,6 +58,10 @@ class Admin {
             $context['createNew'] = $params['id'] == 'new';
         } else if ($main == 'users') {
             $context = array_merge($context, User::getUsers());
+
+            for ($i = 0; $i < count($context['users']); $i++) { 
+                $context['users'][$i]['current'] = $context['users'][$i]['id'] == $this->user->id;
+            }
         } else if ($main == 'user-edit') {
             $user = $params['id'] == 'new' ? User::create() : User::find_one($params['id']);
             $context = array_merge($context, $user->as_array());
