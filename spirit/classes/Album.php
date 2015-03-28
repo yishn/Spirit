@@ -69,7 +69,7 @@ class Album extends Model {
         $albums = $query->left_outer_join($table, array("{$table}.album_id", '=', "{$albumTable}.id"))
             ->left_outer_join($photoTable, array("{$photoTable}.id", '=', "{$table}.photo_id"))
             ->distinct()
-            ->order_by_desc("{$albumTable}.id")
+            //->order_by_desc("{$albumTable}.id")
             ->order_by_desc("{$photoTable}.date")
             ->limit($limit + 1)
             ->offset(($page - 1) * $limit)
