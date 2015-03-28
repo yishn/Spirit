@@ -136,7 +136,7 @@
         color: black;
         text-decoration: none;
     }
-    .userstream > li > a:hover { background: #d0d0d0; }
+    .userstream > li > a:hover { background: #ccc; }
     .userstream > li img { margin-right: .5em; }
     .userstream > li span {
         background: #0082f0;
@@ -148,7 +148,7 @@
         letter-spacing: 1px;
         text-transform: uppercase;
     }
-    .userstream > li span.admin {
+    .userstream > li span.root {
         background: #D1370E;
 }
 

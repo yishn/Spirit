@@ -24,7 +24,7 @@ class User extends Model {
 
     public function as_array() {
         $result = parent::as_array();
-        $result['admin'] = $result['admin'] == 1;
+        $result['root'] = $result['root'] == 1;
         $result['avatarLink'] = $this->getAvatarLink();
         
         return $result;
@@ -38,13 +38,13 @@ class User extends Model {
             'name' => '',
             'hash' => '',
             'salt' => '',
-            'admin' => false
+            'root' => false
         ]);
         return $user;
     }
 
     public static function getUsers() {
-        $users = User::order_by_desc('admin')
+        $users = User::order_by_desc('root')
             ->order_by_desc('id')
             ->find_many();
 

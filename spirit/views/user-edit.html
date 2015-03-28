@@ -31,6 +31,9 @@
 
         <p>
             <button type="submit">{{#createNew}}Create{{/createNew}}{{^createNew}}Update{{/createNew}}</button>
+            {{^root}}{{^createNew}}
+            <a href="{{baseUrl}}spirit/users/delete/{{id}}" class="button delete">Delete User</a>
+            {{/createNew}}{{/root}}
         </p>
     </form>
 </main>
