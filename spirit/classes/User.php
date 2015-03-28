@@ -5,14 +5,17 @@ class User extends Model {
         return $this->has_many('Photo');
     }
 
-    public function generateSalt() {
+    public function generateHash($password) {
         $salt = strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
         $salt = sprintf("$2a$%02d$", 15) . $salt;
+
         $this->salt = $salt;
+        $this->hash = crypt($password, $salt);
     }
 
-    public function getHash($password) {
-        return crypt($password, $this->salt);
+    public function compareHash($password) {
+        $hash = crypt($password, $this->salt);
+        return hash_equals($this->hash, $hash);
     }
 
     public function getAvatarLink() {
