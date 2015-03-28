@@ -60,7 +60,7 @@ class Admin {
         } else if ($main == 'users') {
             $context = array_merge($context, User::getUsers());
 
-            for ($i = 0; $i < count($context['users']); $i++) { 
+            for ($i = 0; $i < count($context['users']); $i++) {
                 $context['users'][$i]['current'] = $context['users'][$i]['id'] == $this->user->id;
             }
         } else if ($main == 'user-edit') {
