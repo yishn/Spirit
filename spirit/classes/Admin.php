@@ -7,7 +7,7 @@ class Admin {
     }
 
     public function isLoggedIn() {
-        $this->user = User::where('id', Route::session('user'))->find_one();
+        $this->user = User::where_id_is(Route::session('user'))->find_one();
         return $this->user !== false;
     }
 

@@ -109,6 +109,11 @@ class Route extends Dispatcher {
             $admin = new Admin();
             $admin->executeAction('album-delete', $params);
         });
+
+        parent::map('GET', '/spirit/users/delete/{id:\d+}', function($params) {
+            $admin = new Admin();
+            $admin->executeAction('user-delete', $params);
+        });
     }
 
     private static function mapPartials() {
@@ -149,7 +154,7 @@ class Route extends Dispatcher {
     }
 
     public static function verifyModel($model, $id) {
-        $item = Model::factory($model)->find_one($id);
+        $item = Model::factory($model)->where_id_is($id)->find_one();
         if (!$item) {
             parent::error(404);
             exit();
