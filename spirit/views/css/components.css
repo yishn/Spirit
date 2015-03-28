@@ -129,11 +129,13 @@
 .userstream > li > a {
         position: relative;
         display: block;
+        height: 50px;
         margin-bottom: 1em;
-        padding: .5em;
-        padding-left: .5em;
+        overflow: hidden;
+        padding: 10px;
         background: #e0e0e0;
         color: black;
+        line-height: 45px;
         text-decoration: none;
     }
     .userstream > li > a:hover { background: #ccc; }

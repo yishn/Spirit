@@ -7,7 +7,7 @@ class Admin {
     }
 
     public function isLoggedIn() {
-        $this->user = User::find_one(3);
+        $this->user = User::find_one(5);
         return true;
     }
 
