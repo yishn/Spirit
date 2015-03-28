@@ -139,7 +139,7 @@
     .userstream > li > a:hover { background: #d0d0d0; }
     .userstream > li img { margin-right: .5em; }
     .userstream > li span {
-        background: #D1370E;
+        background: #0082f0;
         margin-left: 5px;
         padding: 2px 5px;
         color: white;
@@ -148,8 +148,8 @@
         letter-spacing: 1px;
         text-transform: uppercase;
     }
-    .userstream > li span + span {
-        background: #0082f0;
+    .userstream > li span.admin {
+        background: #D1370E;
 }
 
 .albums {
