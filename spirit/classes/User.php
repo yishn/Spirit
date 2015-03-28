@@ -27,6 +27,19 @@ class User extends Model {
         return $result;
     }
 
+    public static function create() {
+        $user = parent::factory('User')->create();
+        $user->set([
+            'id' => 'new',
+            'email' => '',
+            'name' => '',
+            'hash' => '',
+            'salt' => '',
+            'admin' => false
+        ]);
+        return $user;
+    }
+
     public static function getUsers() {
         $users = User::order_by_desc('admin')
             ->order_by_desc('id')

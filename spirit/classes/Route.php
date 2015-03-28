@@ -56,6 +56,8 @@ class Route extends Dispatcher {
             print $admin->renderAdmin('upload');
         });
 
+        // Edit records
+
         parent::map('GET', '/spirit/photos/edit/{ids:(\d+,?)+}', function($params) {
             $admin = new Admin();
             $ids = self::verifyModels('Photo', $params['ids']);
@@ -66,6 +68,12 @@ class Route extends Dispatcher {
             $admin = new Admin();
             if ($params['id'] != 'new') self::verifyModel('Album', $params['id']);
             print $admin->renderAdmin('album-edit', $params);
+        });
+                
+        parent::map('GET', '/spirit/users/{id:\d+|new}', function($params) {
+            $admin = new Admin();
+            if ($params['id'] != 'new') self::verifyModel('User', $params['id']);
+            print $admin->renderAdmin('user-edit', $params);
         });
 
         // Actions

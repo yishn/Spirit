@@ -30,7 +30,8 @@ input { padding: .2em .3em; }
         letter-spacing: 2px;
         text-transform: uppercase;
     }
-    .form label input[type="text"], .form label textarea , .form label .ace {
+    .form label input[type="text"], .form label input[type="password"],
+    .form label textarea , .form label .ace {
         display: block;
         padding: 0;
         background: transparent;

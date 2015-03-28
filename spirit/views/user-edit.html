@@ -1,0 +1,39 @@
+<div id="toolbox">
+    <ul>
+        <li class="back"><a href="{{baseUrl}}spirit/users">Back</a></li>
+    </ul>
+</div>
+
+<main>
+    <form method="post" action="{{baseUrl}}spirit/users/{{id}}">
+        <ul class="form">
+            <li>
+                <label><span>Email:</span>
+                    <input type="text" value="{{email}}" name="email" maxlength="254" />
+                </label>
+            </li>
+            <li>
+                <label><span>Name:</span>
+                    <input type="text" value="{{name}}" name="name" maxlength="64" />
+                </label>
+            </li>
+            <li>
+                <label><span>Password:</span>
+                    <input type="password" value="" name="password" />
+                </label>
+            </li>
+            <li>
+                <label><span>Verify password:</span>
+                    <input type="password" value="" name="verifypassword" />
+                </label>
+            </li>
+        </ul>
+
+        <p>
+            <button type="submit">{{#createNew}}Create{{/createNew}}{{^createNew}}Update{{/createNew}}</button>
+        </p>
+    </form>
+</main>
+
+<script type="text/javascript" src="{{baseUrl}}spirit/views/js/backbutton.js"></script>
+<script type="text/javascript" src="{{baseUrl}}spirit/views/js/confirmclose.js"></script>

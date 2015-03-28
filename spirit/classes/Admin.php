@@ -58,6 +58,10 @@ class Admin {
             $context['createNew'] = $params['id'] == 'new';
         } else if ($main == 'users') {
             $context = array_merge($context, User::getUsers());
+        } else if ($main == 'user-edit') {
+            $user = $params['id'] == 'new' ? User::create() : User::find_one($params['id']);
+            $context = array_merge($context, $user->as_array());
+            $context['createNew'] = $params['id'] == 'new';
         }
 
         return Mustache::renderByFile('spirit/views/' . $main, $context);
