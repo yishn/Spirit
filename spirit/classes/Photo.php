@@ -64,9 +64,9 @@ class Photo extends Model {
 
         if ($includeUser) {
             $user = $this->user()->find_one();
-            $result['user'] = !$user ? false : $user->as_array();
+            $result['owner'] = !$user ? false : $user->as_array();
         } else {
-            $result['user'] = false;
+            $result['owner'] = false;
         }
 
         $result['hasAlbums'] = $result['albums'] !== false;
