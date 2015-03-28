@@ -5,12 +5,18 @@ class User extends Model {
         return $this->has_many('Photo');
     }
 
-    public function getHash() {
-        return md5(strtolower(trim($this->email)));
+    public function generateSalt() {
+        $salt = strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
+        $salt = sprintf("$2a$%02d$", 15) . $salt;
+        $this->salt = $salt;
+    }
+
+    public function getHash($password) {
+        return crypt($password, $this->salt);
     }
 
     public function getAvatarLink() {
-        return 'http://www.gravatar.com/avatar/' . $this->getHash() . '?d=retro';
+        return 'http://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email))) . '?d=retro';
     }
 
     public function as_array() {
