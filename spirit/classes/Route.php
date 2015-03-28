@@ -88,6 +88,11 @@ class Route extends Dispatcher {
             $admin->executeAction('album-edit', $params);
         });
 
+        parent::map('POST', '/spirit/users/{id:\d+|new}', function($params) {
+            $admin = new Admin();
+            $admin->executeAction('user-edit', $params);
+        });
+
         parent::map('POST', '/spirit/photos/upload/{mode:(id)?}', function($params) {
             $admin = new Admin();
             $admin->executeAction('upload', $params);

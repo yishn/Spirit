@@ -13,9 +13,11 @@ $user->set([
 
 if ($_POST['password'] != '') {
     if ($_POST['verifypassword'] != $_POST['password'])
-        Route::redirect('/spirit/users/' . $user->id)
+        Route::redirect('/spirit/users/' . $user->id);
 
     $user->generateHash($_POST['password']);
+    echo $user->salt . '<br>';
+    echo $user->hash;
 }
 
 $user->save();
