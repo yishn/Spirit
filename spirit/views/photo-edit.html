@@ -26,11 +26,11 @@
         <p class="photo">
             <input type="hidden" name="id[]" value="{{id}}" />
             <img src="{{largeImageLink}}" alt="{{title}}" />
-            {{#user}}
+            {{#owner}}
             <em>
-                Uploaded by <a href="{{baseUrl}}spirit/users/{{id}}" title="{{fullname}}">{{name}}</a>
+                Uploaded by {{name}} <img src="{{avatarLink}}&amp;s=20" width="20" height="20" alt="" />
             </em>
-            {{/user}}
+            {{/owner}}
         </p>
 
         <ul class="form">

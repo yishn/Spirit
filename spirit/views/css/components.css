@@ -2,13 +2,17 @@
         color: #555;
         text-align: right;
     }
-    .photo img {
+    .photo > img {
         margin-bottom: .5em;
     }
-    .photo em {
+    .photo > em {
         display: block;
         font-style: normal;
         text-align: right;
+    }
+    .photo > em > img {
+        margin-top: -2px;
+        margin-left: 5px;
 }
 
 .photostream, .albumstream, .userstream {
