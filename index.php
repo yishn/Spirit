@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 
 require_once('spirit/includes.php');
 
-session_set_cookie_params(60 * 60 * 24 * 7, Route::config('url'));
+session_set_cookie_params(604800, Route::config('url'));
 session_start();
 
 Route::map();
