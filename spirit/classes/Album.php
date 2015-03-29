@@ -57,7 +57,7 @@ class Album extends Model {
         return $album;
     }
 
-    public static function getAlbums($limit, array $filter = [], $page = 1) {
+    public static function getAlbums($limit, array $filter = [], $page = 1, $order = 'id') {
         $photoTable = DB_PREFIX . 'photo';
         $albumTable = DB_PREFIX . 'album';
         $table = DB_PREFIX . 'album_photo';
@@ -66,11 +66,12 @@ class Album extends Model {
         if (isset($filter['search'])) $query = $query->filter('search', $filter['search']);
         if (isset($filter['month'])) $query = $query->filter('in_month', $filter['month']);
 
+        if ($order == 'date') $query = $query->order_by_desc("{$photoTable}.date");
+        else $query = $query->order_by_desc("{$albumTable}.id");
+
         $albums = $query->left_outer_join($table, array("{$table}.album_id", '=', "{$albumTable}.id"))
             ->left_outer_join($photoTable, array("{$photoTable}.id", '=', "{$table}.photo_id"))
             ->distinct()
-            //->order_by_desc("{$albumTable}.id")
-            ->order_by_desc("{$photoTable}.date")
             ->limit($limit + 1)
             ->offset(($page - 1) * $limit)
             ->find_many();
