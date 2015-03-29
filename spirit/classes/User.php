@@ -45,7 +45,7 @@ class User extends Model {
 
     public static function getUsers() {
         $users = User::order_by_desc('root')
-            ->order_by_desc('id')
+            ->order_by_desc('name')
             ->find_many();
 
         $users = array_map(function($user) {
