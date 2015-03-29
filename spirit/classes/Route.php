@@ -21,11 +21,9 @@ class Route extends Dispatcher {
             $photo->generateThumbnail($size, [ 'zoom' => $params['size'] == 'thumb' ]);
         });
         parent::map('GET', '/photo/{id:\d+}/download', function($params) {
-            if (Setting::get('originalPhotoDownload') != 'true') {
+            if (Setting::get('originalPhotoDownload') != 'true')
                 parent::error(404);
-                exit();
-            }
-            
+
             $photo = self::verifyModel('Photo', $params['id']);
             $photo->download();
         });
@@ -168,10 +166,7 @@ class Route extends Dispatcher {
 
     public static function verifyModel($model, $id) {
         $item = Model::factory($model)->where_id_is($id)->find_one();
-        if (!$item) {
-            parent::error(404);
-            exit();
-        }
+        if (!$item) parent::error(404);
 
         return $item;
     }

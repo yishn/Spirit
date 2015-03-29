@@ -335,7 +335,6 @@ class Dispatcher {
 
     # triggers an HTTP error code and invokes any mapped error handlers
     public static function error() {
-
         $argc = func_num_args();
         $argv = func_get_args();
 
@@ -356,8 +355,9 @@ class Dispatcher {
         );
 
         http_response_code($code);
-
-        return call_user_func_array($func, $argv);
+        call_user_func_array($func, $argv);
+        
+        exit();
     }
 
     # dispatches the current request against our handlers/actions
