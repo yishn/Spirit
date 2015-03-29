@@ -14,7 +14,7 @@
         </li>
         {{/hasFilters}}
         <li class="filter"><a href="{{baseUrl}}spirit/partial/albumpicker" class="albumpicker">Album</a></li>
-        <li class="filter"><a href="{{baseUrl}}spirit/partial/monthpicker/photos" class="monthpicker">Month</a></li>
+        <li class="filter"><a href="{{baseUrl}}spirit/partial/monthpicker/photos{{#filterMonth}}/{{year}}{{/filterMonth}}" class="monthpicker">Month</a></li>
         <li class="upload"><a href="{{baseUrl}}spirit/photos/upload">Upload</a></li>
         <li class="edit"><a href="{{baseUrl}}spirit/photos/edit">Edit</a></li>
         <li class="delete"><a href="{{baseUrl}}spirit/photos/delete">Delete</a></li>
