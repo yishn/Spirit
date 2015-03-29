@@ -8,7 +8,7 @@ function getExifDate($path) {
             return new DateTime($exif['DateTimeOriginal']);
     } catch (Exception $ex) { }
     
-    return new DateTime('now');
+    return new DateTime('now', new DateTimeZone(Setting::get('timezone')));
 }
 
 $uploaddir = Route::config('contentDir') . 'photos/';
@@ -27,7 +27,8 @@ for ($i = 0; $i < count($_FILES['file']['name']); $i++) {
     if (!move_uploaded_file($_FILES['file']['tmp_name'][$i], $path)) continue;
 
     $title = substr($title, 0, strpos($title, '.'));
-    $date = Setting::get('readExif') == 'true' ? getExifDate($path) : new DateTime('now');
+    $date = Setting::get('readExif') == 'true' ? 
+        getExifDate($path) : new DateTime('now', new DateTimeZone(Setting::get('timezone')));
 
     $photo = Photo::create();
     $photo->set([
