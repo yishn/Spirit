@@ -39,7 +39,7 @@ input { padding: .2em .3em; }
         width: 100%;
 }
 
-.form + p {
+.form + p, .dropzone + p {
     text-align: right;
 }
 
