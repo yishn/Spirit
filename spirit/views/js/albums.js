@@ -4,6 +4,8 @@ $$('.albumstream > li').each(function(li) {
     var src = li.getElement('img').get('src');
     
     if (src == '') return;
+    if (li.getStyle('background-image') != 'none') return;
+
     li.setStyle('background-image', 'url(' + src + ')');
     li.setStyle('background-position', 'center');
 });
