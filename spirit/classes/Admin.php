@@ -56,7 +56,7 @@ class Admin {
         } else if ($main == 'album-edit') {
             $album = $params['id'] == 'new' ? Album::create() : Album::find_one($params['id']);
             $context = array_merge($context, $album->as_array());
-            $context['createNew'] = $params['id'] == 'new';
+            $context['createNew'] = $album->is_new();
         } else if ($main == 'users') {
             $context = array_merge($context, User::getUsers());
 
@@ -66,8 +66,8 @@ class Admin {
         } else if ($main == 'user-edit') {
             $user = $params['id'] == 'new' ? User::create() : User::find_one($params['id']);
             $context = array_merge($context, $user->as_array());
-            $context['createNew'] = $params['id'] == 'new';
-            $context['editable'] = $user->id == 'new' || $user->id == $this->user->id || $this->user->root;
+            $context['createNew'] = $user->is_new();
+            $context['editable'] = $user->is_new() || $user->id == $this->user->id || $this->user->root;
         }
 
         return Mustache::renderByFile('spirit/views/' . $main, $context);
