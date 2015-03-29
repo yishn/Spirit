@@ -14,7 +14,6 @@ class Admin {
     public function renderAdmin($main, $params = []) {
         $context = [
             'title' => Setting::get('title'),
-            'version' => Setting::get('version'),
             'baseUrl' => Route::config('url'),
             'user' => $this->user->as_array(),
 
@@ -68,6 +67,9 @@ class Admin {
             $context = array_merge($context, $user->as_array());
             $context['createNew'] = $user->is_new();
             $context['editable'] = $user->is_new() || $user->id == $this->user->id || $this->user->root;
+        } else if ($main == 'settings' || $main == 'about') {
+            $context = array_merge($context, Setting::$settings);
+            $context['originalPhotoDownload'] = $context['originalPhotoDownload'] == 'true';
         }
 
         return Mustache::renderByFile('spirit/views/' . $main, $context);

@@ -17,7 +17,10 @@
                     <input type="text" value="{{name}}" {{^editable}}disabled{{/editable}} required name="name" maxlength="64" />
                 </label>
             </li>
-            {{#editable}}
+        </ul>
+
+        {{#editable}}
+        <ul class="form">
             <li>
                 <label><span>{{#createNew}}P{{/createNew}}{{^createNew}}New p{{/createNew}}assword:</span>
                     <input type="password" {{#createNew}}required{{/createNew}} name="password" />
@@ -28,10 +31,8 @@
                     <input type="password" {{#createNew}}required{{/createNew}} name="verifypassword" />
                 </label>
             </li>
-            {{/editable}}
         </ul>
-
-        {{#editable}}
+        
         <p>
             <button type="submit">{{#createNew}}Create{{/createNew}}{{^createNew}}Update{{/createNew}}</button>
 

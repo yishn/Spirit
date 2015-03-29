@@ -1,7 +1,7 @@
 <?php
 
 class Setting {
-    private static $settings = [];
+    public static $settings = [];
 
     public static function get($key) {
         if (!isset(self::$settings[$key])) {

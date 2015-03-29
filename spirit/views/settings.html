@@ -4,5 +4,76 @@
     </ul>
 </div>
 
+<main>
+    <h2>Settings</h2>
+
+    <form method="post" action="{{baseUrl}}spirit/settings">
+        <h3>General</h3>
+
+        <ul class="form">
+            <li class="title">
+                <label><span>Title:</span>
+                    <input type="text" value="{{title}}" name="title" placeholder="(Untitled)" />
+                </label>
+            </li>
+            <li>
+                <label><span>Subtitle:</span>
+                    <input type="text" value="{{subtitle}}" name="subtitle" />
+                </label>
+            </li>
+        </ul>
+
+        <h3>Photos &amp; Albums</h3>
+
+        <ul class="form">
+            <li>
+                <label><span>Large photo size:</span>
+                    <input type="text" value="{{largeImageSize}}" name="largeImageSize" placeholder="<700" />
+                </label>
+            </li>
+            <li>
+                <label><span>Thumbnail size:</span>
+                    <input type="text" value="{{thumbSize}}" name="thumbSize" placeholder="170" />
+                </label>
+            </li>
+            <li>
+                <label><span>Photos per page:</span>
+                    <input type="number" value="{{photosPerPage}}" name="photosPerPage" placeholder="16" />
+                </label>
+            </li>
+            <li>
+                <label><span>Albums per page:</span>
+                    <input type="number" value="{{albumsPerPage}}" name="albumsPerPage" placeholder="10" />
+                </label>
+            </li>
+            <li>
+                <label><span>Allow photo downloading:</span>
+                    <input type="checkbox" {{#originalPhotoDownload}}checked{{/originalPhotoDownload}} name="originalPhotoDownload" />
+                </label>
+            </li>
+        </ul>
+
+        <h3>Date &amp; Time</h3>
+
+        <ul class="form">
+            <li>
+                <label><span>Date format:</span>
+                    <input type="text" value="{{dateFormat}}" name="dateFormat" placeholder="jS F, Y H:i" />
+                </label>
+            </li>
+            <li>
+                <label><span>Month format:</span>
+                    <input type="text" value="{{albumDateFormat}}" name="albumDateFormat" placeholder="F Y" />
+                </label>
+            </li>
+        </ul>
+
+        <p>
+            <button type="submit">Update</button>
+            <button type="reset">Reset</button>
+        </p>
+    </form>
+</main>
+
 <script type="text/javascript" src="{{baseUrl}}spirit/views/js/settings.js"></script>
 <script type="text/javascript" src="{{baseUrl}}spirit/views/js/dialog.js"></script>
