@@ -35,11 +35,22 @@ class Photo extends Model {
         return $date->format($format);
     }
 
+    public function download() {
+        $path = Route::config('contentDir') . 'photos/' . $this->filename;
+
+        header('Content-Type: application/octet-stream');
+        header('Content-Length: ' . filesize($path));
+        header('Content-Disposition: attachment; filename=' . strtr($this->filename, ' ', '-'));
+
+        readfile($path);
+        exit();
+    }
+
     public function generateThumbnail($size) {
-        $contentDir = Route::config('contentDir');
-        $path = "{$contentDir}photos/" . $this->filename;
+        $path = Route::config('contentDir') . 'photos/' . $this->filename;
 
         Thumb::render($path, $size);
+        exit();
     }
 
     public function delete() {

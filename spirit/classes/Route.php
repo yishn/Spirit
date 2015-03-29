@@ -20,6 +20,15 @@ class Route extends Dispatcher {
             $size = Setting::get($params['size'] == 'thumb' ? 'thumbSize' : 'largeImageSize');
             $photo->generateThumbnail($size, [ 'zoom' => $params['size'] == 'thumb' ]);
         });
+        parent::map('GET', '/photo/{id:\d+}/download', function($params) {
+            if (Setting::get('originalPhotoDownload') != 'true') {
+                parent::error(404);
+                exit();
+            }
+            
+            $photo = self::verifyModel('Photo', $params['id']);
+            $photo->download();
+        });
     }
 
     private static function mapAdmin() {
