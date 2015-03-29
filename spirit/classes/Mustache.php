@@ -130,10 +130,10 @@ class Mustache {
                     }
                 }
             }
+        }
 
-            // ----------------------------------
-
-            else if (is_bool($val) || is_array($val) && empty($val) === true) {
+        foreach ($data as $key => $val) {
+            if (is_bool($val) || is_array($val) && empty($val) === true) {
                 // determine true/false
                 $conditionChar = $val === true ? '\#' : '\^';
                 $negationChar = $val === true ? '\^' : '\#';
