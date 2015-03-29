@@ -36,7 +36,7 @@ class Route extends Dispatcher {
             session_destroy();
             parent::redirect('/');
         });
-        parent::map('GET', '/spirit/{main:users|settings}', function($params) {
+        parent::map('GET', '/spirit/{main:users|settings|about}', function($params) {
             $admin = new Admin();
             print $admin->renderAdmin($params['main']);
         });

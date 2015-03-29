@@ -27,6 +27,8 @@ nav ul li:nth-child(4) a::before { content: "\f2ad"; }
 { content: "\f36e"; }
 #toolbox li.filter a::after 
 { content: "\f35f"; }
+#toolbox li.about a::before
+{ content: "\f279"; }
 .photostream li a.permalink::before 
 { content: '\f1fe'; }
 button[type="submit"]::before 

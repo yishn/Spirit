@@ -14,7 +14,15 @@ textarea { font-family: Consolas, Monaco, 'Courier New', monospace; }
 h1, h2 { font-weight: lighter; }
 h1 { font-size: 3em; }
 h2 { font-size: 2em; }
-h3 { font-size: 1em; }
+h3 {
+    font-size: 1.5em;
+    font-weight: normal;
+    letter-spacing: -1px;
+}
+h3 strong {
+    font-size: .8em;
+    text-transform: uppercase;
+}
 
 h2, h3, h4, h5, h6, p, ol, ul, blockquote, form, hr {
     margin: 1em 0;

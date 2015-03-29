@@ -14,9 +14,9 @@ class Admin {
     public function renderAdmin($main, $params = []) {
         $context = [
             'title' => Setting::get('title'),
+            'version' => Setting::get('version'),
             'baseUrl' => Route::config('url'),
             'user' => $this->user->as_array(),
-            'userIsRoot' => $this->user->root == 1,
 
             'mainPhotos' => $main == 'photos' || $main == 'photo-edit' || $main == 'upload',
             'mainAlbums' => $main == 'albums' || $main == 'album-edit',

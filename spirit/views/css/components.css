@@ -98,9 +98,11 @@
     .albumstream h3 {
         height: 1.2em;
         overflow: hidden;
+        font-size: 1em;
         letter-spacing: 1px;
         text-transform: uppercase;
         text-overflow: ellipsis;
+        font-weight: bold;
     }
     .albumstream h3 em { 
         font-style: normal; 

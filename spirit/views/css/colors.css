@@ -60,7 +60,7 @@ nav li:last-child a:hover, #toolbox li.delete a:hover, .button.delete:hover,
 { background: #D1370E; color: white; }
 
 button[type="submit"]:hover, 
-.photostream li a.permalink:hover::before, #toolbox li.edit a:hover,
+.photostream li a.permalink:hover::before, #toolbox li.upload a:hover,
 .albums li:last-child:hover, #toolbox li.add a:hover
 { background: #0082f0; color: white; }
 
