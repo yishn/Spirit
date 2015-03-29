@@ -13,12 +13,12 @@
         <ul class="form">
             <li class="title">
                 <label><span>Title:</span>
-                    <input type="text" value="{{title}}" name="title" placeholder="(Untitled)" />
+                    <input type="text" value="{{title}}" name="title" placeholder="(Untitled)"{{^root}} disabled{{/root}} />
                 </label>
             </li>
             <li>
                 <label><span>Subtitle:</span>
-                    <input type="text" value="{{subtitle}}" name="subtitle" />
+                    <input type="text" value="{{subtitle}}" name="subtitle"{{^root}} disabled{{/root}} />
                 </label>
             </li>
         </ul>
@@ -28,27 +28,27 @@
         <ul class="form">
             <li>
                 <label><span>Large photo size:</span>
-                    <input type="text" value="{{largeImageSize}}" name="largeImageSize" placeholder="<700" />
+                    <input type="text" value="{{largeImageSize}}" name="largeImageSize" placeholder="<700"{{^root}} disabled{{/root}} />
                 </label>
             </li>
             <li>
                 <label><span>Thumbnail size:</span>
-                    <input type="text" value="{{thumbSize}}" name="thumbSize" placeholder="170" />
+                    <input type="text" value="{{thumbSize}}" name="thumbSize" placeholder="170"{{^root}} disabled{{/root}} />
                 </label>
             </li>
             <li>
                 <label><span>Photos per page:</span>
-                    <input type="number" value="{{photosPerPage}}" name="photosPerPage" placeholder="16" />
+                    <input type="number" value="{{photosPerPage}}" name="photosPerPage" placeholder="16"{{^root}} disabled{{/root}} />
                 </label>
             </li>
             <li>
                 <label><span>Albums per page:</span>
-                    <input type="number" value="{{albumsPerPage}}" name="albumsPerPage" placeholder="10" />
+                    <input type="number" value="{{albumsPerPage}}" name="albumsPerPage" placeholder="10"{{^root}} disabled{{/root}} />
                 </label>
             </li>
             <li>
                 <label><span>Allow photo downloading:</span>
-                    <input type="checkbox"{{#originalPhotoDownload}} checked{{/originalPhotoDownload}} name="originalPhotoDownload" />
+                    <input type="checkbox"{{#originalPhotoDownload}} checked{{/originalPhotoDownload}} name="originalPhotoDownload"{{^root}} disabled{{/root}} />
                 </label>
             </li>
         </ul>
@@ -58,7 +58,7 @@
         <ul class="form">
             <li>
                 <label><span>Timezone:</span>
-                    <select name="timezone">
+                    <select name="timezone"{{^root}} disabled{{/root}}>
                         {{#timezones}}
                         <optgroup label="{{continent}}">
                             {{#cities}}
@@ -71,18 +71,18 @@
             </li>
             <li>
                 <label><span>Date format:</span>
-                    <input type="text" value="{{dateFormat}}" name="dateFormat" placeholder="jS F, Y H:i" />
+                    <input type="text" value="{{dateFormat}}" name="dateFormat" placeholder="jS F, Y H:i"{{^root}} disabled{{/root}} />
                 </label>
             </li>
             <li>
                 <label><span>Month format:</span>
-                    <input type="text" value="{{albumDateFormat}}" name="albumDateFormat" placeholder="F Y" />
+                    <input type="text" value="{{albumDateFormat}}" name="albumDateFormat" placeholder="F Y"{{^root}} disabled{{/root}} />
                 </label>
             </li>
         </ul>
 
         <p>
-            <button type="submit">Update</button>
+            <button type="submit"{{^root}} disabled{{/root}}>Update</button>
             <button type="reset">Reset</button>
         </p>
     </form>

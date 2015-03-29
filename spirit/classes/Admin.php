@@ -16,6 +16,7 @@ class Admin {
             'title' => Setting::get('title'),
             'baseUrl' => Route::config('url'),
             'user' => $this->user->as_array(),
+            'root' => $this->user->root == 1,
 
             'mainPhotos' => $main == 'photos' || $main == 'photo-edit' || $main == 'upload',
             'mainAlbums' => $main == 'albums' || $main == 'album-edit',
@@ -85,7 +86,12 @@ class Admin {
 
                 $context['timezones'][count($context['timezones']) - 1]['cities'][] = [
                     'key' => $key,
-                    'name' => strtr($key, [ $continent . '/' => '', '_' => ' ', '/' => ' - ' ]),
+                    'name' => strtr($key, [
+                        $continent . '/' => '',
+                        'St_' => 'St. ',
+                        '_' => ' ',
+                        '/' => ' - '
+                    ]),
                     'selected' => Setting::get('timezone') == $key
                 ];
             }
