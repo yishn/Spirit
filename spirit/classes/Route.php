@@ -72,7 +72,7 @@ class Route extends Dispatcher {
             print $admin->renderAdmin('album-edit', $params);
         });
                 
-        parent::map('GET', '/spirit/users/{id:\d+|new}', function($params) {
+        parent::map('GET', '/spirit/users/edit/{id:\d+|new}', function($params) {
             $admin = new Admin();
             if ($params['id'] != 'new') self::verifyModel('User', $params['id']);
             print $admin->renderAdmin('user-edit', $params);
@@ -90,7 +90,7 @@ class Route extends Dispatcher {
             $admin->executeAction('album-edit', $params);
         });
 
-        parent::map('POST', '/spirit/users/{id:\d+|new}', function($params) {
+        parent::map('POST', '/spirit/users/edit/{id:\d+|new}', function($params) {
             $admin = new Admin();
             $admin->executeAction('user-edit', $params);
         });

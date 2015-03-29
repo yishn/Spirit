@@ -1,6 +1,6 @@
 <div id="toolbox">
     <ul>
-        <li class="add"><a href="{{baseUrl}}spirit/users/new">New User</a></li>
+        <li class="add"><a href="{{baseUrl}}spirit/users/edit/new">New User</a></li>
     </ul>
 </div>
 
@@ -10,7 +10,7 @@
     <ul class="userstream">
         {{#users}}
         <li>
-            <a href="{{baseUrl}}spirit/users/{{id}}">
+            <a href="{{baseUrl}}spirit/users/edit/{{id}}">
                 <img src="{{avatarLink}}&amp;s=50" width="50" height="50" alt="Avatar" />
                 {{name}}
                 {{#root}}<span class="root">Root</span>{{/root}}
