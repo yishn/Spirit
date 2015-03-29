@@ -2,13 +2,14 @@
 
 class Album extends Model {
     public function photos() {
-        return $this->has_many_through('Photo');
+        $query = $this->has_many_through('Photo');
+
+        if ($this->chronological == 1) return $query->order_by_asc('date');
+        return $query->order_by_desc('date');
     }
 
     public function getPhoto() {
-        return $this->photos()
-            ->order_by_desc('date')
-            ->find_one();
+        return $this->photos()->find_one();
     }
 
     public function getFormattedDescription() {
