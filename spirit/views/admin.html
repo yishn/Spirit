@@ -23,7 +23,11 @@
             <li{{#mainUsers}} class="current"{{/mainUsers}}><a href="{{baseUrl}}spirit/users">Users</a></li>
             <li{{#mainSettings}} class="current"{{/mainSettings}}><a href="{{baseUrl}}spirit/settings">Settings</a></li>
             {{#user}}
-            <li><a href="{{baseUrl}}spirit/logout" title="{{name}}">Logout</a></li>
+            <li>
+                <a href="{{baseUrl}}spirit/logout" title="{{name}}">
+                    <img src="{{avatarLink}}&amp;s=16" alt="{{name}}" width="16" height="16" />Logout
+                </a>
+            </li>
             {{/user}}
         </ul>
     </nav>

@@ -35,6 +35,10 @@ nav ul, #toolbox ul {
         margin: .3em 1em .2em 0;
         padding: .4em .7em;
         text-decoration: none;
+    }
+    nav ul li a img {
+        margin-top: -3px;
+        margin-right: .5em;
 }
 
 #toolbox {
