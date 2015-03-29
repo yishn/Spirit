@@ -278,7 +278,7 @@ class Dispatcher {
 
     # shortcut for dumping a redirect header (no longer exits)
     public static function redirect($route, $code = 302, $halt = true) {
-        $path = self::href($route);
+        $path = self::link($route);
         header("Location: {$path}", true, $code);
         $halt && exit;
     }
@@ -484,7 +484,7 @@ class Dispatcher {
         return call_user_func_array($func, $argv);
     }
 
-    public static function href($route) {
+    public static function link($route) {
         $temp = '';
 
         if ($base = self::config('url')) {
@@ -500,15 +500,6 @@ class Dispatcher {
 
         if ($temp[0] != '/') return '/' . $temp;
         return $temp;
-    }
-
-    public static function link($path) {
-        if ($base = self::config('url')) {
-            $base = trim(parse_url($base, PHP_URL_PATH), '/');
-            $path = $base . '/' . trim($path, '/');
-        }
-        
-        return $path;
     }
 
     # state (routes, handlers, etc)
