@@ -25,6 +25,10 @@ class Route extends Dispatcher {
     private static function mapAdmin() {
         parent::map('GET', '/spirit', function() { parent::redirect('/spirit/photos'); });
         parent::map('GET', '/spirit/login', function() { echo 'Login'; });
+        parent::map('GET', '/spirit/logout', function() {
+            session_destroy();
+            parent::redirect('/');
+        });
         parent::map('GET', '/spirit/{main:users|settings}', function($params) {
             $admin = new Admin();
             print $admin->renderAdmin($params['main']);
