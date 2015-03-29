@@ -13,9 +13,11 @@ $$('#toolbox .add a, .albumstream ul li.edit a').addEvent('click', function(even
     var link = this;
 
     $('dialog').load(this.get('href'));
-    $('dialog').removeEvents('shown').addEvent('shown', function() {
+    $('dialog').addEvent('shown', function() {
         $$('#dialog main input')[0].focus();
-    });
+    }).addEvent('closed', function() {
+        $('dialog').removeEvents();
+    });;
 });
 
 });

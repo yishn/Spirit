@@ -37,6 +37,8 @@ $$('.albumpicker').removeEvents('click').addEvent('click', function(event) {
                             e.preventDefault();
                             this.getParent('form').send();
                         });
+                    }).addEvent('closed', function() {
+                        $('dialog').removeEvents();
                     });
                 });
 

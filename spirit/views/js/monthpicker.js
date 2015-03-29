@@ -10,7 +10,7 @@ $$('.monthpicker').removeEvents('click').addEvent('click', function(event) {
 
     $('dialog').load(this.get('href'));
 
-    $('dialog').removeEvents('shown').addEvent('shown', function() {
+    $('dialog').addEvent('shown', function() {
         $$('#dialog #monthpicker ul li a').addEvent('click', function(e) {
             e.preventDefault();
             $('dialog').load(this.get('href'));
@@ -32,7 +32,9 @@ $$('.monthpicker').removeEvents('click').addEvent('click', function(event) {
                 if (e.code != 13) return;
                 changed();
             });
-    });
+    }).addEvent('closed', function() {
+        $('dialog').removeEvents();
+    });;
 });
 
 });
