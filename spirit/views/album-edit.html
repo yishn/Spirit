@@ -13,6 +13,14 @@
                 </label>
             </li>
             <li>
+                <label><span>Order:</span>
+                    <select name="chronological">
+                        <option value="1"{{#chronological}} selected{{/chronological}}>Chronological</option>
+                        <option value="0"{{^chronological}} selected{{/chronological}}>Reverse-chronological</option>
+                    </select>
+                </label>
+            </li>
+            <li>
                 <label><span>Description:</span>
                     <textarea name="description">{{description}}</textarea>
                 </label>

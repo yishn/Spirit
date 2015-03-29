@@ -30,6 +30,7 @@ class Album extends Model {
     public function as_array() {
         $result = parent::as_array();
 
+        $result['chronological'] = $result['chronological'] == 1;
         $result['thumbnailLink'] = function() {
             $photo = $this->getPhoto();
             return !$photo ? Route::link('/') : $photo->getThumbnailLink();
@@ -52,7 +53,8 @@ class Album extends Model {
         $album->set([
             'id' => 'new',
             'name' => '',
-            'description' => ''
+            'description' => '',
+            'chronological' => 0
         ]);
         return $album;
     }
