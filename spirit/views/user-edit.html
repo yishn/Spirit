@@ -31,17 +31,17 @@
             {{/editable}}
         </ul>
 
+        {{#editable}}
         <p>
-            {{#editable}}
-                <button type="submit">{{#createNew}}Create{{/createNew}}{{^createNew}}Update{{/createNew}}</button>
+            <button type="submit">{{#createNew}}Create{{/createNew}}{{^createNew}}Update{{/createNew}}</button>
 
-                {{^createNew}}
-                {{^root}}
-                <a href="{{baseUrl}}spirit/users/delete/{{id}}" class="button delete">Delete User</a>
-                {{/root}}
-                {{/createNew}}
-            {{/editable}}
+            {{^createNew}}
+            {{^root}}
+            <a href="{{baseUrl}}spirit/users/delete/{{id}}" class="button delete">Delete User</a>
+            {{/root}}
+            {{/createNew}}
         </p>
+        {{/editable}}
     </form>
 </main>
 
