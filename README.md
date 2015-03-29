@@ -1,4 +1,4 @@
-# ![Spirit](spirit/views/resources/logo.png) Spirit
+# ![](spirit/views/resources/logo.png) Spirit
 Just a beautiful, minimal photoblog solution in PHP
 
 ## Projects
