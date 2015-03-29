@@ -48,7 +48,7 @@
             </li>
             <li>
                 <label><span>Allow photo downloading:</span>
-                    <input type="checkbox" {{#originalPhotoDownload}}checked{{/originalPhotoDownload}} name="originalPhotoDownload" />
+                    <input type="checkbox"{{#originalPhotoDownload}} checked{{/originalPhotoDownload}} name="originalPhotoDownload" />
                 </label>
             </li>
         </ul>
@@ -58,7 +58,11 @@
         <ul class="form">
             <li>
                 <label><span>Timezone:</span>
-                    <input type="text" value="{{timezone}}" name="timezone" placeholder="UTC" />
+                    <select name="timezone">
+                        {{#timezones}}
+                        <option value="{{key}}"{{#selected}} selected{{/selected}}>{{name}}</option>
+                        {{/timezones}}
+                    </select>
                 </label>
             </li>
             <li>

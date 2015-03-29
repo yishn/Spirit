@@ -69,7 +69,17 @@ class Admin {
             $context['editable'] = $user->is_new() || $user->id == $this->user->id || $this->user->root;
         } else if ($main == 'settings' || $main == 'about') {
             $context = array_merge($context, Setting::$settings);
+
             $context['originalPhotoDownload'] = $context['originalPhotoDownload'] == 'true';
+            $context['timezones'] = [];
+
+            foreach (DateTimeZone::listIdentifiers() as $key) {
+                $context['timezones'][] = [
+                    'key' => $key,
+                    'name' => strtr($key, [ '_' => ' ', '/' => ' - ' ]),
+                    'selected' => Setting::get('timezone') == $key
+                ];
+            }
         }
 
         return Mustache::renderByFile('spirit/views/' . $main, $context);

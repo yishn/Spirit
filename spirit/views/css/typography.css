@@ -1,4 +1,4 @@
-body, input, textarea, .ace, button {
+body, input, textarea, .ace, button, select, option {
     font: 100% 'Source Sans Pro', sans-serif;
     word-wrap: break-word;
 }
