@@ -72,11 +72,20 @@ class Admin {
 
             $context['originalPhotoDownload'] = $context['originalPhotoDownload'] == 'true';
             $context['timezones'] = [];
+            $lastcontinent = '';
 
             foreach (DateTimeZone::listIdentifiers() as $key) {
-                $context['timezones'][] = [
+                $continent = substr($key, 0, strpos($key, '/'));
+                if ($continent == '') $continent = 'Other';
+
+                if ($lastcontinent != $continent) {
+                    $context['timezones'][] = [ 'continent' => $continent, 'cities' => [] ];
+                    $lastcontinent = $continent;
+                }
+
+                $context['timezones'][count($context['timezones']) - 1]['cities'][] = [
                     'key' => $key,
-                    'name' => strtr($key, [ '_' => ' ', '/' => ' - ' ]),
+                    'name' => strtr($key, [ $continent . '/' => '', '_' => ' ', '/' => ' - ' ]),
                     'selected' => Setting::get('timezone') == $key
                 ];
             }

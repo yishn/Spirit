@@ -59,6 +59,23 @@ button, .button {
 }
 button:hover, .button:hover { opacity: 1; }
 
+optgroup {
+        color: #aaa;
+        letter-spacing: 2px;
+        text-indent: 5px;
+        text-transform: uppercase;
+    }
+    optgroup option {
+        color: black;
+        padding-left: 1em;
+        letter-spacing: 0;
+        text-transform: none;
+}
+
+option {
+    padding: 0 5px;
+}
+
 /**
  * Custom forms
  */

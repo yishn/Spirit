@@ -60,7 +60,11 @@
                 <label><span>Timezone:</span>
                     <select name="timezone">
                         {{#timezones}}
-                        <option value="{{key}}"{{#selected}} selected{{/selected}}>{{name}}</option>
+                        <optgroup label="{{continent}}">
+                            {{#cities}}
+                            <option value="{{key}}"{{#selected}} selected{{/selected}}>{{name}}</option>
+                            {{/cities}}
+                        </optgroup>
                         {{/timezones}}
                     </select>
                 </label>
