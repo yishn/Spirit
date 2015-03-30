@@ -3,6 +3,9 @@
         {{#flagInvalid}}
         <p class="error">The password is incorrect.</p>
         {{/flagInvalid}}
+        {{#flagUnauthorized}}
+        <p class="error">You have no permission to do that.</p>
+        {{/flagUnauthorized}}
         <p>
             <label>
                 <span>Email address:</span>

@@ -9,7 +9,6 @@ class Route extends Dispatcher {
 
     private static function mapTheme() {
         parent::map('GET', '/', function() { echo "Void."; });
-        parent::map(401, function() { echo "Error 401: Unauthorized"; });
         parent::map(404, function() { echo "Error 404: Not Found"; });
 
         parent::map('GET', '/photo/{id:\d+}', function($params) {
@@ -30,14 +29,19 @@ class Route extends Dispatcher {
     }
 
     private static function mapAdmin() {
+        parent::map(401, function() {
+            parent::redirect('/spirit/login/unauthorized');
+        });
+
         parent::map('GET', '/spirit', function() { parent::redirect('/spirit/photos'); });
 
-        parent::map('GET', '/spirit/login/{flag:(invalid)?}', function($params) {
+        parent::map('GET', '/spirit/login/{flag:(invalid)?|(unauthorized)?}', function($params) {
             $context = [
                 'title' => Setting::get('title'),
                 'baseUrl' => Route::config('url'),
                 'mainLogin' => true,
-                'flagInvalid' => $params['flag'] == 'invalid'
+                'flagInvalid' => $params['flag'] == 'invalid',
+                'flagUnauthorized' => $params['flag'] == 'unauthorized'
             ];
             $context['main'] = Mustache::renderByFile('spirit/views/login', $context);
 
