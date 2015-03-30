@@ -40,4 +40,10 @@ dialog.close = function() {
 
 overlay.addEvent('click', dialog.close);
 
+document.addEvent('keyup', function(event) {
+    if (event.code == 27 && dialog.hasClass('show')) {
+        dialog.close();
+    }
+});
+
 });
