@@ -9,15 +9,18 @@ header h1 { float: left; }
 
 nav ul { margin: 0; }
 nav ul li:last-child { float: right; }
-nav ul li a, #toolbox ul li a { margin-top: 0; margin-bottom: 0; }
+nav ul li a, #toolbox ul li a { margin-top: 0; }
+#toolbox ul li.checkbox label { margin-top: .3em; margin-bottom: .2em; }
 
 #toolbox { top: 3.6em; }
-#toolbox .search {
-    text-align: right;
+#toolbox ul {
+    height: 1.7em;
+    overflow: hidden;
 }
+#toolbox .search { float: right; }
 #toolbox .search input {
-    margin-top: -.1em;
-    margin-bottom: -.3em;
+    margin-top: 0;
+    padding: 2px 5px;
 }
 
 main { margin-top: 6.5em; }

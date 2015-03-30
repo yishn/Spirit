@@ -98,6 +98,12 @@ $$('.photostream li input').removeEvents('change').addEvent('change', function()
     );
 });
 
+// Select all
+
+$$('#toolbox li.checkbox input').removeEvents('change').addEvent('change', function() {
+    $$('.photostream li input').set('checked', this.checked).fireEvent('change');
+});
+
 // Bulk edit/delete
 
 $$('#toolbox .edit a, #toolbox .delete a').removeEvents('click').addEvent('click', function(e) {

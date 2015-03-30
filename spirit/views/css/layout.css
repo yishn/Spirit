@@ -29,6 +29,10 @@ nav ul, #toolbox ul {
         letter-spacing: 2px;
         text-transform: uppercase;
     }
+    nav ul li, #toolbox ul li {
+        display: block;
+        float: left;
+    }
     nav ul li a, #toolbox ul li a {
         display: block;
         float: left;
@@ -50,7 +54,13 @@ nav ul, #toolbox ul {
         font-size: 1em;
         letter-spacing: 0;
         line-height: 1em;
-        text-transform: none; 
+        text-transform: none;
+    }
+    #toolbox ul li.checkbox label {
+        display: block;
+        width: 16px;
+        margin: .6em 1em .5em 8px;
+        text-align: center;
     }
     #toolbox ul li a { padding: .3em .6em; }
     #toolbox .search input {
