@@ -9,7 +9,11 @@ class Route extends Dispatcher {
 
     private static function mapTheme() {
         parent::map('GET', '/', function() { echo "Void."; });
+        
         parent::map(404, function() { echo "Error 404: Not Found"; });
+        parent::map(401, function() {
+            parent::redirect('/spirit/login/unauthorized');
+        });
 
         parent::map('GET', '/photo/{id:\d+}', function($params) {
             parent::redirect('/photo/' . $params['id'] . '/size/large');
@@ -29,10 +33,6 @@ class Route extends Dispatcher {
     }
 
     private static function mapAdmin() {
-        parent::map(401, function() {
-            parent::redirect('/spirit/login/unauthorized');
-        });
-
         parent::map('GET', '/spirit', function() { parent::redirect('/spirit/photos'); });
 
         parent::map('GET', '/spirit/login/{flag:(invalid)?|(unauthorized)?}', function($params) {
