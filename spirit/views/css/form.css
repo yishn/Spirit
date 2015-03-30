@@ -1,5 +1,9 @@
 input { padding: 3px 5px; }
 
+form h3 {
+    margin: 1em 0 .6em;
+}
+
 .form {
         margin-left: 0;
         list-style: none;

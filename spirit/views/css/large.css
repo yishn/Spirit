@@ -36,6 +36,17 @@ main p.photo {
         margin-top: 0;
 }
 
+form h3 {
+        clear: both;
+        float: left;
+        margin-top: .5em;
+        width: 8em;
+        text-align: right;
+    }
+    form h3 + .form {
+        margin-left: 14em;
+}
+
 .form .date {
     float: right; 
     width: 10em;
