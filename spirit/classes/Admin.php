@@ -69,12 +69,13 @@ class Admin {
             $context['createNew'] = $user->is_new();
             $context['editable'] = $user->is_new() || $user->id == $this->user->id || $this->user->root;
         } else if ($main == 'settings' || $main == 'about') {
-            $context = array_merge($context, Setting::$settings);
+            $context = array_merge($context, Setting::as_array());
 
             $context['originalPhotoDownload'] = $context['originalPhotoDownload'] == 'true';
             $context['timezones'] = [];
             $lastcontinent = '';
 
+            // Build timezones data
             foreach (DateTimeZone::listIdentifiers() as $key) {
                 $continent = substr($key, 0, strpos($key, '/'));
                 if ($continent == '') $continent = 'Other';
