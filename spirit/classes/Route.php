@@ -8,7 +8,7 @@ class Route extends Dispatcher {
     }
 
     private static function mapTheme() {
-        parent::map('GET', '/', function() { phpinfo(); });
+        parent::map('GET', '/', function() { echo "Void."; });
         parent::map(401, function() { echo "Error 401: Unauthorized"; });
         parent::map(404, function() { echo "Error 404: Not Found"; });
 
