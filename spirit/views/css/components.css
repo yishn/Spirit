@@ -123,14 +123,14 @@
         text-decoration: underline;
     }
     .albumstream img { display: none; }
-    .albumstream ul {
-        margin-top: -1em;
+    .albumstream ul, ul.inline {
         margin-left: 0;
         list-style: none;
     }
-    .albumstream ul li { display: inline; }
-    .albumstream ul li::after { content: ", "; }
-.albumstream ul li:last-child::after { content: ""; }
+    .albumstream ul { margin-top: -1em; }
+    .albumstream ul li, ul.inline li { display: inline; }
+    .albumstream ul li::after, ul.inline li::after { content: ", "; }
+.albumstream ul li:last-child::after, ul.inline li:last-child::after { content: ""; }
 
 .userstream > li > a {
         position: relative;
