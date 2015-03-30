@@ -32,11 +32,12 @@ class Route extends Dispatcher {
     private static function mapAdmin() {
         parent::map('GET', '/spirit', function() { parent::redirect('/spirit/photos'); });
 
-        parent::map('GET', '/spirit/login', function() {
+        parent::map('GET', '/spirit/login/{flag:(invalid)?}', function($params) {
             $context = [
                 'title' => Setting::get('title'),
                 'baseUrl' => Route::config('url'),
                 'mainLogin' => true,
+                'flagInvalid' => $params['flag'] == 'invalid'
             ];
             $context['main'] = Mustache::renderByFile('spirit/views/login', $context);
 

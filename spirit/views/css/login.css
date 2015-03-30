@@ -25,6 +25,7 @@ form {
     width: 280px;
 }
 
+.error { color: #F3592F; }
 p { margin: .7em 0; }
 
 label span {

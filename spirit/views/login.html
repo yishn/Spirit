@@ -1,5 +1,8 @@
 <main>
     <form method="post" action="{{baseUrl}}spirit/login">
+        {{#flagInvalid}}
+        <p class="error">The password is incorrect.</p>
+        {{/flagInvalid}}
         <p>
             <label>
                 <span>Email address:</span>
