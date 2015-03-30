@@ -33,7 +33,8 @@ ORM::configure(array(
     'username' => DB_USER,
     'password' => DB_PASS,
     'driver_options' => array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'),
-    'caching' => true
+    'caching' => true,
+    'caching_auto_clear' => true
 ));
 
 // Configure Paris
