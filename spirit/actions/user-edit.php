@@ -16,6 +16,9 @@ $user->set([
     'email' => $_POST['email']
 ]);
 
+if ($user->is_new() && $_POST['password'] == '')
+    Route::redirect('/spirit/users/' . $user->id);
+
 if ($_POST['password'] != '') {
     if ($_POST['verifypassword'] != $_POST['password'])
         Route::redirect('/spirit/users/' . $user->id);
