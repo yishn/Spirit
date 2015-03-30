@@ -8,10 +8,8 @@ if ($_POST['name'] == '' || $_POST['email'] == '')
     Route::redirect('/spirit/users/' . $user->id);
 
 // Check authorization
-if (!$this->user->root && !$user->is_new() && $this->user->id != $user->id) {
+if (!$this->user->root && !$user->is_new() && $this->user->id != $user->id)
     Route::error(401);
-    die();
-}
 
 $user->set([
     'name' => $_POST['name'],

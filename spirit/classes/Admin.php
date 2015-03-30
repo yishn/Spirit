@@ -77,7 +77,7 @@ class Admin {
             $lastcontinent = '';
 
             // Build timezones data
-            foreach (DateTimeZone::listIdentifiers() as $key) {
+            foreach (timezone_identifiers_list() as $key) {
                 $continent = substr($key, 0, strpos($key, '/'));
                 if ($continent == '') $continent = 'Other';
 

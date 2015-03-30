@@ -111,6 +111,11 @@ class Route extends Dispatcher {
             $admin->executeAction('upload', $params);
         });
 
+        parent::map('POST', '/spirit/settings', function() {
+            $admin = new Admin();
+            $admin->executeAction('settings-update');
+        });
+
         parent::map('GET', '/spirit/photos/delete/{ids:(\d+,?)+}', function($params) {
             $admin = new Admin();
             $admin->executeAction('photo-delete', $params);
