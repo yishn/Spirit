@@ -13,8 +13,10 @@ nav ul li:nth-child(2) a::before { content: "\f148"; }
 nav ul li:nth-child(3) a::before { content: "\f212"; }
 nav ul li:nth-child(4) a::before { content: "\f2ad"; }
 
-#toolbox li.back a::before 
+#toolbox li.back a::before
 { content: "\f2ca"; }
+#toolbox li.site a::before
+{ content: "\f144"; }
 #toolbox li.add a::before, .albums li:last-child a::before, #albumpicker ol li.add a::before
 { content: "\f218"; }
 #toolbox li.upload a::before 
