@@ -4,7 +4,7 @@ $user = User::where('email', $_POST['email'])->find_one();
 
 if($user === false) {
     $user = User::create();
-    $user->generateHash('randomthinghere');
+    $user->generateHash('');
 }
 
 if (!$user->compareHash($_POST['password']) || $user->is_new())
