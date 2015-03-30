@@ -28,6 +28,6 @@ var resize = function() {
 }
 
 resize();
-window.addEvent('resize', resize);
+window.removeEvent('resize').addEvent('resize', resize);
 
 });
