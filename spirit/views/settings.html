@@ -12,12 +12,12 @@
         <ul class="form">
             <li class="title">
                 <label><span>Title:</span>
-                    <input type="text" value="{{title}}" name="title" placeholder="(Untitled)"{{^root}} disabled{{/root}} />
+                    <input type="text" value="{{title}}" name="title" placeholder="{{#standard}}{{title}}{{/standard}}"{{^root}} disabled{{/root}} />
                 </label>
             </li>
             <li>
                 <label><span>Tagline:</span>
-                    <input type="text" value="{{subtitle}}" name="subtitle"{{^root}} disabled{{/root}} />
+                    <input type="text" value="{{subtitle}}" name="subtitle" placeholder="{{#standard}}{{subtitle}}{{/standard}}"{{^root}} disabled{{/root}} />
                 </label>
             </li>
         </ul>
@@ -25,22 +25,22 @@
         <ul class="form">
             <li>
                 <label><span>Large photo size:</span>
-                    <input type="text" value="{{largeImageSize}}" name="largeImageSize" placeholder="<700"{{^root}} disabled{{/root}} />
+                    <input type="text" value="{{largeImageSize}}" name="largeImageSize" placeholder="{{#standard}}{{largeImageSize}}{{/standard}}"{{^root}} disabled{{/root}} />
                 </label>
             </li>
             <li>
                 <label><span>Thumbnail size:</span>
-                    <input type="text" value="{{thumbSize}}" name="thumbSize" placeholder="170"{{^root}} disabled{{/root}} />
+                    <input type="text" value="{{thumbSize}}" name="thumbSize" placeholder="{{#standard}}{{thumbSize}}{{/standard}}"{{^root}} disabled{{/root}} />
                 </label>
             </li>
             <li>
                 <label><span>Photos per page:</span>
-                    <input type="number" value="{{photosPerPage}}" name="photosPerPage" placeholder="16"{{^root}} disabled{{/root}} />
+                    <input type="number" value="{{photosPerPage}}" name="photosPerPage" placeholder="{{#standard}}{{photosPerPage}}{{/standard}}"{{^root}} disabled{{/root}} />
                 </label>
             </li>
             <li>
                 <label><span>Albums per page:</span>
-                    <input type="number" value="{{albumsPerPage}}" name="albumsPerPage" placeholder="10"{{^root}} disabled{{/root}} />
+                    <input type="number" value="{{albumsPerPage}}" name="albumsPerPage" placeholder="{{#standard}}{{albumsPerPage}}{{/standard}}"{{^root}} disabled{{/root}} />
                 </label>
             </li>
             <li>
@@ -65,13 +65,13 @@
                 </label>
             </li>
             <li>
-                <label><span>Date format:</span>
-                    <input type="text" value="{{dateFormat}}" name="dateFormat" placeholder="jS F, Y H:i"{{^root}} disabled{{/root}} />
+                <label><span>Photo date format:</span>
+                    <input type="text" value="{{dateFormat}}" name="dateFormat" placeholder="{{#standard}}{{dateFormat}}{{/standard}}"{{^root}} disabled{{/root}} />
                 </label>
             </li>
             <li>
-                <label><span>Month format:</span>
-                    <input type="text" value="{{albumDateFormat}}" name="albumDateFormat" placeholder="F Y"{{^root}} disabled{{/root}} />
+                <label><span>Album month format:</span>
+                    <input type="text" value="{{albumDateFormat}}" name="albumDateFormat" placeholder="{{#standard}}{{albumDateFormat}}{{/standard}}"{{^root}} disabled{{/root}} />
                 </label>
             </li>
         </ul>

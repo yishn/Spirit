@@ -72,6 +72,7 @@ class Admin {
             $context = array_merge($context, Setting::as_array());
 
             $context['originalPhotoDownload'] = $context['originalPhotoDownload'] == 'true';
+            $context['standard'] = Setting::$standards;
             $context['timezones'] = [];
             $lastcontinent = '';
 
