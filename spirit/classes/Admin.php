@@ -23,9 +23,7 @@ class Admin {
             'mainUsers' => $main == 'users',
             'mainSettings' => $main == 'settings'
         ];
-        $context['main'] = function() use($main, $context, $params) {
-            return self::renderAdminMain($main, $context, $params);
-        };
+        $context['main'] = renderAdminMain($main, $context, $params);
 
         return Mustache::renderByFile('spirit/views/admin', $context);
     }
