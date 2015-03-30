@@ -3,6 +3,25 @@
 class Setting {
     private static $settings = [];
 
+    public static $standards = [
+        'title' => '(Untitled)',
+        'subtitle' => '',
+        'largeImageSize' => '<700',
+        'thumbSize' => '170',
+        'photosPerPage' => 16,
+        'albumsPerPage' => 10,
+        'originalPhotoDownload' => true,
+        'timezone' => 'UTC',
+        'dateFormat' => 'jS F, Y H:i',
+        'albumDateFormat' => 'F Y',
+
+        'adminPhotosPerPage' => 50,
+        'adminAlbumsPerPage' => 20,
+        'albumPickerItemsPerPage' => 5,
+        'readExif' => true,
+        'version' => '0.1'
+    ];
+
     public static function get($key) {
         if (!isset(self::$settings[$key])) {
             $results = ORM::for_table(DB_PREFIX . 'setting')->find_many();
@@ -12,6 +31,10 @@ class Setting {
             }
         }
 
+        if (!isset(self::$settings[$key]) && array_key_exists($key, self::$standards)) {
+            self::set($key, $standards[$key]);
+        }
+
         return self::$settings[$key];
     }
 
@@ -19,6 +42,8 @@ class Setting {
         self::$settings[$key] = $value;
         
         $setting = ORM::for_table(DB_PREFIX . 'setting')->where('key', $key)->find_one();
+        if ($setting === false) $setting = ORM::for_table(DB_PREFIX . 'setting')->create();
+
         $setting->value = $value;
         $setting->save();
     }
