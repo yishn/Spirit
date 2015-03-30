@@ -9,7 +9,7 @@ class Route extends Dispatcher {
 
     private static function mapTheme() {
         parent::map('GET', '/', function() { echo "Void."; });
-        
+
         parent::map(404, function() { echo "Error 404: Not Found"; });
         parent::map(401, function() {
             parent::redirect('/spirit/login/unauthorized');
@@ -204,7 +204,7 @@ class Route extends Dispatcher {
     }
 
     public static function buildFilterRoute($base, array $filter = [], $page = 1) {
-        $result = parent::config('url') . $base;
+        $result = parent::link($base);
 
         if (isset($filter['album']))
             $result .= '/album/' . $filter['album']->id;
