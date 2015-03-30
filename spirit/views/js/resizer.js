@@ -1,4 +1,4 @@
-document.addEvent('domready', function() {
+window.addEvent('load', function() {
 
 /**
  * Automatically resizes stream items
