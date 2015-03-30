@@ -2,8 +2,13 @@
 
 $user = User::where('email', $_POST['email'])->find_one();
 
-if ($user === false || !$user->compareHash($_POST['password']))
-    Route::error(401);
+if($user === false) {
+    $user = User::create();
+    $user->generateHash('randomthinghere');
+}
+
+if (!$user->compareHash($_POST['password']) || $user->is_new())
+    Route::redirect('/spirit/login/invalid');
 
 Route::session('user', $user->id);
 Route::redirect('/spirit');
