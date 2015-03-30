@@ -34,7 +34,7 @@ class Setting {
         if (!isset(self::$data[$key]))
             self::downloadData();
 
-        if (!isset(self::$data[$key]) && array_key_exists($key, self::$standards))
+        if (!isset(self::$data[$key]) && isset(self::$standards[$key]))
             self::set($key, self::$standards[$key]);
 
         return self::$data[$key];
