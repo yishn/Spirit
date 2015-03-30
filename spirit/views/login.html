@@ -1,34 +1,20 @@
-<!doctype html>
-<html lang="en">
-<head>
-
-<meta charset="utf-8" />
-<title>Spirit Login</title>
-<meta name="author" content="Yichuan Shen" />
-<link rel="stylesheet" type="text/css" href="{{baseUrl}}spirit/views/css/bootstrap.css" />
-
-<script src="//ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
-
-</head>
-<body>
-
-<header>
-    <h1>Spirit</h1>
-    <h2>Login</h2>
-</header>
-
 <main>
-    <form>
-        <label>
-            Username:
-            <input type="text" name="username" placeholder="Username" />
-        </label>
-        <label>
-            Password:
-            <input type="password" name="password" placeholder="Password" />
-        </label>
+    <form method="post" action="{{baseUrl}}spirit/login">
+        <p>
+            <label>
+                <span>Email address:</span>
+                <input type="text" name="username" placeholder="Email Address" />
+            </label>
+        </p>
+        <p>
+            <label>
+                <span>Password:</span>
+                <input type="password" name="password" placeholder="Password" />
+            </label>
+        </p>
+
+        <p>
+            <button type="submit">Login</button>
+        </p>
     </form>
 </main>
-
-</body>
-</html>

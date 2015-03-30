@@ -1,4 +1,4 @@
-input { padding: .2em .3em; }
+input { padding: 3px 5px; }
 
 .form {
         margin-left: 0;
@@ -47,7 +47,7 @@ textarea { height: 7em; }
 .ace { position: relative; }
 
 button, .button {
-    padding: .3em .6em;
+    padding: 5px 10px;
     border: none;
     cursor: pointer;
     line-height: 1em;

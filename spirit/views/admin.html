@@ -8,16 +8,21 @@
 <meta name="viewport" content="width=device-width, user-scalable=no">
 <link rel="icon" href="{{baseUrl}}spirit/favicon.ico">
 <link rel="stylesheet" type="text/css" href="{{baseUrl}}spirit/views/css/bootstrap.css" />
+{{#mainLogin}}<link rel="stylesheet" type="text/css" href="{{baseUrl}}spirit/views/css/login.css" />{{/mainLogin}}
 <script src="//ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
 
 </head>
-<body>
+<body{{#mainLogin}} id="login"{{/mainLogin}}>
 
 <header>
     <h1>Spirit</h1>
 
     <nav>
         <ul>
+        {{#mainLogin}}
+            <li><a href="{{baseUrl}}">Back to Site</a></li>
+        {{/mainLogin}}
+        {{^mainLogin}}
             <li{{#mainPhotos}} class="current"{{/mainPhotos}}><a href="{{baseUrl}}spirit/photos">Photos</a></li>
             <li{{#mainAlbums}} class="current"{{/mainAlbums}}><a href="{{baseUrl}}spirit/albums">Albums</a></li>
             <li{{#mainUsers}} class="current"{{/mainUsers}}><a href="{{baseUrl}}spirit/users">Users</a></li>
@@ -29,6 +34,7 @@
                 </a>
             </li>
             {{/user}}
+        {{/mainLogin}}
         </ul>
     </nav>
 </header>

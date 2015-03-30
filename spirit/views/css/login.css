@@ -1,0 +1,47 @@
+body {
+    background: #26292A;
+    color: #eee;
+}
+
+header {
+        background: #26292A;
+    }
+    header h1 {
+        float: left;
+    }
+    nav ul, nav ul li a {
+        float: left;
+        margin: 0;
+}
+
+#login nav li a::before { content: "\f144"; }
+
+form {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -140px;
+    transform: translateY(-50%);
+    width: 280px;
+}
+
+p { margin: .7em 0; }
+
+label span {
+    position: absolute;
+    left: -9999em;
+    top: -9999em;
+}
+
+input {
+    border: 1px solid white;
+    height: 1.8em;
+    width: 268px;
+    line-height: 1.8em;
+}
+
+button {
+    height: 2.3em;
+    width: 280px;
+    line-height: 1.5em;
+}
