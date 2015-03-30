@@ -13,6 +13,10 @@ class Photo extends Model {
         return Route::link("/photo/{$this->id}");
     }
 
+    public function getDownloadLink() {
+        return Route::link("/photo/{$this->id}/download");
+    }
+
     public function getThumbnailLink() {
         return Route::link("/photo/{$this->id}/size/thumb");
     }
@@ -84,6 +88,8 @@ class Photo extends Model {
         $result['date'] = $this->getFormattedDate();
         $result['formattedDate'] = $this->getFormattedDate(Setting::get('dateFormat'));
         $result['permalink'] = $this->getPermalink();
+        $result['downloadable'] = Setting::get('originalPhotoDownload') == 'true';
+        $result['downloadLink'] = $this->getDownloadLink();
         $result['thumbnailLink'] = $this->getThumbnailLink();
         $result['largeImageLink'] = $this->getLargeImageLink();
         $result['formattedDescription'] = function() { return $this->getFormattedDescription(); };
