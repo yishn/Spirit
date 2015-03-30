@@ -10,7 +10,7 @@ var lambda = function() { confirm = true; };
 
 window.addEvent('beforeunload', function(event) { if (confirm) event.stop(); });
 
-$$('input, textarea').addEvent('change', lambda);
+$$('input, textarea, select').addEvent('change', lambda);
 $$('.ace').retrieve('ace').each(function(ace) {
     ace.on('change', lambda);
 });
