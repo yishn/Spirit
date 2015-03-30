@@ -18,13 +18,14 @@ class Admin {
             'user' => $this->user->as_array(),
             'root' => $this->user->root == 1,
 
-            'mainLogin' => $main == 'login',
             'mainPhotos' => $main == 'photos' || $main == 'photo-edit' || $main == 'upload',
             'mainAlbums' => $main == 'albums' || $main == 'album-edit',
             'mainUsers' => $main == 'users',
             'mainSettings' => $main == 'settings'
         ];
-        $context['main'] = self::renderAdminMain($main, $context, $params);
+        $context['main'] = function() use($main, $context, $params) {
+            return self::renderAdminMain($main, $context, $params);
+        };
 
         return Mustache::renderByFile('spirit/views/admin', $context);
     }
