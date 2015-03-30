@@ -38,9 +38,13 @@ class Admin {
             $context['nextPageLink'] = Route::buildFilterRoute('/spirit/photos', $params['filter'], $params['page'] + 1);
         } else if ($main == 'photo-edit') {
             $ids = $params;
+            $limit = intval(Setting::get('batchEditLimit'));
+
+            $context['limited'] = count($ids) == $limit + 1;
             $context['ids'] = implode(',', $ids);
             $context['photos'] = [];
 
+            $ids = array_slice($ids, 0, $limit);
             foreach ($ids as $id) {
                 $context['photos'][] = Photo::find_one($id)->as_array();
             }

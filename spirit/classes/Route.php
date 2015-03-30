@@ -91,7 +91,13 @@ class Route extends Dispatcher {
 
         parent::map('GET', '/spirit/photos/edit/{ids:(\d+,?)+}', function($params) {
             $admin = new Admin();
-            $ids = self::verifyModels('Photo', $params['ids']);
+            $limit = intval(Setting::get('batchEditLimit'));
+            $ids = explode(',', $params['ids']);
+
+            if (count($ids) > $limit)
+                $ids = array_slice($ids, 0, $limit + 1);
+
+            self::verifyModels('Photo', $ids);
             print $admin->renderAdmin('photo-edit', $ids);
         });
                 
@@ -194,13 +200,12 @@ class Route extends Dispatcher {
         return $item;
     }
 
-    public static function verifyModels($model, $ids) {
-        $array = explode(',', $ids);
-        foreach ($array as $id) {
+    public static function verifyModels($model, array $ids) {
+        foreach ($ids as $id) {
             self::verifyModel($model, $id);
         }
 
-        return $array;
+        return $ids;
     }
 
     public static function buildFilterRoute($base, array $filter = [], $page = 1) {

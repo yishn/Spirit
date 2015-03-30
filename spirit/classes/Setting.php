@@ -18,6 +18,7 @@ class Setting {
         'adminPhotosPerPage' => 50,
         'adminAlbumsPerPage' => 20,
         'albumPickerItemsPerPage' => 5,
+        'batchEditLimit' => 20,
         'readExif' => 'true',
         'version' => '0.1'
     ];

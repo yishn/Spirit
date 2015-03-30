@@ -7,6 +7,10 @@
 <main>
     <form method="post" action="{{baseUrl}}spirit/photos/edit/{{ids}}">
         {{^isSingle}}
+        {{#limited}}
+        <p class="error">The number of photos has been limited because of performance reasons.</p>
+        {{/limited}}
+
         <div class="globalalbums">
             <p>
                 <label><span>Add photos to following albums:</span>

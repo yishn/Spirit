@@ -66,3 +66,4 @@ button[type="submit"]:hover,
 
 a { color: #0082f0; }
 a:hover, a:focus { color: #333; }
+.error { color: #D1370E; }
