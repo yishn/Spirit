@@ -3,12 +3,13 @@ header, #toolbox {
     top: 0;
     left: 0;
     right: 0;
+    height: 1.7em;
     z-index: 10;
 }
 header h1 { float: left; }
 
 nav ul { margin: 0; }
-nav ul li:last-child { float: right; }
+nav ul li:last-child { position: static; float: right; }
 nav ul li a, #toolbox ul li a { margin-top: 0; }
 #toolbox ul li.checkbox label { margin-top: .3em; margin-bottom: .2em; }
 

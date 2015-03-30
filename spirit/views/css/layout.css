@@ -12,6 +12,7 @@ body {
 
 header {
         padding: 1em;
+        position: relative;
     }
     header h1 {
         margin-right: 1em;
@@ -39,6 +40,11 @@ nav ul, #toolbox ul {
         margin: .3em 1em .2em 0;
         padding: .4em .7em;
         text-decoration: none;
+    }
+    nav ul li:last-child {
+        position: absolute;
+        right: 1em;
+        top: 1em;
     }
     nav ul li a img {
         margin-top: -3px;
