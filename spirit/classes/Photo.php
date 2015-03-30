@@ -137,14 +137,7 @@ class Photo extends Model {
     }
 
     public static function in_album($orm, $album) {
-        $photoTable = DB_PREFIX . 'photo';
-        $albumTable = DB_PREFIX . 'album';
-        $table = DB_PREFIX . 'album_photo';
-
-        return $orm->select("{$photoTable}.*")
-            ->join($table, array("{$table}.photo_id", '=', "{$photoTable}.id"))
-            ->join($albumTable, array("{$albumTable}.id", '=', "{$table}.album_id"))
-            ->where("{$table}.album_id", $album->id);
+        return $album->photos();
     }
 
     public static function in_month($orm, $month) {
