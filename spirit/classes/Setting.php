@@ -10,7 +10,7 @@ class Setting {
         'thumbSize' => '170',
         'photosPerPage' => 16,
         'albumsPerPage' => 10,
-        'originalPhotoDownload' => true,
+        'originalPhotoDownload' => 'true',
         'timezone' => 'UTC',
         'dateFormat' => 'jS F, Y H:i',
         'albumDateFormat' => 'F Y',
@@ -18,7 +18,7 @@ class Setting {
         'adminPhotosPerPage' => 50,
         'adminAlbumsPerPage' => 20,
         'albumPickerItemsPerPage' => 5,
-        'readExif' => true,
+        'readExif' => 'true',
         'version' => '0.1'
     ];
 
@@ -51,6 +51,6 @@ class Setting {
 
     public static function as_array() {
         self::get('title');
-        return self::$settings;
+        return array_merge(self::$standards, self::$settings);
     }
 }
