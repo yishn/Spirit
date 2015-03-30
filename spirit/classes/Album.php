@@ -4,8 +4,8 @@ class Album extends Model {
     public function photos() {
         $query = $this->has_many_through('Photo');
 
-        if ($this->chronological == 1) return $query->order_by_asc('date');
-        return $query->order_by_desc('date');
+        if ($this->chronological == 1) return $query->order_by_asc('date')->order_by_asc('id');
+        return $query->order_by_desc('date')->order_by_desc('id');
     }
 
     public function getPhoto() {

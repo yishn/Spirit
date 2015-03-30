@@ -100,6 +100,7 @@ class Photo extends Model {
         if (isset($filter['search'])) $query = $query->filter('search', $filter['search']);
 
         $photos = $query->order_by_desc('date')
+            ->order_by_desc('id')
             ->limit($limit + 1)
             ->offset(($page - 1) * $limit)
             ->find_many();
