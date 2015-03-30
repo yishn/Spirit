@@ -1,7 +1,7 @@
 <?php
 
 class Setting {
-    private static $settings = [];
+    private static $data = [];
 
     public static $standards = [
         'title' => '(Untitled)',
@@ -22,24 +22,26 @@ class Setting {
         'version' => '0.1'
     ];
 
+    private static function downloadData() {
+        $results = ORM::for_table(DB_PREFIX . 'setting')->find_many();
+
+        foreach ($results as $row) {
+            self::$data[$row->key] = $row->value;
+        }
+    }
+
     public static function get($key) {
-        if (!isset(self::$settings[$key])) {
-            $results = ORM::for_table(DB_PREFIX . 'setting')->find_many();
+        if (!isset(self::$data[$key]))
+            self::downloadData();
 
-            foreach ($results as $row) {
-                self::$settings[$row->key] = $row->value;
-            }
-        }
-
-        if (!isset(self::$settings[$key]) && array_key_exists($key, self::$standards)) {
+        if (!isset(self::$data[$key]) && array_key_exists($key, self::$standards))
             self::set($key, self::$standards[$key]);
-        }
 
-        return self::$settings[$key];
+        return self::$data[$key];
     }
 
     public static function set($key, $value) {
-        self::$settings[$key] = $value;
+        self::$data[$key] = $value;
         
         $setting = ORM::for_table(DB_PREFIX . 'setting')->where('key', $key)->find_one();
         if ($setting === false) $setting = ORM::for_table(DB_PREFIX . 'setting')->create();
@@ -50,7 +52,7 @@ class Setting {
     }
 
     public static function as_array() {
-        self::get('title');
-        return array_merge(self::$standards, self::$settings);
+        self::downloadData();
+        return array_merge(self::$standards, self::$data);
     }
 }
