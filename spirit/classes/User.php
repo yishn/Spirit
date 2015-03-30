@@ -6,16 +6,13 @@ class User extends Model {
     }
 
     public function generateHash($password) {
-        $salt = strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
-        $salt = sprintf("$2a$%02d$", 15) . $salt;
-
-        $this->salt = $salt;
+        $salt = '$2a$15$' . strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
         $this->hash = crypt($password, $salt);
     }
 
     public function compareHash($password) {
-        $hash = crypt($password, $this->salt);
-        return hash_equals($this->hash, $hash);
+        $hash = crypt($password, $this->hash);
+        return $this->hash === $hash;
     }
 
     public function getAvatarLink() {
@@ -37,7 +34,6 @@ class User extends Model {
             'email' => '',
             'name' => '',
             'hash' => '',
-            'salt' => '',
             'root' => false
         ]);
         return $user;
