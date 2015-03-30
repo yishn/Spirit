@@ -1,15 +1,15 @@
 <?php
 
 class Album extends Model {
-    public function photos($overrideOrder = false) {
+    public function photos($overrideDescOrder = false) {
         $query = $this->has_many_through('Photo');
 
-        if ($this->chronological == 1 && !$overrideOrder) return $query->order_by_asc('date')->order_by_asc('id');
+        if ($this->chronological == 1 && !$overrideDescOrder) return $query->order_by_asc('date')->order_by_asc('id');
         return $query->order_by_desc('date')->order_by_desc('id');
     }
 
     public function getPhoto() {
-        return $this->photos()->find_one();
+        return $this->photos(true)->find_one();
     }
 
     public function getFormattedDescription() {
@@ -18,7 +18,7 @@ class Album extends Model {
     }
 
     public function getFormattedDate($format = 'Y-m-d H:i') {
-        $photo = $this->photos(true)->find_one();
+        $photo = $this->getPhoto();
         $date = new DateTime(!$photo ? 'now' : $photo->date);
         return $date->format($format);
     }
