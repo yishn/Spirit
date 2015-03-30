@@ -32,7 +32,7 @@ class Setting {
         }
 
         if (!isset(self::$settings[$key]) && array_key_exists($key, self::$standards)) {
-            self::set($key, $standards[$key]);
+            self::set($key, self::$standards[$key]);
         }
 
         return self::$settings[$key];
@@ -44,6 +44,7 @@ class Setting {
         $setting = ORM::for_table(DB_PREFIX . 'setting')->where('key', $key)->find_one();
         if ($setting === false) $setting = ORM::for_table(DB_PREFIX . 'setting')->create();
 
+        $setting->key = $key;
         $setting->value = $value;
         $setting->save();
     }
