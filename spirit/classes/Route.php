@@ -11,9 +11,7 @@ class Route extends Dispatcher {
         parent::map('GET', '/', function() { echo "Void."; });
 
         parent::map(404, function() { echo "Error 404: Not Found"; });
-        parent::map(401, function() {
-            parent::redirect('/spirit/login/unauthorized');
-        });
+        parent::map(401, function() { parent::redirect('/spirit/login/unauthorized'); });
 
         parent::map('GET', '/photo/{id:\d+}', function($params) {
             parent::redirect('/photo/' . $params['id'] . '/size/large');
@@ -47,11 +45,11 @@ class Route extends Dispatcher {
 
             print Mustache::renderByFile('spirit/views/admin', $context);
         });
-        parent::map('POST', '/spirit/login', function() { include("spirit/actions/login.php"); });
+        parent::map('POST', '/spirit/login', function() { include('spirit/actions/login.php'); });
 
         parent::map('GET', '/spirit/logout', function() {
-            session_destroy();
-            parent::redirect('/');
+            $admin = new Admin();
+            $admin->executeAction('logout');
         });
 
         parent::map('GET', '/spirit/{main:users|settings|about}', function($params) {
