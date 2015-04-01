@@ -41,9 +41,9 @@ class Spirit extends Dispatcher {
                 'flagInvalid' => $params['flag'] == 'invalid',
                 'flagUnauthorized' => $params['flag'] == 'unauthorized'
             ];
-            $context['main'] = Mustache::renderByFile('spirit/views/login', $context);
+            $context['main'] = Mustache::renderByFile('spirit/views/login.html', $context);
 
-            print Mustache::renderByFile('spirit/views/admin', $context);
+            print Mustache::renderByFile('spirit/views/admin.html', $context);
         });
         parent::map('POST', '/spirit/login', function() { include('spirit/actions/login.php'); });
 
@@ -161,7 +161,7 @@ class Spirit extends Dispatcher {
             $context = Album::getAlbums($limit, [ 'search' => $params['search'] ]);
             $context['baseUrl'] = Spirit::config('url');
 
-            print Mustache::renderByFile('spirit/views/partials/albumpicker', $context);
+            print Mustache::renderByFile('spirit/views/partials/albumpicker.html', $context);
         });
 
         parent::map('GET', '/spirit/partial/monthpicker/{main:photos|albums}', function($params) {
@@ -187,7 +187,7 @@ class Spirit extends Dispatcher {
                 $context['months'][] = $month;
             }
 
-            print Mustache::renderByFile('spirit/views/partials/monthpicker', $context);
+            print Mustache::renderByFile('spirit/views/partials/monthpicker.html', $context);
         });
     }
 

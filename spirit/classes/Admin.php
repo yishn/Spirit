@@ -26,7 +26,7 @@ class Admin {
         ];
         $context['main'] = self::renderAdminMain($main, $context, $params);
 
-        return Mustache::renderByFile('spirit/views/admin', $context);
+        return Mustache::renderByFile('spirit/views/admin.html', $context);
     }
 
     public function renderAdminMain($main, array $context, array $params = []) {
@@ -102,7 +102,7 @@ class Admin {
             }
         }
 
-        return Mustache::renderByFile('spirit/views/' . $main, $context);
+        return Mustache::renderByFile("spirit/views/{$main}.html", $context);
     }
 
     public function executeAction($action, $params = []) {

@@ -39,20 +39,16 @@ class Mustache {
     }
 
     /**
-     * @param $pathTemplate
+     * @param $fileName
      * @param array $data
      * @param array $customParsers
-     * @param string $fileExtension
      *
      * @return string
      * @throws MustacheException
      */
-    public static function renderByFile($pathTemplate, array $data = [], array $customParsers = [], $fileExtension = 'html') {
-        // set filename
-        $fileName = $pathTemplate . '.' . $fileExtension;
-
+    public static function renderByFile($fileName, array $data = [], array $customParsers = []) {
         // test cache
-        if (isset(self::$templates[$pathTemplate]) === false) {
+        if (isset(self::$templates[$fileName]) === false) {
             // make sure the file exists
             if (file_exists($fileName) === false) {
                 throw new MustacheException('Missing given template file: ' . $fileName);
@@ -66,10 +62,10 @@ class Mustache {
             }
 
             // cache template
-            self::$templates[$pathTemplate] = $template;
+            self::$templates[$fileName] = $template;
         }
 
-        $template = self::$templates[$pathTemplate];
+        $template = self::$templates[$fileName];
 
         // find partials
         preg_match_all('|({{>(\S+?)}})|s', $template, $partialPattern);
@@ -77,7 +73,7 @@ class Mustache {
         if (isset($partialPattern[2][0])) {
             foreach ($partialPattern[1] as $patternId => $patternContext) {
                 // parse and replace pattern context
-                $path = dirname($pathTemplate) . '/' . $partialPattern[2][$patternId];
+                $path = dirname($fileName) . '/' . $partialPattern[2][$patternId];
                 $template = str_replace($patternContext, self::renderByFile($path, [], [], $fileExtension), $template);
             }
         }
