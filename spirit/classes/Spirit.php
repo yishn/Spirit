@@ -223,6 +223,7 @@ class Spirit extends Dispatcher {
 
     public static function getThemes() {
         $themeDir = Spirit::config('contentDir') . 'themes/';
+        
         $directories = array_filter(scandir($themeDir), function($id) use($themeDir) {
             return is_dir($themeDir . "/{$id}") && file_exists($themeDir . "/{$id}/spirit-info.php");
         });
