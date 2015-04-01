@@ -6,6 +6,7 @@ class Setting {
     public static $standards = [
         'title' => '(Untitled)',
         'subtitle' => '',
+        'theme' => 'default',
         'largeImageSize' => '<700',
         'thumbSize' => '170',
         'photosPerPage' => 16,

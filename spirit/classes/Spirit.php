@@ -220,4 +220,18 @@ class Spirit extends Dispatcher {
 
         return $result;
     }
+
+    public static function getThemes() {
+        $themeDir = Spirit::config('contentDir') . 'themes/';
+        $directories = array_filter(scandir($themeDir), function($id) use($themeDir) {
+            return is_dir($themeDir . "/{$id}") && file_exists($themeDir . "/{$id}/spirit-info.php");
+        });
+
+        return array_map(function($id) use($themeDir) {
+            $info = include($themeDir . "/{$id}/spirit-info.php");
+            $info['id'] = $id;
+
+            return $info;
+        }, $directories);
+    }
 }
