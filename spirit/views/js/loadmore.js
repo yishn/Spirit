@@ -27,7 +27,6 @@ $$('#pagination .next').set('text', 'Load more').removeEvents('click').addEvent(
             window.history.pushState(null, null, next.get('href'));
 
             document.fireEvent('domready');
-            window.fireEvent('load');
             next.getParent().dispose();
             loading.false;
         }
