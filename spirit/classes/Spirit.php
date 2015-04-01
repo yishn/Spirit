@@ -230,7 +230,8 @@ class Spirit extends Dispatcher {
         return array_map(function($id) use($themeDir) {
             $info = include($themeDir . "/{$id}/spirit-info.php");
             $info['id'] = $id;
-
+            $info['current'] = $id == Setting::get('theme');
+            
             return $info;
         }, $directories);
     }
