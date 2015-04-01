@@ -68,6 +68,7 @@ nav ul, #toolbox ul {
         margin: .6em 1em .5em 8px;
         text-align: center;
     }
+    #toolbox ul li.checkbox label input { margin-top: 2px; }
     #toolbox ul li a { padding: .3em .6em; }
     #toolbox .search input {
         margin: .3em 0 .2em 0
