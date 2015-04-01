@@ -8,7 +8,7 @@ if($user === false) {
 }
 
 if (!$user->compareHash($_POST['password']) || $user->is_new())
-    Route::redirect('/spirit/login/invalid');
+    Spirit::redirect('/spirit/login/invalid');
 
-Route::session('user', $user->id);
-Route::redirect('/spirit');
+Spirit::session('user', $user->id);
+Spirit::redirect('/spirit');

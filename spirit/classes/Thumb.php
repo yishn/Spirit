@@ -40,7 +40,7 @@ class Thumb {
     public static $thumb_cache = '';
 
     public static function render($src, $size, array $options = []) {
-        self::$thumb_cache = Route::config('contentDir') . 'cache/';
+        self::$thumb_cache = Spirit::config('contentDir') . 'cache/';
 
         $crop = isset($options['crop']) ? $options['crop'] : 1;
         $trim = isset($options['trim']) ? $options['trim'] : 1;

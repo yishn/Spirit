@@ -11,7 +11,7 @@ function is_timezone($value) {
 
 // Check authorization
 if (!$this->user->root)
-    Route::error(401);
+    Spirit::error(401);
 
 // Check values
 foreach (Setting::$standards as $key => $standard) {
@@ -30,4 +30,4 @@ foreach (Setting::$standards as $key => $standard) {
     Setting::set($key, $value);
 }
 
-Route::redirect('/spirit/settings');
+Spirit::redirect('/spirit/settings');

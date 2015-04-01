@@ -5,11 +5,11 @@ if (!$user) $user = User::create();
 
 // Check data
 if ($_POST['name'] == '' || $_POST['email'] == '')
-    Route::redirect('/spirit/users/' . $user->id);
+    Spirit::redirect('/spirit/users/' . $user->id);
 
 // Check authorization
 if (!$this->user->root && !$user->is_new() && $this->user->id != $user->id)
-    Route::error(401);
+    Spirit::error(401);
 
 $user->set([
     'name' => $_POST['name'],
@@ -17,14 +17,14 @@ $user->set([
 ]);
 
 if ($user->is_new() && $_POST['password'] == '')
-    Route::redirect('/spirit/users/' . $user->id);
+    Spirit::redirect('/spirit/users/' . $user->id);
 
 if ($_POST['password'] != '') {
     if ($_POST['verifypassword'] != $_POST['password'])
-        Route::redirect('/spirit/users/' . $user->id);
+        Spirit::redirect('/spirit/users/' . $user->id);
 
     $user->generateHash($_POST['password']);
 }
 
 $user->save();
-Route::redirect('/spirit/users');
+Spirit::redirect('/spirit/users');

@@ -11,7 +11,7 @@ function getExifDate($path) {
     return new DateTime('now', new DateTimeZone(Setting::get('timezone')));
 }
 
-$uploaddir = Route::config('contentDir') . 'photos/';
+$uploaddir = Spirit::config('contentDir') . 'photos/';
 $ids = [];
 
 if (!is_dir($uploaddir)) {
@@ -44,9 +44,9 @@ for ($i = 0; $i < count($_FILES['file']['name']); $i++) {
 
 if ($params['mode'] != 'id') {
     if (count($ids) > 0)
-        Route::redirect('spirit/photos/edit/' . implode(',', $ids));
+        Spirit::redirect('spirit/photos/edit/' . implode(',', $ids));
     else
-        Route::redirect('spirit/photos');
+        Spirit::redirect('spirit/photos');
 } else {
     echo implode(',', $ids);
 }

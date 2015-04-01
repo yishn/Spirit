@@ -3,18 +3,18 @@
 class Admin {
     public function __construct() {
         if ($this->isLoggedIn()) return;
-        Route::redirect('/spirit/login');
+        Spirit::redirect('/spirit/login');
     }
 
     public function isLoggedIn() {
-        $this->user = User::where_id_is(Route::session('user'))->find_one();
+        $this->user = User::where_id_is(Spirit::session('user'))->find_one();
         return $this->user !== false;
     }
 
     public function renderAdmin($main, $params = []) {
         $context = [
             'title' => Setting::get('title'),
-            'baseUrl' => Route::config('url'),
+            'baseUrl' => Spirit::config('url'),
             'user' => $this->user->as_array(),
             'root' => $this->user->root == 1,
 
@@ -34,8 +34,8 @@ class Admin {
             $context = array_merge($context, Photo::getPhotos(
                 intval(Setting::get('adminPhotosPerPage')), $params['filter'], $params['page'])
             );
-            $context['previousPageLink'] = Route::buildFilterRoute('/spirit/photos', $params['filter'], $params['page'] - 1);
-            $context['nextPageLink'] = Route::buildFilterRoute('/spirit/photos', $params['filter'], $params['page'] + 1);
+            $context['previousPageLink'] = Spirit::buildFilterRoute('/spirit/photos', $params['filter'], $params['page'] - 1);
+            $context['nextPageLink'] = Spirit::buildFilterRoute('/spirit/photos', $params['filter'], $params['page'] + 1);
         } else if ($main == 'photo-edit') {
             $ids = $params;
             $limit = intval(Setting::get('batchEditLimit'));
@@ -54,8 +54,8 @@ class Admin {
             $context = array_merge($context, Album::getAlbums(
                 intval(Setting::get('adminAlbumsPerPage')), $params['filter'], $params['page'])
             );
-            $context['previousPageLink'] = Route::buildFilterRoute('/spirit/albums', $params['filter'], $params['page'] - 1);
-            $context['nextPageLink'] = Route::buildFilterRoute('/spirit/albums', $params['filter'], $params['page'] + 1);
+            $context['previousPageLink'] = Spirit::buildFilterRoute('/spirit/albums', $params['filter'], $params['page'] - 1);
+            $context['nextPageLink'] = Spirit::buildFilterRoute('/spirit/albums', $params['filter'], $params['page'] + 1);
         } else if ($main == 'album-edit') {
             $album = $params['id'] == 'new' ? Album::create() : Album::find_one($params['id']);
             $context = array_merge($context, $album->as_array());

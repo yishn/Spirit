@@ -1,5 +1,5 @@
 <?php
 
-$album = Route::verifyModel('Album', $params['id']);
+$album = Spirit::verifyModel('Album', $params['id']);
 $album->delete();
-Route::redirect('/spirit/albums');
+Spirit::redirect('/spirit/albums');

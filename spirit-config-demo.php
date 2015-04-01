@@ -21,8 +21,8 @@ define('CONTENTDIR', 'spirit-content/');
  * Ok, stop editing now!
  */
 
-// Configure Route
-Route::config(array(
+// Configure Spirit
+Spirit::config(array(
     'url' => BASEURL,
     'contentDir' => CONTENTDIR
 ));

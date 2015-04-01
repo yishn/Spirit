@@ -35,11 +35,11 @@ class Album extends Model {
         $result['chronological'] = $result['chronological'] == 1;
         $result['thumbnailLink'] = function() {
             $photo = $this->getPhoto();
-            return !$photo ? Route::link('/') : $photo->getThumbnailLink();
+            return !$photo ? Spirit::link('/') : $photo->getThumbnailLink();
         };
         $result['largeImageLink'] = function() {
             $photo = $this->getPhoto();
-            return !$photo ? Route::link('/') : $photo->getLargeImageLink();
+            return !$photo ? Spirit::link('/') : $photo->getLargeImageLink();
         };
         $result['count'] = function() { return $this->photos()->count(); };
         $result['date'] = function() { return $this->getFormattedDate(); };

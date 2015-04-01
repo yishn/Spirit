@@ -1,6 +1,6 @@
 <?php
 
-class Route extends Dispatcher {
+class Spirit extends Dispatcher {
     public static function map() {
         self::mapTheme();
         self::mapAdmin();
@@ -36,7 +36,7 @@ class Route extends Dispatcher {
         parent::map('GET', '/spirit/login/{flag:(invalid)?|(unauthorized)?}', function($params) {
             $context = [
                 'title' => Setting::get('title'),
-                'baseUrl' => Route::config('url'),
+                'baseUrl' => Spirit::config('url'),
                 'mainLogin' => true,
                 'flagInvalid' => $params['flag'] == 'invalid',
                 'flagUnauthorized' => $params['flag'] == 'unauthorized'
@@ -159,7 +159,7 @@ class Route extends Dispatcher {
             $limit = intval(Setting::get('albumPickerItemsPerPage'));
             
             $context = Album::getAlbums($limit, [ 'search' => $params['search'] ]);
-            $context['baseUrl'] = Route::config('url');
+            $context['baseUrl'] = Spirit::config('url');
 
             print Mustache::renderByFile('spirit/views/partials/albumpicker', $context);
         });
@@ -170,7 +170,7 @@ class Route extends Dispatcher {
         parent::map('GET', '/spirit/partial/monthpicker/{main:photos|albums}/{year:\d\d\d\d}', function($params) {
             $context = [
                 'months' => [],
-                'baseUrl' => Route::config('url'),
+                'baseUrl' => Spirit::config('url'),
                 'previousYear' => str_pad(max($params['year'] - 1, 1), 4, '0', STR_PAD_LEFT),
                 'nextYear' => str_pad(min($params['year'] + 1, 9999), 4, '0', STR_PAD_LEFT)
             ];

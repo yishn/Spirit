@@ -10,4 +10,4 @@ $album->set([
 ]);
 
 $album->save();
-Route::redirect('/spirit/albums');
+Spirit::redirect('/spirit/albums');

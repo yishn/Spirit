@@ -1,4 +1,4 @@
 <?php
 
 session_unset();
-Route::redirect('/');
+Spirit::redirect('/');

@@ -10,23 +10,23 @@ class Photo extends Model {
     }
 
     public function getPermalink() {
-        return Route::link("/photo/{$this->id}");
+        return Spirit::link("/photo/{$this->id}");
     }
 
     public function getDownloadLink() {
-        return Route::link("/photo/{$this->id}/download");
+        return Spirit::link("/photo/{$this->id}/download");
     }
 
     public function getThumbnailLink() {
-        return Route::link("/photo/{$this->id}/size/thumb");
+        return Spirit::link("/photo/{$this->id}/size/thumb");
     }
 
     public function getLargeImageLink() {
-        return Route::link("/photo/{$this->id}/size/large");
+        return Spirit::link("/photo/{$this->id}/size/large");
     }
 
     public function getEditLink() {
-        return Route::link("/spirit/edit/photo/{$this->id}");
+        return Spirit::link("/spirit/edit/photo/{$this->id}");
     }
 
     public function getFormattedDescription() {
@@ -40,7 +40,7 @@ class Photo extends Model {
     }
 
     public function download() {
-        $path = Route::config('contentDir') . 'photos/' . $this->filename;
+        $path = Spirit::config('contentDir') . 'photos/' . $this->filename;
 
         header('Content-Type: application/octet-stream');
         header('Content-Length: ' . filesize($path));
@@ -51,14 +51,14 @@ class Photo extends Model {
     }
 
     public function generateThumbnail($size) {
-        $path = Route::config('contentDir') . 'photos/' . $this->filename;
+        $path = Spirit::config('contentDir') . 'photos/' . $this->filename;
 
         Thumb::render($path, $size);
         exit();
     }
 
     public function delete() {
-        $contentDir = Route::config('contentDir');
+        $contentDir = Spirit::config('contentDir');
         $path = "{$contentDir}photos/" . $this->filename;
         unlink($path);
 

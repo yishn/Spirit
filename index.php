@@ -5,11 +5,11 @@ ini_set('display_errors', 1);
 
 require_once('spirit/includes.php');
 
-session_set_cookie_params(604800, Route::config('url'));
+session_set_cookie_params(604800, Spirit::config('url'));
 session_start();
 
-Route::map();
-Route::dispatch();
+Spirit::map();
+Spirit::dispatch();
 
 if (!ORM::get_config('logging')) return;
 
