@@ -30,7 +30,7 @@
  * IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-define('THUMB_CACHE_AGE',       604800);        // Duration of cached files in seconds
+define('THUMB_CACHE_AGE',       86400);         // Duration of cached files in seconds
 define('THUMB_BROWSER_CACHE',   true);          // Browser cache true or false
 define('SHARPEN_MIN',           12);            // Minimum sharpen value
 define('SHARPEN_MAX',           28);            // Maximum sharpen value
@@ -40,7 +40,7 @@ class Thumb {
     public static $thumb_cache = '';
 
     public static function render($src, $size, array $options = []) {
-        self::$thumb_cache = Spirit::config('contentDir') . 'cache/';
+        self::$thumb_cache = DIR_CONTENT . 'cache/';
 
         $crop = isset($options['crop']) ? $options['crop'] : 1;
         $trim = isset($options['trim']) ? $options['trim'] : 1;

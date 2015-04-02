@@ -14,8 +14,10 @@ define('DB_PREFIX', '');
 // The base url of your photoblog. Please add trailing `/`.
 define('BASEURL', '/');
 
-// The path to your content directory. Make sure it's writable!
-define('CONTENTDIR', 'spirit-content/');
+// The path to your upload directory. Make sure it's writable!
+define('DIR_CONTENT', 'spirit-content/photos/');
+// The path to your themes directory.
+define('DIR_THEMES', 'spirit-content/themes/');
 
 /**
  * Ok, stop editing now!
@@ -23,8 +25,7 @@ define('CONTENTDIR', 'spirit-content/');
 
 // Configure Spirit
 Spirit::config([
-    'url' => BASEURL,
-    'contentDir' => CONTENTDIR
+    'url' => BASEURL
 ]);
 
 // Configure Idiorm

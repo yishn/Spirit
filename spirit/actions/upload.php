@@ -11,15 +11,14 @@ function getExifDate($path) {
     return new DateTime('now', new DateTimeZone(Setting::get('timezone')));
 }
 
-$uploaddir = Spirit::config('contentDir') . 'photos/';
 $ids = [];
 
-if (!is_dir($uploaddir)) mkdir($uploaddir);
+if (!is_dir(DIR_CONTENT)) mkdir(DIR_CONTENT);
 
 for ($i = 0; $i < count($_FILES['file']['name']); $i++) {
     $title = basename($_FILES['file']['name'][$i]);
     $filename = uniqid() . '-' . $title;
-    $path = $uploaddir . $filename;
+    $path = DIR_CONTENT . $filename;
 
     if (substr($_FILES['file']['type'][$i], 0, 6) != 'image/') continue;
     if (!move_uploaded_file($_FILES['file']['tmp_name'][$i], $path)) continue;

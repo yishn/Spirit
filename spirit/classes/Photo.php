@@ -40,7 +40,7 @@ class Photo extends Model {
     }
 
     public function download() {
-        $path = Spirit::config('contentDir') . 'photos/' . $this->filename;
+        $path = DIR_CONTENT . $this->filename;
 
         header('Content-Type: application/octet-stream');
         header('Content-Length: ' . filesize($path));
@@ -51,15 +51,14 @@ class Photo extends Model {
     }
 
     public function generateThumbnail($size) {
-        $path = Spirit::config('contentDir') . 'photos/' . $this->filename;
+        $path = DIR_CONTENT . $this->filename;
 
         Thumb::render($path, $size);
         exit();
     }
 
     public function delete() {
-        $contentDir = Spirit::config('contentDir');
-        $path = "{$contentDir}photos/" . $this->filename;
+        $path = DIR_CONTENT . $this->filename;
         unlink($path);
 
         AlbumPhoto::where('photo_id', $this->id)->delete_many();
