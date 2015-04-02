@@ -11,7 +11,7 @@ class Admin {
         return $this->user !== false;
     }
 
-    public function renderAdmin($main, $params = []) {
+    public function renderAdmin($main, array $params = []) {
         $context = [
             'title' => Setting::get('title'),
             'baseUrl' => Spirit::config('url'),

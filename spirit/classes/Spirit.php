@@ -8,14 +8,21 @@ class Spirit extends Dispatcher {
     }
 
     private static function mapTheme() {
-        parent::map('GET', '/', function() { echo "Void."; });
+        $photos = function($params) { self::render('photos', $params); };
+        parent::map('GET', '/<page:\d*>', $photos);
+        parent::map('GET', '/search/<search:[^/]+>/<page:\d*>', $photos);
+        parent::map('GET', '/<month:\d{4}-\d{2}>/<page:\d*>', $photos);
+        parent::map('GET', '/album/<album:\d+>/<page:\d*>', $photos);
 
-        parent::map(404, function() { echo "Error 404: Not Found"; });
+        $albums = function($params) { self::render('albums', $params); };
+        parent::map('GET', '/albums/<page:\d*>', $albums);
+        parent::map('GET', '/albums/search/<search:[^/]+>/<page:\d*>', $albums);
+        parent::map('GET', '/albums/<month:\d{4}-\d{2}>/<page:\d*>', $albums);
+
+        parent::map(404, function() { self::render('404'); });
         parent::map(401, function() { parent::redirect('/spirit/login/unauthorized'); });
 
-        parent::map('GET', '/photo/<id:\d+>', function($params) {
-            parent::redirect('/photo/' . $params['id'] . '/size/large');
-        });
+        parent::map('GET', '/photo/<id:\d+>', function($params) { self::render('single', $params); });
         parent::map('GET', '/photo/<id:\d+>/size/<size:thumb|large>', function($params) {
             $photo = self::verifyModel('Photo', $params['id']);
             $size = Setting::get($params['size'] == 'thumb' ? 'thumbSize' : 'largeImageSize');
@@ -239,5 +246,10 @@ class Spirit extends Dispatcher {
             
             return $info;
         }, $directories));
+    }
+
+    public static function render($main, array $params = []) {
+        $context = [];
+        print Mustache::renderByFile(DIR_THEMES . Setting::get('theme') . "/{$main}.html", $context);
     }
 }
