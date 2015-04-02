@@ -59,26 +59,17 @@ class Spirit extends Dispatcher {
 
         // Photos & Albums
 
-        $prepareFilter = function($params) {
+        $showItems = function($params) {
             $admin = new Admin();
-            $context = [ 'filter' => [] ];
-
-            if (isset($params['album']))
-                $context['filter']['album'] = self::verifyModel('Album', $params['album']);
-            if (isset($params['search']))
-                $context['filter']['search'] = $params['search'];
-            if (isset($params['month']))
-                $context['filter']['month'] = $params['month'];
-            if (isset($params['page']))
-                $context['page'] = $params['page'] !== '' ? intval($params['page']) : 1;
+            $context = self::prepareFilter($params);
 
             print $admin->renderAdmin($params['main'], $context);
         };
 
-        parent::map('GET', '/spirit/<main:photos|albums>/<page:\d*>', $prepareFilter);
-        parent::map('GET', '/spirit/<main:photos|albums>/search/<search:[^/]+>/<page:\d*>', $prepareFilter);
-        parent::map('GET', '/spirit/<main:photos|albums>/<month:\d{4}-\d{2}>/<page:\d*>', $prepareFilter);
-        parent::map('GET', '/spirit/<main:photos>/album/<album:\d+>/<page:\d*>', $prepareFilter);
+        parent::map('GET', '/spirit/<main:photos|albums>/<page:\d*>', $showItems);
+        parent::map('GET', '/spirit/<main:photos|albums>/search/<search:[^/]+>/<page:\d*>', $showItems);
+        parent::map('GET', '/spirit/<main:photos|albums>/<month:\d{4}-\d{2}>/<page:\d*>', $showItems);
+        parent::map('GET', '/spirit/<main:photos>/album/<album:\d+>/<page:\d*>', $showItems);
         
         parent::map('GET', '/spirit/photos/upload', function() {
             $admin = new Admin();
@@ -219,6 +210,21 @@ class Spirit extends Dispatcher {
             $result .= "/{$page}";
 
         return $result;
+    }
+
+    public static function prepareFilter(array $params) {
+        $context = [ 'filter' => [] ];
+
+        if (isset($params['album']))
+            $context['filter']['album'] = self::verifyModel('Album', $params['album']);
+        if (isset($params['search']))
+            $context['filter']['search'] = $params['search'];
+        if (isset($params['month']))
+            $context['filter']['month'] = $params['month'];
+        if (isset($params['page']))
+            $context['page'] = $params['page'] !== '' ? intval($params['page']) : 1;
+
+        return $context;
     }
 
     public static function getThemes() {
