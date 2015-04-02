@@ -57,23 +57,23 @@ class Spirit extends Dispatcher {
             print $admin->renderAdmin($params['main']);
         });
 
+        // Photos & Albums
+
         $prepareFilter = function($params) {
             $admin = new Admin();
-            $temp = [ 'filter' => [] ];
+            $context = [ 'filter' => [] ];
 
             if (isset($params['album']))
-                $temp['filter']['album'] = self::verifyModel('Album', $params['album']);
+                $context['filter']['album'] = self::verifyModel('Album', $params['album']);
             if (isset($params['search']))
-                $temp['filter']['search'] = $params['search'];
+                $context['filter']['search'] = $params['search'];
             if (isset($params['month']))
-                $temp['filter']['month'] = $params['month'];
+                $context['filter']['month'] = $params['month'];
             if (isset($params['page']))
-                $temp['page'] = $params['page'] !== '' ? intval($params['page']) : 1;
+                $context['page'] = $params['page'] !== '' ? intval($params['page']) : 1;
 
-            print $admin->renderAdmin($params['main'], $temp);
+            print $admin->renderAdmin($params['main'], $context);
         };
-
-        // Photos & Albums
 
         parent::map('GET', '/spirit/<main:photos|albums>/<page:\d*>', $prepareFilter);
         parent::map('GET', '/spirit/<main:photos|albums>/search/<search:.+>/<page:\d*>', $prepareFilter);
