@@ -21,8 +21,10 @@ if (!$this->user->root)
 
 // Check values
 foreach (Setting::$standards as $key => $standard) {
-    if ($key == 'originalPhotoDownload')
+    if ($key == 'originalPhotoDownload') {
         Setting::set($key, isset($_POST[$key]) ? 'true' : 'false');
+        return;
+    }
 
     if (!isset($_POST[$key])) continue;
     $value = $_POST[$key];
@@ -30,7 +32,6 @@ foreach (Setting::$standards as $key => $standard) {
     if ($value == '') $value = $standard;
     if (($key == 'largeImageSize' || $key == 'thumbSize') && !is_size($value)) continue;
     if (($key == 'photosPerPage' || $key == 'albumsPerPage') && !is_numeric($value)) continue;
-    if ($key == 'originalPhotoDownload') $value = $value == 'on' ? 'true' : 'false';
     if ($key == 'timezone' && !is_timezone($value)) continue;
     if ($key == 'theme' && !is_theme($value)) continue;
 
