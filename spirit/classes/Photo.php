@@ -162,9 +162,17 @@ class Photo extends Model {
     }
 
     public static function search($orm, $input) {
-        return $orm->where_any_is([
-            [ 'title' => "%{$input}%" ],
-            [ 'description' => "%{$input}%" ]
-        ], 'LIKE');
+        $terms = array_filter(explode(' ', $input));
+
+        foreach ($terms as $term) {
+            $condition = [
+                [ 'title' => "%{$term}%" ],
+                [ 'description' => "%{$term}%" ]
+            ];
+
+            $orm = $orm->where_any_is($condition, 'LIKE');
+        }
+
+        return $orm;
     }
 }

@@ -108,10 +108,18 @@ class Album extends Model {
 
     public static function search($orm, $input) {
         $albumTable = DB_PREFIX . 'album';
-        return $orm->where_any_is([
-            [ "{$albumTable}.name" => "%{$input}%" ],
-            [ "{$albumTable}.description" => "%{$input}%" ]
-        ], 'LIKE');
+        $terms = array_filter(explode(' ', $input));
+
+        foreach ($terms as $term) {
+            $condition = [
+                [ "{$albumTable}.name" => "%{$term}%" ],
+                [ "{$albumTable}.description" => "%{$term}%" ]
+            ];
+
+            $orm = $orm->where_any_is($condition, 'LIKE');
+        }
+
+        return $orm;
     }
 
     public static function in_month($orm, $month) {
