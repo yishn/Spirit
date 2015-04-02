@@ -26,6 +26,15 @@
                     <input type="text" value="{{subtitle}}" name="subtitle" placeholder="{{#standard}}{{subtitle}}{{/standard}}"{{^root}} disabled{{/root}} />
                 </label>
             </li>
+            <li>
+                <label><span>Theme:</span>
+                    <select name="theme"{{^root}} disabled{{/root}}>
+                        {{#themes}}
+                        <option value="{{id}}"{{#current}} selected{{/current}}>{{name}}</option>
+                        {{/themes}}
+                    </select>
+                </label>
+            </li>
         </ul>
 
         <h3>Photo &amp; Album</h3>

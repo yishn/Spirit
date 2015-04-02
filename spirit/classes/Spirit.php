@@ -228,12 +228,12 @@ class Spirit extends Dispatcher {
             return is_dir($themeDir . "/{$id}") && file_exists($themeDir . "/{$id}/spirit-info.php");
         });
 
-        return array_map(function($id) use($themeDir) {
+        return array_values(array_map(function($id) use($themeDir) {
             $info = include($themeDir . "/{$id}/spirit-info.php");
             $info['id'] = $id;
             $info['current'] = $id == Setting::get('theme');
             
             return $info;
-        }, $directories);
+        }, $directories));
     }
 }

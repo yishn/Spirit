@@ -75,6 +75,7 @@ class Admin {
             $context = array_merge($context, Setting::as_array());
 
             $context['originalPhotoDownload'] = $context['originalPhotoDownload'] == 'true';
+            $context['themes'] = Spirit::getThemes();
             $context['standard'] = Setting::$standards;
             $context['timezones'] = [];
             $lastcontinent = '';

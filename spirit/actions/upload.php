@@ -14,9 +14,7 @@ function getExifDate($path) {
 $uploaddir = Spirit::config('contentDir') . 'photos/';
 $ids = [];
 
-if (!is_dir($uploaddir)) {
-    mkdir($uploaddir);
-}
+if (!is_dir($uploaddir)) mkdir($uploaddir);
 
 for ($i = 0; $i < count($_FILES['file']['name']); $i++) {
     $title = basename($_FILES['file']['name'][$i]);

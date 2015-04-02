@@ -9,6 +9,12 @@ function is_timezone($value) {
     return in_array($value, timezone_identifiers_list());
 }
 
+function is_theme($value) {
+    return in_array($value, array_map(function($theme) {
+        return $theme['id'];
+    }, Spirit::getThemes()));
+}
+
 // Check authorization
 if (!$this->user->root)
     Spirit::error(401);
@@ -26,6 +32,7 @@ foreach (Setting::$standards as $key => $standard) {
     if (($key == 'photosPerPage' || $key == 'albumsPerPage') && !is_numeric($value)) continue;
     if ($key == 'originalPhotoDownload') $value = $value == 'on' ? 'true' : 'false';
     if ($key == 'timezone' && !is_timezone($value)) continue;
+    if ($key == 'theme' && !is_theme($value)) continue;
 
     Setting::set($key, $value);
 }
