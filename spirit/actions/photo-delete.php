@@ -1,6 +1,7 @@
 <?php
 
-$ids = Spirit::verifyModels('Photo', $params['ids']);
+$ids = explode(',', $params['ids']);
+Spirit::verifyModels('Photo', $ids);
 
 foreach ($ids as $id) {
     Photo::find_one($id)->delete();
