@@ -13,7 +13,7 @@ $$('.albumpicker').removeEvents('click').addEvent('click', function(event) {
 
     $('dialog').empty().adopt(new Element('main', { id: 'albumpicker' }).adopt(
         new Element('p').adopt(
-            new Element('input', { type: 'text', name: 'search', placeholder: 'Filter' })
+            new Element('input', { type: 'text', name: 'search', placeholder: 'Search' })
         ),
         new Element('div')
     ));

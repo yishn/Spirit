@@ -76,7 +76,7 @@ class Spirit extends Dispatcher {
         };
 
         parent::map('GET', '/spirit/<main:photos|albums>/<page:\d*>', $prepareFilter);
-        parent::map('GET', '/spirit/<main:photos|albums>/search/<search:.+>/<page:\d*>', $prepareFilter);
+        parent::map('GET', '/spirit/<main:photos|albums>/search/<search:[^/]+>/<page:\d*>', $prepareFilter);
         parent::map('GET', '/spirit/<main:photos|albums>/<month:\d{4}-\d{2}>/<page:\d*>', $prepareFilter);
         parent::map('GET', '/spirit/<main:photos>/album/<album:\d+>/<page:\d*>', $prepareFilter);
         
@@ -155,7 +155,7 @@ class Spirit extends Dispatcher {
     }
 
     private static function mapPartials() {
-        parent::map('GET', '/spirit/partial/albumpicker/<search:.*>', function($params) {
+        parent::map('GET', '/spirit/partial/albumpicker/<search:[^/]*>', function($params) {
             $limit = intval(Setting::get('albumPickerItemsPerPage'));
             
             $context = Album::getAlbums($limit, [ 'search' => $params['search'] ]);
