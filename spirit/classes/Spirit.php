@@ -13,15 +13,15 @@ class Spirit extends Dispatcher {
         parent::map(404, function() { echo "Error 404: Not Found"; });
         parent::map(401, function() { parent::redirect('/spirit/login/unauthorized'); });
 
-        parent::map('GET', '/photo/{id:\d+}', function($params) {
+        parent::map('GET', '/photo/<id:\d+>', function($params) {
             parent::redirect('/photo/' . $params['id'] . '/size/large');
         });
-        parent::map('GET', '/photo/{id:\d+}/size/{size:thumb|large}', function($params) {
+        parent::map('GET', '/photo/<id:\d+>/size/<size:thumb|large>', function($params) {
             $photo = self::verifyModel('Photo', $params['id']);
             $size = Setting::get($params['size'] == 'thumb' ? 'thumbSize' : 'largeImageSize');
             $photo->generateThumbnail($size, [ 'zoom' => $params['size'] == 'thumb' ]);
         });
-        parent::map('GET', '/photo/{id:\d+}/download', function($params) {
+        parent::map('GET', '/photo/<id:\d+>/download', function($params) {
             if (Setting::get('originalPhotoDownload') != 'true')
                 parent::error(404);
 
@@ -33,7 +33,7 @@ class Spirit extends Dispatcher {
     private static function mapAdmin() {
         parent::map('GET', '/spirit', function() { parent::redirect('/spirit/photos'); });
 
-        parent::map('GET', '/spirit/login/{flag:(invalid)?|(unauthorized)?}', function($params) {
+        parent::map('GET', '/spirit/login/<flag:(invalid)?|(unauthorized)?>', function($params) {
             $context = [
                 'title' => Setting::get('title'),
                 'baseUrl' => Spirit::config('url'),
@@ -52,7 +52,7 @@ class Spirit extends Dispatcher {
             $admin->executeAction('logout');
         });
 
-        parent::map('GET', '/spirit/{main:users|settings|about}', function($params) {
+        parent::map('GET', '/spirit/<main:users|settings|about>', function($params) {
             $admin = new Admin();
             print $admin->renderAdmin($params['main']);
         });
@@ -75,10 +75,10 @@ class Spirit extends Dispatcher {
 
         // Photos & Albums
 
-        parent::map('GET', '/spirit/{main:photos|albums}/{page:\d*}', $prepareFilter);
-        parent::map('GET', '/spirit/{main:photos|albums}/search/{search:.+}/{page:\d*}', $prepareFilter);
-        parent::map('GET', '/spirit/{main:photos|albums}/{month:\d\d\d\d-\d\d}/{page:\d*}', $prepareFilter);
-        parent::map('GET', '/spirit/{main:photos}/album/{album:\d+}/{page:\d*}', $prepareFilter);
+        parent::map('GET', '/spirit/<main:photos|albums>/<page:\d*>', $prepareFilter);
+        parent::map('GET', '/spirit/<main:photos|albums>/search/<search:.+>/<page:\d*>', $prepareFilter);
+        parent::map('GET', '/spirit/<main:photos|albums>/<month:\d{4}-\d{2}>/<page:\d*>', $prepareFilter);
+        parent::map('GET', '/spirit/<main:photos>/album/<album:\d+>/<page:\d*>', $prepareFilter);
         
         parent::map('GET', '/spirit/photos/upload', function() {
             $admin = new Admin();
@@ -87,7 +87,7 @@ class Spirit extends Dispatcher {
 
         // Edit records
 
-        parent::map('GET', '/spirit/photos/edit/{ids:(\d+,?)+}', function($params) {
+        parent::map('GET', '/spirit/photos/edit/<ids:(\d+,?)+>', function($params) {
             $admin = new Admin();
             $limit = intval(Setting::get('batchEditLimit'));
             $ids = explode(',', $params['ids']);
@@ -99,13 +99,13 @@ class Spirit extends Dispatcher {
             print $admin->renderAdmin('photo-edit', $ids);
         });
                 
-        parent::map('GET', '/spirit/albums/edit/{id:\d+|new}', function($params) {
+        parent::map('GET', '/spirit/albums/edit/<id:\d+|new>', function($params) {
             $admin = new Admin();
             if ($params['id'] != 'new') self::verifyModel('Album', $params['id']);
             print $admin->renderAdmin('album-edit', $params);
         });
                 
-        parent::map('GET', '/spirit/users/edit/{id:\d+|new}', function($params) {
+        parent::map('GET', '/spirit/users/edit/<id:\d+|new>', function($params) {
             $admin = new Admin();
             if ($params['id'] != 'new') self::verifyModel('User', $params['id']);
             print $admin->renderAdmin('user-edit', $params);
@@ -113,22 +113,22 @@ class Spirit extends Dispatcher {
 
         // Actions
 
-        parent::map('POST', '/spirit/photos/edit/{ids:(\d+,?)+}', function($params) {
+        parent::map('POST', '/spirit/photos/edit/<ids:(\d+,?)+>', function($params) {
             $admin = new Admin();
             $admin->executeAction('photo-edit', $params);
         });
 
-        parent::map('POST', '/spirit/albums/edit/{id:\d+|new}', function($params) {
+        parent::map('POST', '/spirit/albums/edit/<id:\d+|new>', function($params) {
             $admin = new Admin();
             $admin->executeAction('album-edit', $params);
         });
 
-        parent::map('POST', '/spirit/users/edit/{id:\d+|new}', function($params) {
+        parent::map('POST', '/spirit/users/edit/<id:\d+|new>', function($params) {
             $admin = new Admin();
             $admin->executeAction('user-edit', $params);
         });
 
-        parent::map('POST', '/spirit/photos/upload/{mode:(id)?}', function($params) {
+        parent::map('POST', '/spirit/photos/upload/<mode:(id)?>', function($params) {
             $admin = new Admin();
             $admin->executeAction('upload', $params);
         });
@@ -138,24 +138,24 @@ class Spirit extends Dispatcher {
             $admin->executeAction('settings-update');
         });
 
-        parent::map('GET', '/spirit/photos/delete/{ids:(\d+,?)+}', function($params) {
+        parent::map('GET', '/spirit/photos/delete/<ids:(\d+,?)+>', function($params) {
             $admin = new Admin();
             $admin->executeAction('photo-delete', $params);
         });
 
-        parent::map('GET', '/spirit/albums/delete/{id:\d+}', function($params) {
+        parent::map('GET', '/spirit/albums/delete/<id:\d+>', function($params) {
             $admin = new Admin();
             $admin->executeAction('album-delete', $params);
         });
 
-        parent::map('GET', '/spirit/users/delete/{id:\d+}', function($params) {
+        parent::map('GET', '/spirit/users/delete/<id:\d+>', function($params) {
             $admin = new Admin();
             $admin->executeAction('user-delete', $params);
         });
     }
 
     private static function mapPartials() {
-        parent::map('GET', '/spirit/partial/albumpicker/{search:.*}', function($params) {
+        parent::map('GET', '/spirit/partial/albumpicker/<search:.*>', function($params) {
             $limit = intval(Setting::get('albumPickerItemsPerPage'));
             
             $context = Album::getAlbums($limit, [ 'search' => $params['search'] ]);
@@ -164,10 +164,10 @@ class Spirit extends Dispatcher {
             print Mustache::renderByFile('spirit/views/partials/albumpicker.html', $context);
         });
 
-        parent::map('GET', '/spirit/partial/monthpicker/{main:photos|albums}', function($params) {
+        parent::map('GET', '/spirit/partial/monthpicker/<main:photos|albums>', function($params) {
             parent::redirect('/spirit/partial/monthpicker/' . $params['main'] . '/' . date('Y'));
         });
-        parent::map('GET', '/spirit/partial/monthpicker/{main:photos|albums}/{year:\d\d\d\d}', function($params) {
+        parent::map('GET', '/spirit/partial/monthpicker/<main:photos|albums>/<year:\d{4}>', function($params) {
             $context = [
                 'months' => [],
                 'baseUrl' => Spirit::config('url'),
