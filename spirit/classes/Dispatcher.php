@@ -410,9 +410,9 @@ class Dispatcher {
         # replace named params (support regex formats)
         $rxcb = function ($matches) {
             if (isset($matches[3])) {
-                return "(?<{$matches[1]}>{$matches[3]})";
+                return "(?<{$matches[1]}>{$matches[3]})/?";
             }
-            return "(?<{$matches[1]}>[^/]+)";
+            return "(?<{$matches[1]}>[^/]+)/?";
         };
 
         # try to see if we have any matching route
@@ -423,7 +423,7 @@ class Dispatcher {
             $rexp = trim($rexp, '/');
             $rexp = preg_replace_callback('@<([^:]+)(:(.+))?>@U', $rxcb, $rexp);
 
-            if (!preg_match('@^'.$rexp.'$@', $path, $vals) && !preg_match('@^'.$rexp.'$@', $path . '/', $vals)) {
+            if (!preg_match('@^'.$rexp.'$@', $path . '/', $vals)) {
                 continue;
             }
 
