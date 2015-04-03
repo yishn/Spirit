@@ -12,7 +12,7 @@
         {{/hasFilters}}
         <li class="filter"><a href="{{baseUrl}}spirit/partial/monthpicker/albums{{#filterMonth}}/{{year}}{{/filterMonth}}" class="monthpicker">Month</a></li>
         <li class="add"><a href="{{baseUrl}}spirit/albums/edit/new">New Album</a></li>
-        <li class="search"><input type="search" placeholder="Search" /></li>
+        <li class="search"><input type="search" placeholder="Search"{{#filterSearch}} value="{{search}}"{{/filterSearch}} /></li>
     </ul>
 </div>
 
