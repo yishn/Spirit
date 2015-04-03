@@ -38,4 +38,5 @@ foreach (Setting::$standards as $key => $standard) {
     Setting::set($key, $value);
 }
 
+Spirit::session('message', 'success');
 Spirit::redirect('/spirit/settings');

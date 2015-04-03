@@ -74,6 +74,7 @@ class Admin {
         } else if ($main == 'settings' || $main == 'about') {
             $context = array_merge($context, Setting::as_array());
 
+            $context['success'] = Spirit::session('message') == 'success';
             $context['originalPhotoDownload'] = $context['originalPhotoDownload'] == 'true';
             $context['themes'] = Spirit::getThemes();
             $context['standard'] = Setting::$standards;
@@ -103,6 +104,7 @@ class Admin {
             }
         }
 
+        Spirit::session('message', null);
         return Mustache::renderByFile("spirit/views/{$main}.html", $context);
     }
 

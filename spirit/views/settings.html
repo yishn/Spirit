@@ -8,6 +8,10 @@
 <main>
     <h2>Settings</h2>
 
+    {{#success}}
+    <p>Your settings have been updated. <a href="{{baseUrl}}" title="{{title}}">View Site</a></p>
+    {{/success}}
+
     {{^root}}
     <p class="error">You don&rsquo;t have permission to edit settings.</p>
     {{/root}}

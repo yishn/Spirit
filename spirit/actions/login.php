@@ -7,8 +7,10 @@ if($user === false) {
     $user->generateHash('');
 }
 
-if (!$user->compareHash($_POST['password']) || $user->is_new())
-    Spirit::redirect('/spirit/login/invalid');
+if (!$user->compareHash($_POST['password']) || $user->is_new()) {
+    Spirit::session('message', 'invalid');
+    Spirit::redirect('/spirit/login');
+}
 
 Spirit::session('user', $user->id);
 Spirit::redirect('/spirit');

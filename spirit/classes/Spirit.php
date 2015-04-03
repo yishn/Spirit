@@ -8,6 +8,12 @@ class Spirit extends Dispatcher {
     }
 
     private static function mapTheme() {
+        parent::map(404, function() { self::render('404'); });
+        parent::map(401, function() {
+            parent::session('message', 'unauthorized');
+            parent::redirect('/spirit/login');
+        });
+
         $photos = function($params) { self::render('photos', $params); };
         parent::map('GET', '/<page:\d*>', $photos);
         parent::map('GET', '/search/<search:[^/]+>/<page:\d*>', $photos);
@@ -19,10 +25,14 @@ class Spirit extends Dispatcher {
         parent::map('GET', '/albums/search/<search:[^/]+>/<page:\d*>', $albums);
         parent::map('GET', '/albums/<month:\d{4}-\d{2}>/<page:\d*>', $albums);
 
-        parent::map(404, function() { self::render('404'); });
-        parent::map(401, function() { parent::redirect('/spirit/login/unauthorized'); });
+        $single = function($params) { self::render('single', $params); };
+        parent::map('GET', '/photo/<id:\d+>', $single);
+        parent::map('GET', '/photo/<id:\d+>/searching/<search:[^/]+>', $single);
+        parent::map('GET', '/photo/<id:\d+>/in/\d{4}-\d{2}', $single);
+        parent::map('GET', '/photo/<id:\d+>/in/album-<album:\d+>', $single);
 
-        parent::map('GET', '/photo/<id:\d+>', function($params) { self::render('single', $params); });
+        // Get photo
+        
         parent::map('GET', '/photo/<id:\d+>/size/<size:thumb|large>', function($params) {
             $photo = self::verifyModel('Photo', $params['id']);
             $size = Setting::get($params['size'] == 'thumb' ? 'thumbSize' : 'largeImageSize');
@@ -40,16 +50,17 @@ class Spirit extends Dispatcher {
     private static function mapAdmin() {
         parent::map('GET', '/spirit', function() { parent::redirect('/spirit/photos'); });
 
-        parent::map('GET', '/spirit/login/<flag:(invalid)?|(unauthorized)?>', function($params) {
+        parent::map('GET', '/spirit/login', function() {
             $context = [
                 'title' => Setting::get('title'),
                 'baseUrl' => Spirit::config('url'),
                 'mainLogin' => true,
-                'flagInvalid' => $params['flag'] == 'invalid',
-                'flagUnauthorized' => $params['flag'] == 'unauthorized'
+                'flagInvalid' => parent::session('message') == 'invalid',
+                'flagUnauthorized' => parent::session('message') == 'unauthorized'
             ];
             $context['main'] = Mustache::renderByFile('spirit/views/login.html', $context);
 
+            parent::session('message', null);
             print Mustache::renderByFile('spirit/views/admin.html', $context);
         });
         parent::map('POST', '/spirit/login', function() { include('spirit/actions/login.php'); });

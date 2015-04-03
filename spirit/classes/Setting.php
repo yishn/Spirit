@@ -10,7 +10,7 @@ class Setting {
         'largeImageSize' => '<700',
         'thumbSize' => '170',
         'photosPerPage' => 16,
-        'albumsPerPage' => 10,
+        'albumsPerPage' => 6,
         'originalPhotoDownload' => 'true',
         'timezone' => 'UTC',
         'dateFormat' => 'jS F, Y H:i',
