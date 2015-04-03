@@ -120,7 +120,7 @@ class Photo extends Model {
         return $result;
     }
 
-    public static function getFilteredQuery(array $filter = []) {
+    private static function getFilteredQuery(array $filter = []) {
         $query = Model::factory('Photo');
 
         // Filter

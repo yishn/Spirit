@@ -79,9 +79,12 @@ class Spirit extends Dispatcher {
 
         $showItems = function($params) {
             $admin = new Admin();
-            $context = self::prepareFilter($params);
+            list($filter, $page) = self::prepareFilter($params);
 
-            print $admin->renderAdmin($params['main'], $context);
+            print $admin->renderAdmin($params['main'], [
+                'filter' => $filter,
+                'page' => $page
+            ]);
         };
 
         parent::map('GET', '/spirit/<main:photos|albums>/<page:\d*>', $showItems);
@@ -230,18 +233,19 @@ class Spirit extends Dispatcher {
     }
 
     public static function prepareFilter(array $params) {
-        $context = [ 'filter' => [] ];
+        $filter = [];
+        $page = 1;
 
         if (isset($params['album']))
-            $context['filter']['album'] = self::verifyModel('Album', $params['album']);
+            $filter['album'] = self::verifyModel('Album', $params['album']);
         if (isset($params['search']))
-            $context['filter']['search'] = $params['search'];
+            $filter['search'] = $params['search'];
         if (isset($params['month']))
-            $context['filter']['month'] = $params['month'];
+            $filter['month'] = $params['month'];
         if (isset($params['page']))
-            $context['page'] = $params['page'] !== '' ? intval($params['page']) : 1;
+            $page = $params['page'] !== '' ? intval($params['page']) : 1;
 
-        return $context;
+        return [$filter, $page];
     }
 
     public static function getThemes() {
