@@ -94,6 +94,6 @@ option {
 
 .form .albums label { padding-bottom: 0; }
 .form .albums label + .albums { 
-    padding: 0 .5em .5em .5em;
+    padding: 0 .5em .2em .5em;
     display: none;
 }
