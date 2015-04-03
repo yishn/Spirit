@@ -208,9 +208,8 @@ class Spirit extends Dispatcher {
     }
 
     public static function verifyModels($model, array $ids) {
-        foreach ($ids as $id) {
-            self::verifyModel($model, $id);
-        }
+        $item = Model::factory($model)->where_id_in($ids)->count() == count($ids);
+        if (!$item) parent::error(404);
 
         return $ids;
     }
