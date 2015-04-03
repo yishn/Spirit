@@ -86,11 +86,10 @@ class Photo extends Model {
         unlink($path);
 
         AlbumPhoto::where('photo_id', $this->id)->delete_many();
-
         parent::delete();
     }
 
-    public function as_array($includeAlbums = true, $includeUser = true) {
+    public function as_array($includeAlbums = false, $includeUser = false, $includeAdjacents = false) {
         $result = parent::as_array();
 
         if ($includeAlbums) {
@@ -105,6 +104,14 @@ class Photo extends Model {
             $result['owner'] = !$user ? false : $user->as_array();
         } else {
             $result['owner'] = false;
+        }
+
+        if ($includeAdjacents) {
+            list($older, $newer) = $this->getAdjacentPhotos($filter);
+            $result['olderPhoto'] = $older->as_array();
+            $result['newerPhoto'] = $newer->as_array();
+        } else {
+            $result['olderPhoto'] = $result['newerPhoto'] = false;
         }
 
         $result['hasAlbums'] = $result['albums'] !== false;
@@ -149,7 +156,7 @@ class Photo extends Model {
         if ($hasNextPage) array_pop($photos);
         
         $photos = array_map(function($photo) {
-            return $photo->as_array(false, false);
+            return $photo->as_array();
         }, $photos);
 
         list($w, $h) = Thumb::getSize(Setting::get('thumbSize'));

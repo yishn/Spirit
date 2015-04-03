@@ -46,7 +46,7 @@ class Admin {
 
             $ids = array_slice($ids, 0, $limit);
             foreach ($ids as $id) {
-                $context['photos'][] = Photo::find_one($id)->as_array();
+                $context['photos'][] = Photo::find_one($id)->as_array(true, true);
             }
 
             $context['isSingle'] = count($context['photos']) == 1;
