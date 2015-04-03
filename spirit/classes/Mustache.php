@@ -74,7 +74,7 @@ class Mustache {
             foreach ($partialPattern[1] as $patternId => $patternContext) {
                 // parse and replace pattern context
                 $path = dirname($fileName) . '/' . $partialPattern[2][$patternId];
-                $template = str_replace($patternContext, self::renderByFile($path, [], [], $fileExtension), $template);
+                $template = str_replace($patternContext, self::renderByFile($path, [], []), $template);
             }
         }
 
