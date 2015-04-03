@@ -2,11 +2,7 @@
 
 class Album extends Model {
     public function photos($overrideDescOrder = false) {
-        $query = $this->has_many_through('Photo');
-
-        if ($this->chronological == 1 && !$overrideDescOrder)
-            return $query->order_by_asc('date')->order_by_asc('id');
-        return $query->order_by_desc('date')->order_by_desc('id');
+        return $this->has_many_through('Photo');
     }
 
     public function getPhoto() {

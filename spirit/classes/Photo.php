@@ -39,6 +39,30 @@ class Photo extends Model {
         return $date->format($format);
     }
 
+    public function getAdjacentPhotos(array $filter = []) {
+        $query = self::getFilteredQuery($filter);
+
+        $older = $query->where('date', $this->date)
+            ->where_lt('id', $this->id)
+            ->order_by_desc('id')
+            ->find_one();
+        if (!$older) $older = $query->where_lt('date', $this->date)
+            ->order_by_desc('date')
+            ->order_by_desc('id')
+            ->find_one();
+
+        $newer = $query->where('date', $this->date)
+            ->where_gt('id', $this->id)
+            ->order_by_asc('id')
+            ->find_one();
+        if (!$newer) $newer = $query->where_gt('date', $this->date)
+            ->order_by_asc('date')
+            ->order_by_asc('id')
+            ->find_one();
+
+        return [$older, $newer];
+    }
+
     public function download() {
         $path = DIR_CONTENT . $this->filename;
 
@@ -96,7 +120,7 @@ class Photo extends Model {
         return $result;
     }
 
-    public static function getPhotos($limit, array $filter = [], $page = 1) {
+    public static function getFilteredQuery(array $filter = []) {
         $query = Model::factory('Photo');
 
         // Filter
@@ -104,9 +128,19 @@ class Photo extends Model {
         if (isset($filter['month'])) $query = $query->filter('in_month', $filter['month']);
         if (isset($filter['search'])) $query = $query->filter('search', $filter['search']);
 
-        $photos = $query->order_by_desc('date')
-            ->order_by_desc('id')
-            ->limit($limit + 1)
+        return $query;
+    }
+
+    public static function getPhotos($limit, array $filter = [], $page = 1) {
+        $query = self::getFilteredQuery($filter);
+
+        // Sorting albums correctly
+        if (isset($filter['album']) && $filter['album']->chronological == 1)
+            $query = $query->order_by_asc('date')->order_by_asc('id');
+        $query = $query->order_by_desc('date')->order_by_desc('id');
+
+        // Limit correctly
+        $photos = $query->limit($limit + 1)
             ->offset(($page - 1) * $limit)
             ->find_many();
 
