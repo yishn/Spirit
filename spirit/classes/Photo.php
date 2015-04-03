@@ -40,22 +40,24 @@ class Photo extends Model {
     }
 
     public function getAdjacentPhotos(array $filter = []) {
-        $query = self::getFilteredQuery($filter);
-
-        $older = $query->where('date', $this->date)
+        $older = self::getFilteredQuery($filter)
+            ->where('date', $this->date)
             ->where_lt('id', $this->id)
             ->order_by_desc('id')
             ->find_one();
-        if (!$older) $older = $query->where_lt('date', $this->date)
+        if (!$older) $older = self::getFilteredQuery($filter)
+            ->where_lt('date', $this->date)
             ->order_by_desc('date')
             ->order_by_desc('id')
             ->find_one();
 
-        $newer = $query->where('date', $this->date)
+        $newer = self::getFilteredQuery($filter)
+            ->where('date', $this->date)
             ->where_gt('id', $this->id)
             ->order_by_asc('id')
             ->find_one();
-        if (!$newer) $newer = $query->where_gt('date', $this->date)
+        if (!$newer) $newer = self::getFilteredQuery($filter)
+            ->where_gt('date', $this->date)
             ->order_by_asc('date')
             ->order_by_asc('id')
             ->find_one();
@@ -92,26 +94,23 @@ class Photo extends Model {
     public function as_array($includeAlbums = false, $includeUser = false, $includeAdjacents = false) {
         $result = parent::as_array();
 
+        $result['albums'] = false;
         if ($includeAlbums) {
             $albums = $this->albums()->find_many();
             $result['albums'] = array_map(function($album) { return $album->as_array(); }, $albums);
-        } else {
-            $result['albums'] = false;
         }
 
+        $result['owner'] = false;
         if ($includeUser) {
             $user = $this->user()->find_one();
             $result['owner'] = !$user ? false : $user->as_array();
-        } else {
-            $result['owner'] = false;
         }
 
+        $result['olderPhoto'] = $result['newerPhoto'] = false;
         if ($includeAdjacents) {
-            list($older, $newer) = $this->getAdjacentPhotos($filter);
-            $result['olderPhoto'] = $older->as_array();
-            $result['newerPhoto'] = $newer->as_array();
-        } else {
-            $result['olderPhoto'] = $result['newerPhoto'] = false;
+            list($older, $newer) = $this->getAdjacentPhotos();
+            $result['olderPhoto'] = !$older ? false : $older->as_array();
+            $result['newerPhoto'] = !$newer ? false : $newer->as_array();
         }
 
         $result['hasAlbums'] = $result['albums'] !== false;
