@@ -263,7 +263,13 @@ class Spirit extends Dispatcher {
     }
 
     public static function render($main, array $params = []) {
-        $context = [];
+        $context = [
+            'title' => Setting::get('title'),
+            'subtitle' => Setting::get('subtitle'),
+            'baseUrl' => parent::config('url'),
+            'themeUrl' => parent::config('url') . DIR_THEMES . Setting::get('theme') . '/'
+        ];
+
         print Mustache::renderByFile(DIR_THEMES . Setting::get('theme') . "/{$main}.html", $context);
     }
 }
