@@ -9,3 +9,4 @@ Just a beautiful, minimal photoblog solution in PHP
 * [Ace](http://ace.c9.io/)
 * [MooTools](http://mootools.net/)
 * [Ionicons](http://ionicons.com/)
+* [Source Sans Pro](http://adobe-fonts.github.io/source-sans-pro/)
