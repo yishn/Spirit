@@ -1,0 +1,79 @@
+@import url('http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,400italic,700');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/**
+ * Layout
+ */
+
+header {
+        padding: 3em 1em;
+        line-height: 1;
+    }
+    header h1 {
+        margin: 0;
+        color: white;
+        font-size: 2em;
+        font-weight: 300;
+        text-transform: uppercase;
+    }
+    header h2 {
+        margin: .1em 0 0 0;
+        font-size: 1.3em;
+        font-weight: 300;
+        letter-spacing: -1px;
+        opacity: .5;
+}
+
+#image {
+        margin: 0;
+        text-align: center;
+    }
+    #image img {
+        max-width: 100%;
+}
+
+.post > section {
+    padding:  1px 1em;
+}
+
+/**
+ * Typography
+ */
+
+body {
+    background: #26292A;
+    color: #eee;
+    font: 300 100%/1.5 'Source Sans Pro', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, ul, ol, blockquote, pre, p {
+    margin: .9em 0;
+}
+
+h1, h2 {
+    font-size: 1.7em;
+    font-weight: normal;
+}
+
+h2 {
+    font-size: 1.3em;
+}
+
+h3, h4 {
+    font-size: 1em;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+h4 {
+    font-size: .8em;
+    font-weight: normal;
+}
+
+img {
+    vertical-align: middle;
+}

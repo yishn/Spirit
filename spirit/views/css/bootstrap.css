@@ -7,10 +7,10 @@
 @import url('large.css') only screen and (min-width: 700px);
 @import url('small.css') only screen and (max-width: 700px);
 
+@charset "UTF-8";
+
 /* Source Sans Pro font */
 @import url('http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,400italic,700');
-
-@charset "UTF-8";
 
 /*!
     Ionicons, v2.0.0
