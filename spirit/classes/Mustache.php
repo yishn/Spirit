@@ -1,71 +1,26 @@
 <?php
 
-/**
- * Mustache class based on
- * 
- * Mustache
- * @package Simplon\Mustache
- * @author Tino Ehrich (tino@bigpun.me)
- */
 class Mustache {
-    /**
-     * @var array
-     */
     private static $data;
+    private static $cache = [];
 
-    /**
-     * @var array
-     */
-    private static $templates = [];
-
-    /**
-     * @param $template
-     * @param array $data
-     * @param array $customParsers
-     *
-     * @return string
-     */
-    public static function render($template, array $data = [], array $customParsers = []) {
+    public static function render($template, array $data = []) {
         // cache data
         self::$data = $data;
 
         // parse template
         $template = self::parse($template, $data);
 
-        // run custom parsers
-        $template = self::handleCustomParsers($template, $customParsers);
-
         return $template;
     }
 
-    /**
-     * @param $fileName
-     * @param array $data
-     * @param array $customParsers
-     *
-     * @return string
-     * @throws MustacheException
-     */
-    public static function renderByFile($fileName, array $data = [], array $customParsers = []) {
-        // test cache
-        if (isset(self::$templates[$fileName]) === false) {
-            // make sure the file exists
-            if (file_exists($fileName) === false) {
-                throw new MustacheException('Missing given template file: ' . $fileName);
-            }
-
-            // fetch template
+    public static function renderByFile($fileName, array $data = []) {
+        if (isset(self::$cache[$fileName]) === false) {
             $template = file_get_contents($fileName);
-
-            if ($template === false) {
-                throw new MustacheException('Could not load template file: ' . $fileName);
-            }
-
-            // cache template
-            self::$templates[$fileName] = $template;
+            self::$cache[$fileName] = $template;
         }
 
-        $template = self::$templates[$fileName];
+        $template = self::$cache[$fileName];
 
         // find partials
         preg_match_all('|({{>(\S+?)}})|s', $template, $partialPattern);
@@ -74,19 +29,13 @@ class Mustache {
             foreach ($partialPattern[1] as $patternId => $patternContext) {
                 // parse and replace pattern context
                 $path = dirname($fileName) . '/' . $partialPattern[2][$patternId];
-                $template = str_replace($patternContext, self::renderByFile($path, [], []), $template);
+                $template = str_replace($patternContext, self::renderByFile($path, []), $template);
             }
         }
 
-        return self::render($template, $data, $customParsers);
+        return self::render($template, $data);
     }
 
-    /**
-     * @param $template
-     * @param array $data
-     *
-     * @return string
-     */
     private static function parse($template, array $data = []) {
         foreach ($data as $key => $val) {
             if (is_array($val) && empty($val) === false) {
@@ -157,54 +106,18 @@ class Mustache {
         foreach ($data as $key => $val) {
             if (is_array($val) || is_bool($val)) {}
 
-            // ----------------------------------
-
             elseif ($val instanceof Closure) {
                 // only evaluate function if there are any
                 if (strpos($template, '{{' . $key . '}}') === false) continue;
 
                 $template = str_replace('{{{' . $key . '}}}', $val(), $template);
                 $template = str_replace('{{' . $key . '}}', htmlspecialchars($val()), $template);
-            }
-
-            // ----------------------------------
-
-            else {
-                // set var: unescaped
+            } else {
                 $template = str_replace('{{{' . $key . '}}}', $val, $template);
-
-                // set var: escaped
                 $template = str_replace('{{' . $key . '}}', htmlspecialchars($val), $template);
             }
         }
 
         return (string)$template;
     }
-
-    /**
-     * @param string $template
-     * @param array $parsers
-     *
-     * @return string
-     */
-    private static function handleCustomParsers($template, array $parsers = []) {
-        foreach ($parsers as $parser) {
-            if (isset($parser['pattern']) && isset($parser['callback'])) {
-                preg_match_all('|' . $parser['pattern'] . '|', $template, $match);
-
-                if (isset($match[1][0])) {
-                    $template = $parser['callback']($template, $match);
-                }
-            }
-        }
-
-        return (string)$template;
-    }
 }
-
-/**
- * MustacheException
- * @package Simplon\Mustache
- * @author Tino Ehrich (tino@bigpun.me)
- */
-class MustacheException extends Exception {}
