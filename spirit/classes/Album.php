@@ -116,12 +116,10 @@ class Album extends Model {
         $terms = array_filter(explode(' ', $input));
 
         foreach ($terms as $term) {
-            $condition = [
+            $orm = $orm->where_any_is([
                 [ "{$albumTable}.name" => "%{$term}%" ],
                 [ "{$albumTable}.description" => "%{$term}%" ]
-            ];
-
-            $orm = $orm->where_any_is($condition, 'LIKE');
+            ], 'LIKE');
         }
 
         return $orm;

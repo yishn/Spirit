@@ -39,7 +39,10 @@
         This photo also belongs to:
         <ul class="albums">
             {{#albums}}
-            <li><a href="{{baseUrl}}album/{{id}}">{{name}}</a></li>
+            <li>
+                <img src="{{thumbnailLink}}" alt="{{name}}" />
+                <a href="{{permalink}}">{{name}}</a>
+            </li>
             {{/albums}}
         </ul>
     </li>
