@@ -91,7 +91,7 @@ class Photo extends Model {
         parent::delete();
     }
 
-    public function as_array($includeAlbums = false, $includeUser = false, $includeAdjacents = false) {
+    public function as_array($includeAlbums = false, $includeUser = false, $includeAdjacents = false, array $filter = []) {
         $result = parent::as_array();
 
         $result['albums'] = false;
@@ -108,13 +108,14 @@ class Photo extends Model {
 
         $result['olderPhoto'] = $result['newerPhoto'] = false;
         if ($includeAdjacents) {
-            list($older, $newer) = $this->getAdjacentPhotos();
+            list($older, $newer) = $this->getAdjacentPhotos($filter);
             $result['olderPhoto'] = !$older ? false : $older->as_array();
             $result['newerPhoto'] = !$newer ? false : $newer->as_array();
         }
 
         $result['hasAlbums'] = $result['albums'] !== false;
         $result['date'] = $this->getFormattedDate();
+        $result['month'] = $this->getFormattedDate('Y-m');
         $result['formattedDate'] = $this->getFormattedDate(Setting::get('dateFormat'));
         $result['permalink'] = $this->getPermalink();
         $result['downloadable'] = Setting::get('originalPhotoDownload') == 'true';
