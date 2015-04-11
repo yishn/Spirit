@@ -6,7 +6,10 @@ class Album extends Model {
     }
 
     public function getPhoto() {
-        return $this->photos()->order_by_desc('date')->find_one();
+        return $this->photos()
+            ->order_by_desc('date')
+            ->order_by_desc('id')
+            ->find_one();
     }
 
     public function getFormattedDescription() {
