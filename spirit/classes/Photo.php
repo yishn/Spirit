@@ -9,8 +9,17 @@ class Photo extends Model {
         return $this->belongs_to('User');
     }
 
-    public function getPermalink() {
-        return Spirit::link("/photo/{$this->id}");
+    public function getPermalink(array $filter = []) {
+        $link = "/photo/{$this->id}";
+
+        if (isset($filter['album']))
+            $link .= '/in/album-' . $filter['album']->id;
+        if (isset($filter['month']))
+            $link .= '/in/' . $filter['month'];
+        if (isset($filter['search']))
+            $link .= '/searching/' . urlencode($filter['search']);
+
+        return Spirit::link($link);
     }
 
     public function getDownloadLink() {
@@ -109,8 +118,12 @@ class Photo extends Model {
         $result['olderPhoto'] = $result['newerPhoto'] = false;
         if ($includeAdjacents) {
             list($older, $newer) = $this->getAdjacentPhotos($filter);
-            $result['olderPhoto'] = !$older ? false : $older->as_array();
-            $result['newerPhoto'] = !$newer ? false : $newer->as_array();
+            $result = array_merge($result, [
+                'olderPhoto' => !$older ? false : $older->as_array(),
+                'newerPhoto' => !$newer ? false : $newer->as_array(),
+                'olderPhotoLink' => !$older ? false : $older->getPermalink($filter),
+                'newerPhotoLink' => !$newer ? false : $newer->getPermalink($filter)
+            ]);
         }
 
         $result = array_merge($result, [

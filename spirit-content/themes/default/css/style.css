@@ -31,11 +31,14 @@ header {
         opacity: .5;
 }
 
-#image {
+#photo {
+        padding: 0;
+    }
+    #photo p {
         margin: 0;
         text-align: center;
     }
-    #image img {
+    #photo img {
         max-width: 100%;
 }
 

@@ -3,9 +3,19 @@
 {{#photo}}
 <article class="post">
 
-<p id="image">
-    <img src="{{largeImageLink}}" alt="Title" />
-</p>
+<section id="photo">
+    <p><img src="{{largeImageLink}}" alt="Title" /></p>
+    <nav>
+        <ul>
+            {{#olderPhoto}}
+            <li><a href="{{olderPhotoLink}}">&laquo; Older Photo</a></li>
+            {{/olderPhoto}}
+            {{#newerPhoto}}
+            <li><a href="{{newerPhotoLink}}">Newer Photo &raquo;</a></li>
+            {{/newerPhoto}}
+        </ul>
+    </nav>
+</section>
 
 <section>
 <h1>{{title}} <a href="{{permalink}}" title="Permalink">&para;</a> {{#downloadable}}<a href="{{downloadLink}}" title="Download original photo">&darr;</a>{{/downloadable}}</h1>
