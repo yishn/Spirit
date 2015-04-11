@@ -80,6 +80,7 @@ header {
         text-decoration: none;
         text-indent: -9999em;
         opacity: 0;
+        transition: .2s opacity;
     }
     #photo nav .newer a {
         left: 50%;
@@ -189,7 +190,7 @@ img {
 }
 
 a { color: white; }
-a:hover { text-shadow: 0 0 3px black; }
+a:hover, a:focus { text-shadow: 0 0 3px black; }
 
 strong {
     font-weight: bold;

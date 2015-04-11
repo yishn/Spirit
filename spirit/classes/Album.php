@@ -12,6 +12,10 @@ class Album extends Model {
             ->find_one();
     }
 
+    public function getPermalink() {
+        return Spirit::link("/album/{$this->id}");
+    }
+
     public function getFormattedDescription() {
         $parsedown = new Parsedown();
         return $parsedown->text($this->description);
@@ -30,21 +34,23 @@ class Album extends Model {
 
     public function as_array() {
         $result = parent::as_array();
-
-        $result['chronological'] = $result['chronological'] == 1;
-        $result['thumbnailLink'] = function() {
-            $photo = $this->getPhoto();
-            return !$photo ? Spirit::link('/') : $photo->getThumbnailLink();
-        };
-        $result['largeImageLink'] = function() {
-            $photo = $this->getPhoto();
-            return !$photo ? Spirit::link('/') : $photo->getLargeImageLink();
-        };
-        $result['count'] = function() { return $this->photos()->count(); };
-        $result['date'] = function() { return $this->getFormattedDate(); };
-        $result['month'] = function() { return $this->getFormattedDate('Y-m'); };
-        $result['formattedDescription'] = function() { return $this->getFormattedDescription(); };
-        $result['formattedDate'] = function() { return $this->getFormattedDate(Setting::get('albumDateFormat')); };
+        $result = array_merge($result, [
+            'chronological' => $result['chronological'] == 1,
+            'thumbnailLink' => function() {
+                $photo = $this->getPhoto();
+                return !$photo ? Spirit::link('/') : $photo->getThumbnailLink();
+            },
+            'largeImageLink' => function() {
+                $photo = $this->getPhoto();
+                return !$photo ? Spirit::link('/') : $photo->getLargeImageLink();
+            },
+            'permalink' => $this->getPermalink(),
+            'count' => function() { return $this->photos()->count(); },
+            'date' => function() { return $this->getFormattedDate(); },
+            'month' => function() { return $this->getFormattedDate('Y-m'); },
+            'formattedDescription' => function() { return $this->getFormattedDescription(); },
+            'formattedDate' => function() { return $this->getFormattedDate(Setting::get('albumDateFormat')); }
+        ]);
 
         return $result;
     }
