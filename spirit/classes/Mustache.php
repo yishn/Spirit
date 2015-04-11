@@ -52,11 +52,6 @@ class Mustache {
                     // handle array objects
                     if (isset($val[0])) {
                         foreach ($val as $loopVal) {
-                            // make simple lists available
-                            if (is_array($loopVal) === false) {
-                                $loopVal = ['_' => $loopVal];
-                            }
-
                             $loopContent .= self::parse($patternContext, $loopVal);
                         }
                     }
