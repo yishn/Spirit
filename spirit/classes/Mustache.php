@@ -38,30 +38,28 @@ class Mustache {
 
     private static function parse($template, array $data = []) {
         foreach ($data as $key => $val) {
+            // Find loops
             if (!is_array($val) || empty($val) !== false) continue;
 
-            // find loops
             $template = preg_replace('|{{\^' . $key . '}}.*?{{/' . $key . '}}|s', '', $template);
             preg_match_all('|{{\#' . $key . '}}(.*?){{/' . $key . '}}|sm', $template, $foreachPattern);
 
-            // handle loops
+            // Handle loops
             if (isset($foreachPattern[1][0])) {
                 foreach ($foreachPattern[1] as $patternId => $patternContext) {
                     $loopContent = '';
 
-                    // handle array objects
                     if (isset($val[0])) {
+                        // Handle lists
                         foreach ($val as $loopVal) {
                             $loopContent .= self::parse($patternContext, $loopVal);
                         }
-                    }
-
-                    // normal array only
-                    else {
+                    } else {
+                        // Handle object arrays
                         $loopContent = self::parse($patternContext, $val);
                     }
 
-                    // replace pattern context
+                    // Replace pattern context
                     $template = preg_replace(
                         '|' . preg_quote($foreachPattern[0][$patternId]) . '|s',
                         $loopContent,
@@ -73,21 +71,20 @@ class Mustache {
         }
 
         foreach ($data as $key => $val) {
+            // Find bools
             if (!is_bool($val) && (!is_array($val) || empty($val) !== true)) continue;
 
-            // determine true/false
+            // Determine true/false
             $conditionChar = $val === true ? '\#' : '\^';
             $negationChar = $val === true ? '\^' : '\#';
 
-            // remove bools
             $template = preg_replace('|{{' . $negationChar . $key . '}}.*?{{/' . $key . '}}|s', '', $template);
-            // find bools
             preg_match_all('|{{' . $conditionChar . $key . '}}(.*?){{/' . $key . '}}|s', $template, $boolPattern);
 
-            // handle bools
+            // Handle bools
             if (isset($boolPattern[1][0])) {
                 foreach ($boolPattern[1] as $patternId => $patternContext) {
-                    // parse and replace pattern context
+                    // Parse and replace pattern context
                     $template = preg_replace(
                         '|' . preg_quote($boolPattern[0][$patternId]) . '|s',
                         self::parse($patternContext, self::$data),
@@ -99,10 +96,11 @@ class Mustache {
         }
 
         foreach ($data as $key => $val) {
+            // Handle value types
             if (is_array($val) || is_bool($val)) continue;
             
             if ($val instanceof Closure) {
-                // only evaluate function if there are any
+                // Only evaluate function if there are any
                 if (strpos($template, '{{' . $key . '}}') === false) continue;
 
                 $template = str_replace('{{{' . $key . '}}}', $val(), $template);
