@@ -13,7 +13,7 @@ class Setting {
         'albumsPerPage' => 6,
         'originalPhotoDownload' => 'true',
         'timezone' => 'UTC',
-        'dateFormat' => 'jS F, Y H:i',
+        'dateFormat' => 'j F, Y H:i',
         'albumDateFormat' => 'F Y',
 
         'adminPhotosPerPage' => 50,

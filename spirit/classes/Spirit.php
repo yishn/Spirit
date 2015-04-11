@@ -270,6 +270,10 @@ class Spirit extends Dispatcher {
             'themeUrl' => parent::config('url') . DIR_THEMES . Setting::get('theme') . '/'
         ];
 
+        if ($main == 'single') {
+            $context['photo'] = self::verifyModel('Photo', $params['id'])->as_array(true, true, true);
+        }
+
         print Mustache::renderByFile(DIR_THEMES . Setting::get('theme') . "/{$main}.html", $context);
     }
 }
