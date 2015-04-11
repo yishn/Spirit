@@ -113,16 +113,18 @@ class Photo extends Model {
             $result['newerPhoto'] = !$newer ? false : $newer->as_array();
         }
 
-        $result['hasAlbums'] = $result['albums'] !== false;
-        $result['date'] = $this->getFormattedDate();
-        $result['month'] = $this->getFormattedDate('Y-m');
-        $result['formattedDate'] = $this->getFormattedDate(Setting::get('dateFormat'));
-        $result['permalink'] = $this->getPermalink();
-        $result['downloadable'] = Setting::get('originalPhotoDownload') == 'true';
-        $result['downloadLink'] = $this->getDownloadLink();
-        $result['thumbnailLink'] = $this->getThumbnailLink();
-        $result['largeImageLink'] = $this->getLargeImageLink();
-        $result['formattedDescription'] = function() { return $this->getFormattedDescription(); };
+        $result = array_merge($result, [
+            'hasAlbums' => $result['albums'] !== false,
+            'date' => $this->getFormattedDate(),
+            'month' => $this->getFormattedDate('Y-m'),
+            'formattedDate' => $this->getFormattedDate(Setting::get('dateFormat')),
+            'permalink' => $this->getPermalink(),
+            'downloadable' => Setting::get('originalPhotoDownload') == 'true',
+            'downloadLink' => $this->getDownloadLink(),
+            'thumbnailLink' => $this->getThumbnailLink(),
+            'largeImageLink' => $this->getLargeImageLink(),
+            'formattedDescription' => function() { return $this->getFormattedDescription(); }
+        ]);
 
         return $result;
     }

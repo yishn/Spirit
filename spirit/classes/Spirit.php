@@ -28,7 +28,7 @@ class Spirit extends Dispatcher {
         $single = function($params) { self::render('single', $params); };
         parent::map('GET', '/photo/<id:\d+>', $single);
         parent::map('GET', '/photo/<id:\d+>/searching/<search:[^/]+>', $single);
-        parent::map('GET', '/photo/<id:\d+>/in/\d{4}-\d{2}', $single);
+        parent::map('GET', '/photo/<id:\d+>/in/<month:\d{4}-\d{2}>', $single);
         parent::map('GET', '/photo/<id:\d+>/in/album-<album:\d+>', $single);
 
         // Get photo
@@ -263,15 +263,28 @@ class Spirit extends Dispatcher {
     }
 
     public static function render($main, array $params = []) {
+        list($filter, $page) = self::prepareFilter($params);
+
         $context = [
             'title' => Setting::get('title'),
             'subtitle' => Setting::get('subtitle'),
             'baseUrl' => parent::config('url'),
-            'themeUrl' => parent::config('url') . DIR_THEMES . Setting::get('theme') . '/'
+            'themeUrl' => parent::config('url') . DIR_THEMES . Setting::get('theme') . '/',
+            'page' => $page
         ];
 
         if ($main == 'single') {
-            $context['photo'] = self::verifyModel('Photo', $params['id'])->as_array(true, true, true);
+            $context = array_merge($context, [
+                'photo' => self::verifyModel('Photo', $params['id'])->as_array(true, true, true, $filter),
+
+                'hasFilters' => isset($filter['album']) || isset($filter['month']) || isset($filter['search']),
+                'inSearch' => !isset($filter['search']) ? false : [ 'search' => $filter['search'] ],
+                'inAlbum' => !isset($filter['album']) ? false : $filter['album']->as_array(),
+                'inMonth' => !isset($filter['month']) ? false : [
+                    'year' => substr($filter['month'], 0, 4),
+                    'month' => date('F', mktime(0, 0, 0, intval(substr($filter['month'], -2)), 1, 2000))
+                ]
+            ]);
         }
 
         print Mustache::renderByFile(DIR_THEMES . Setting::get('theme') . "/{$main}.html", $context);
