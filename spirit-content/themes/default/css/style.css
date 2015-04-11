@@ -1,4 +1,4 @@
-@import url('http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,400italic,700');
+@import url('http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,700,700italic');
 
 * {
     margin: 0;
@@ -15,10 +15,13 @@ header {
     }
     header h1 {
         margin: 0;
-        color: white;
         font-size: 2em;
         font-weight: 300;
         text-transform: uppercase;
+    }
+    header h1 a, header h1 a:hover, header h1 a:focus {
+        text-decoration: none;
+        opacity: 1;
     }
     header h2 {
         margin: .1em 0 0 0;
@@ -37,8 +40,32 @@ header {
 }
 
 .post > section {
-    padding:  1px 1em;
-}
+        padding: 1px 1em;
+    }
+    .post .meta {
+        margin: 1.7em 0;
+        list-style: none;
+    }
+    .post .meta time, .post .meta strong {
+        font-size: .8em;
+        font-weight: 300;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+    .post .meta > li {
+        border-bottom: 1px solid #484b4c;
+        padding: .5em 0;
+        opacity: .7;
+    }
+    .post .meta > li:first-child {
+        border-top: 1px solid #484b4c;
+    }
+    .post .meta > li:hover, .post .meta > li:focus {
+        opacity: 1;
+    }
+    .post .meta .albums {
+        margin-bottom: 0;
+    }
 
 /**
  * Typography
@@ -54,9 +81,19 @@ h1, h2, h3, h4, h5, h6, ul, ol, blockquote, pre, p {
     margin: .9em 0;
 }
 
+h1, h2, h3, h4, h5, h6 { color: white; }
+
 h1, h2 {
     font-size: 1.7em;
     font-weight: normal;
+}
+
+h1 a {
+        text-decoration: none;
+        opacity: .1;
+    }
+    h1 a:hover, h1 a:focus {
+        opacity: .3;
 }
 
 h2 {
@@ -75,5 +112,13 @@ h4 {
 }
 
 img {
-    vertical-align: middle;
+    vertical-align: text-bottom;
+}
+
+a {
+    color: white;
+}
+
+strong {
+    font-weight: bold;
 }
