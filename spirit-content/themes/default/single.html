@@ -8,7 +8,7 @@
 </p>
 
 <section>
-<h1>{{title}} <a href="#" title="Permalink">&para;</a></h1>
+<h1>{{title}} <a href="{{permalink}}" title="Permalink">&para;</a> {{#downloadable}}<a href="{{downloadLink}}" title="Download original photo">&darr;</a>{{/downloadable}}</h1>
 
 {{{formattedDescription}}}
 
@@ -17,9 +17,6 @@
     {{#owner}}
     <li>Uploaded by <strong>{{name}}</strong> <img src="{{avatarLink}}&amp;s=20" /></li>
     {{/owner}}
-    {{#downloadable}}
-    <li>Download <a href="{{downloadLink}}"><strong>original photo</strong></a></li>
-    {{/downloadable}}
     {{#hasAlbums}}
     <li>
         This photo also belongs to:

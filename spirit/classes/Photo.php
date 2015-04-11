@@ -114,7 +114,7 @@ class Photo extends Model {
         }
 
         $result = array_merge($result, [
-            'hasAlbums' => $result['albums'] !== false,
+            'hasAlbums' => count($result['albums']) != 0,
             'date' => $this->getFormattedDate(),
             'month' => $this->getFormattedDate('Y-m'),
             'formattedDate' => $this->getFormattedDate(Setting::get('dateFormat')),

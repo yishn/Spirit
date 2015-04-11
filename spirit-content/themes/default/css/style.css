@@ -111,13 +111,16 @@ h4 {
     font-weight: normal;
 }
 
+ul, ol {
+    margin-left: 1.5em;
+}
+
 img {
     vertical-align: text-bottom;
 }
 
-a {
-    color: white;
-}
+a { color: white; }
+a:hover { text-shadow: 0 0 3px black; }
 
 strong {
     font-weight: bold;
