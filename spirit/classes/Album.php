@@ -1,12 +1,12 @@
 <?php
 
 class Album extends Model {
-    public function photos($overrideDescOrder = false) {
+    public function photos() {
         return $this->has_many_through('Photo');
     }
 
     public function getPhoto() {
-        return $this->photos(true)->find_one();
+        return $this->photos()->order_by_desc('date')->find_one();
     }
 
     public function getFormattedDescription() {
