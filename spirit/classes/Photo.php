@@ -119,6 +119,7 @@ class Photo extends Model {
         if ($includeAdjacents) {
             list($older, $newer) = $this->getAdjacentPhotos($filter);
             $result = array_merge($result, [
+                'hasAdjacentPhotos' => $older || $newer,
                 'olderPhoto' => !$older ? false : $older->as_array(),
                 'newerPhoto' => !$newer ? false : $newer->as_array(),
                 'olderPhotoLink' => !$older ? false : $older->getPermalink($filter),

@@ -5,16 +5,18 @@
 
 <section id="photo">
     <p><img src="{{largeImageLink}}" alt="Title" /></p>
+    {{#hasAdjacentPhotos}}
     <nav>
         <ul>
             {{#olderPhoto}}
-            <li><a href="{{olderPhotoLink}}">&laquo; Older Photo</a></li>
+            <li class="older"><a href="{{olderPhotoLink}}" title="Older photo">&laquo; Older photo</a></li>
             {{/olderPhoto}}
             {{#newerPhoto}}
-            <li><a href="{{newerPhotoLink}}">Newer Photo &raquo;</a></li>
+            <li class="newer"><a href="{{newerPhotoLink}}" title="Newer photo">Newer photo &raquo;</a></li>
             {{/newerPhoto}}
         </ul>
     </nav>
+    {{/hasAdjacentPhotos}}
 </section>
 
 <section>
