@@ -50,6 +50,7 @@ header {
 
 #photo {
         position: relative;
+        min-height: 3em;
         max-width: 100%;
         padding: 0;
         background: #111;
@@ -101,11 +102,11 @@ header {
         left: .5em;
     }
     #photo nav .older a:hover, #photo nav .older a:focus {
-        background: linear-gradient(to right, rgba(0, 0, 0, .3) 0%, transparent 50%);
+        background: linear-gradient(to right, rgba(0, 0, 0, .3) 0, transparent 4em);
         opacity: 1;
     }
     #photo nav .newer a:hover, #photo nav .newer a:focus {
-        background: linear-gradient(to left, rgba(0, 0, 0, .3) 0%, transparent 50%);
+        background: linear-gradient(to left, rgba(0, 0, 0, .3) 0, transparent 4em);
         opacity: 1;
 }
 
