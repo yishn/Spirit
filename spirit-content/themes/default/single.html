@@ -4,7 +4,7 @@
 <article class="post">
 
 <section id="photo">
-    <p><img src="{{largeImageLink}}" alt="Title" /></p>
+    <p><img src="{{largeImageLink}}" alt="{{title}}" /></p>
     {{#hasAdjacentPhotos}}
     <nav>
         <ul>
@@ -20,7 +20,12 @@
 </section>
 
 <section>
-<h1>{{title}} <a href="{{permalink}}" title="Permalink">&para;</a> {{#downloadable}}<a href="{{downloadLink}}" title="Download original photo">&darr;</a>{{/downloadable}}</h1>
+
+<h1>
+    {{title}}
+    <a href="{{permalink}}" title="Permalink">&para;</a>
+    {{#downloadable}}<a href="{{downloadLink}}" title="Download original photo">&darr;</a>{{/downloadable}}
+</h1>
 
 {{{formattedDescription}}}
 

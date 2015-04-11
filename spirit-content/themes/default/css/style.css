@@ -49,10 +49,10 @@ header {
 }
 
 #photo {
-        margin: 0 auto;
         position: relative;
         max-width: 100%;
         padding: 0;
+        background: #111;
     }
     #photo p {
         margin: 0;
