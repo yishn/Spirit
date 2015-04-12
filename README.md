@@ -1,5 +1,5 @@
 # ![](spirit/views/resources/logo.png) Spirit
-Just a beautiful, minimal photoblog solution in PHP
+Just a beautiful, minimal photoblog solution in PHP. This is a work in progress.
 
 ## Third Party Libraries
 * [Idiorm](https://github.com/j4mie/idiorm) & [Paris](https://github.com/j4mie/paris)
