@@ -1,13 +1,9 @@
 <?php
 
 class Mustache {
-    private static $data;
     private static $cache = [];
 
     public static function render($template, array $data = []) {
-        // cache data
-        self::$data = $data;
-
         // parse template
         $template = self::parse($template, $data);
 
@@ -87,7 +83,7 @@ class Mustache {
                     // Parse and replace pattern context
                     $template = preg_replace(
                         '|' . preg_quote($boolPattern[0][$patternId]) . '|s',
-                        self::parse($patternContext, self::$data),
+                        self::parse($patternContext, $data),
                         $template,
                         1
                     );
