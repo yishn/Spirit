@@ -31,6 +31,8 @@ class Spirit extends Dispatcher {
         parent::map('GET', '/photo/<id:\d+>/in/<month:\d{4}-\d{2}>', $single);
         parent::map('GET', '/photo/<id:\d+>/in/album-<album:\d+>', $single);
 
+        parent::map('GET', '/archive', function() { self::render('archive'); });
+
         // Get photo
         
         parent::map('GET', '/photo/<id:\d+>/size/<size:thumb|large>', function($params) {
