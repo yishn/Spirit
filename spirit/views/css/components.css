@@ -103,7 +103,7 @@
         text-transform: uppercase;
         text-overflow: ellipsis;
         font-weight: bold;
-        white-space: nowrap
+        white-space: nowrap;
     }
     .albumstream h3 em { 
         font-style: normal; 

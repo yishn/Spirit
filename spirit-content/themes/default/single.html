@@ -40,8 +40,10 @@
         <ul class="albums">
             {{#albums}}
             <li>
-                <img src="{{thumbnailLink}}" alt="{{name}}" />
-                <a href="{{permalink}}">{{name}}</a>
+                <a href="{{permalink}}">
+                    <img src="{{thumbnailLink}}" alt="{{name}}" />
+                    {{name}}
+                </a>
             </li>
             {{/albums}}
         </ul>

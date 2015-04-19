@@ -138,6 +138,34 @@ header {
         margin-bottom: 0;
 }
 
+.albums {
+        margin-left: 0;
+        list-style: none;
+    }
+    .albums li a {
+        display: block;
+        margin-bottom: .5em;
+        padding: 0 .7em;
+        height: 4em;
+        background: #151819;
+        line-height: 4em;
+        overflow: hidden;
+        text-decoration: none;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .albums li a:hover {
+        background: #111;
+    }
+    .albums li:last-child a {
+        margin-bottom: 0;
+    }
+    .albums li img {
+        height: 4em;
+        margin-right: .7em;
+        vertical-align: middle;
+}
+
 /**
  * Typography
  */
@@ -191,7 +219,7 @@ img {
 }
 
 a { color: white; }
-a:hover, a:focus { text-shadow: 0 0 3px black; }
+a:hover, a:focus { text-shadow: 0 0 3px rgba(255, 255, 255, .5); }
 
 strong {
     font-weight: bold;
