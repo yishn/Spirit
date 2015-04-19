@@ -154,7 +154,7 @@ header {
         text-overflow: ellipsis;
         white-space: nowrap;
     }
-    .albums li a:hover {
+    .albums li a:hover, .albums li a:focus {
         background: #111;
     }
     .albums li:last-child a {
