@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<title><?php p($journal['name']) ?></title>
+
+</head>
+<body>
+
+<h1><?php p($journal['name']) ?></h1>
+
+<nav>
+    <h2>Journals</h2>
+
+    <ol>
+        <?php foreach ($journals as $j): ?>
+            <?php if ($j['id'] == $journal['id']): ?>
+                <li class="current">
+                    <a href="<?php p($j['permalink']) ?>"><?php p($j['name']) ?></a>
+
+                    <time datetime="<?php p($journal['start_date']->format('Y-m-d')) ?>">
+                        from <em><?php p($journal['start_date']->format('Y-m-d')) ?></em>
+                    </time>
+                    <time datetime="<?php p($journal['end_date']->format('Y-m-d')) ?>">
+                        to <em><?php p($journal['end_date']->format('Y-m-d')) ?></em>
+                    </time>
+                </li>
+            <?php else: ?>
+                <li>
+                    <a href="<?php p($j['permalink']) ?>"><?php p($j['name']) ?></a>
+                </li>
+            <?php endif ?>
+        <?php endforeach ?>
+    </ol>
+</nav>
+
+<main>
+    <h2>Photos</h2>
+
+    <ol>
+        <?php foreach ($journal['photos'] as $photo): ?>
+            <li>
+                <p>
+                    <img src="<?php p($photo['src']) ?>" />
+                    <time datetime="<?php p($photo['date']->format('Y-m-d H:i:s')) ?>">
+                        <?php p($photo['date']->format('jS F Y')) ?>
+                    </time>
+                </p>
+                <?php if (isset($photo['description'])) echo $photo['description'] ?>
+            </li>
+        <?php endforeach ?>
+    </ol>
+</main>
+
+</body>
+</html>

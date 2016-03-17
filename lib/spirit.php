@@ -82,17 +82,6 @@ function spirit_journals($id = null) {
     return $result;
 }
 
-function spirit_get_journal($id) {
-    $journals = array_filter(spirit_journals(), function($j) use($id) {
-        return $j['id'] == $id;
-    });
-
-    if (count($journals) == 0) return null;
-
-    $journal = $journals[0];
-    return $journal;
-}
-
 function spirit_get_exif_date($path) {
     try {
         $exif = @exif_read_data($path);
