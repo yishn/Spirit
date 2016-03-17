@@ -103,6 +103,7 @@ function spirit_photos($journal) {
     foreach ($imagepaths as $imagepath) {
         $photo = [
             'src' => BASE_PATH . 'photo/' . $journal['id'] . '/' . basename($imagepath),
+            'id' => 'p' . $i,
             'permalink' => $journal['permalink'] . '#p' . $i
         ];
 

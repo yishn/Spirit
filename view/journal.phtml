@@ -38,19 +38,24 @@
 <main>
     <h2>Photos</h2>
 
-    <ol>
-        <?php foreach ($journal['photos'] as $photo): ?>
-            <li>
-                <p>
-                    <img src="<?php p($photo['src']) ?>" />
+    <?php foreach ($journal['photos'] as $photo): ?>
+        <article id="<?php p($photo['id']) ?>">
+            <p>
+                <img src="<?php p($photo['src']) ?>" />
+
+                <a href="#<?php p($photo['id']) ?>" title="Permalink">
+                <?php if (isset($photo['date'])): ?>
                     <time datetime="<?php p($photo['date']->format('Y-m-d H:i:s')) ?>">
                         <?php p($photo['date']->format('jS F Y')) ?>
                     </time>
-                </p>
-                <?php if (isset($photo['description'])) echo $photo['description'] ?>
-            </li>
-        <?php endforeach ?>
-    </ol>
+                <?php else: ?>
+                    #
+                <?php endif ?>
+                </a>
+            </p>
+            <?php if (isset($photo['description'])) echo $photo['description'] ?>
+        </article>
+    <?php endforeach ?>
 </main>
 
 </body>
