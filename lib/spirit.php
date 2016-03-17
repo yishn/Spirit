@@ -25,7 +25,20 @@ function spirit_route($method, $paths, $funcs) {
     return route($method, $paths, $funcs);
 }
 
-function spirit_journals() {
+function spirit_journals($id = null) {
+    if ($id !== null) {
+        $journals = array_filter(spirit_journals(), function($j) use($id) {
+            return $j['id'] == $id;
+        });
+
+        if (count($journals) == 0) return;
+
+        $journal = $journals[0];
+        $journal['photos'] = spirit_photos($journal['path']);
+
+        return $journal;
+    }
+
     $paths = glob('content/*', GLOB_ONLYDIR);
     $result = [];
 
@@ -47,6 +60,27 @@ function spirit_journals() {
             'path' => $path,
             'name' => $parsedown->title
         ];
+    }
+
+    return $result;
+}
+
+function spirit_photos($path) {
+    $result = [];
+
+    $imagepaths = glob($path . '/*.{jpg,jpeg,gif,png}', GLOB_BRACE);
+
+    foreach ($imagepaths as $imagepath) {
+        $photo = ['path' => $imagepath];
+
+        $mdpath = $path . '/' . pathinfo($imagepath, PATHINFO_FILENAME) . '.md';
+        if (file_exists($mdpath)) {
+            $parsedown = new SpiritParsedown();
+            $photo['markdown'] = file_get_contents($mdpath);
+            $photo['description'] = $parsedown->text($photo['markdown']);
+        }
+
+        $result[] = $photo;
     }
 
     return $result;
