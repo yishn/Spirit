@@ -1,11 +1,7 @@
 <?php
 
-/**
- * dispatcher
- * https://github.com/yishn/dispatcher
- *
- * MIT License
- */
+# dispatcher - https://github.com/yishn/dispatcher
+# MIT License
 
 function &context() {
     static $context = [];
@@ -99,7 +95,6 @@ function match($verb, $path, $route = null) {
                 if (!preg_match($regex, $segment)) break;
                 $args[$name] = $segment;
             }
-
         }
 
         if ($i === count($path_segments)) return $args;
@@ -138,7 +133,7 @@ function redirect($location, $code = 302) {
     exit();
 }
 
-function render($__PATH, $__VARS) {
+function render($__PATH, $__VARS = []) {
     extract($__VARS, EXTR_SKIP);
     include($__PATH);
 }
