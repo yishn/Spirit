@@ -1,4 +1,4 @@
-# ![Logo](logo.svg) Spirit
+# Spirit
 
 Just a beautiful, minimal photo journal in PHP. This is a work in progress.
 
