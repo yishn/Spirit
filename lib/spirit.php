@@ -42,7 +42,7 @@ function spirit_journals($id = null) {
         if (count($journals) == 0) return null;
 
         $journal = $journals[0];
-        $journal['photos'] = spirit_photos($journal['path']);
+        $journal['photos'] = spirit_photos($journal);
 
         $dates = array_map(function($p) { return $p['date']; }, $journal['photos']);
         $journal['start_date'] = min($dates);
@@ -73,12 +73,24 @@ function spirit_journals($id = null) {
         $result[] = [
             'id' => $id,
             'path' => $path,
+            'permalink' => BASE_PATH . $id,
             'name' => $parsedown->title
         ];
     }
 
     $spirit_cache_journals = $result;
     return $result;
+}
+
+function spirit_get_journal_path($id) {
+    $journals = array_filter(spirit_journals(), function($j) use($id) {
+        return $j['id'] == $id;
+    });
+
+    if (count($journals) == 0) return null;
+
+    $journal = $journals[0];
+    return $journal['path'];
 }
 
 function spirit_get_exif_date($path) {
@@ -92,16 +104,17 @@ function spirit_get_exif_date($path) {
     return null;
 }
 
-function spirit_photos($path) {
+function spirit_photos($journal) {
     $result = [];
+    $path = $journal['path'];
     $i = 1;
 
     $imagepaths = glob($path . '/*.{jpg,jpeg,gif,png}', GLOB_BRACE);
 
     foreach ($imagepaths as $imagepath) {
         $photo = [
-            'path' => $imagepath,
-            'permalink' => '#p' . $i
+            'src' => BASE_PATH . 'photo/' . $journal['id'] . '/' . basename($imagepath),
+            'permalink' => $journal['permalink'] . '#p' . $i
         ];
 
         $date = spirit_get_exif_date($imagepath);

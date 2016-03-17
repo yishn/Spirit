@@ -7,6 +7,9 @@
 // Base path with trailing '/'
 define('BASE_PATH', '/');
 
+// Image size
+define('IMG_SIZE', '1280x');
+
 /**
  * Ok, stop editing now!
  */
