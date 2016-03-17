@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,200,300italic,600,600italic');
+
+* { margin: 0; padding: 0; }
+
+/**
+ * Typography
+ */
+
+h1, nav h2, main > h2:first-child {
+    position: absolute;
+    top: -9999em;
+    left: -9999em;
+}
+
+body {
+    font: 300 120%/1.5 'Source Sans Pro', 'Microsoft YaHei', DengXian, sans-serif;
+}
+
+main h1 {
+    position: static;
+    font-size: 3em;
+    font-weight: 200;
+    letter-spacing: -3px;
+}
+
+aside p, aside ul, aside ol, aside h2, aside h3, aside h4, aside h5, aside h6 {
+    margin: 1em 0;
+}
+
+img {
+    vertical-align: bottom;
+}
+
+a {
+        color: white;
+        opacity: .8;
+        transition: opacity .2s;
+    }
+    a:hover, a:focus {
+        opacity: 1;
+}
+
+strong {
+    font-weight: 600;
+}
+
+/**
+ * Layout
+ */
+
+html, body {
+    min-height: 100%;
+}
+
+body {
+    background: #181818;
+    color: white;
+}
+
+nav, main {
+    display: block;
+}
+
+nav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    min-height: 100%;
+    width: 200px;
+    background: #26292C;
+}
+
+main {
+        margin-left: 200px;
+    }
+    main article {
+        transition: opacity .2s;
+    }
+    main article.inactive {
+        opacity: .6;
+    }
+    main .image {
+        position: relative;
+    }
+    main .image img {
+        width: 100%;
+    }
+    main .image a {
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: .1em .5em;
+        background: #181818;
+        opacity: 0;
+        text-decoration: none;
+        transition: opacity .2s;
+    }
+    main .image:hover a {
+        opacity: .8;
+    }
+    main .image:hover a:hover, main .image:hover a:focus {
+        opacity: 1;
+    }
+    main aside {
+        position: relative;
+        box-sizing: border-box;
+        padding: 3em;
+        width: 66%;
+    }
+    main article:nth-child(odd) aside {
+        left: 34%;
+}
