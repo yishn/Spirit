@@ -44,6 +44,10 @@ function spirit_journals($id = null) {
         $journal = $journals[0];
         $journal['photos'] = spirit_photos($journal['path']);
 
+        $dates = array_map(function($p) { return $p['date']; }, $journal['photos']);
+        $journal['start_date'] = min($dates);
+        $journal['end_date'] = max($dates);
+
         return $journal;
     }
 
@@ -97,12 +101,12 @@ function spirit_photos($path) {
     foreach ($imagepaths as $imagepath) {
         $photo = [
             'path' => $imagepath,
-            'permalink' => '#' . $i
+            'permalink' => '#p' . $i
         ];
 
         $date = spirit_get_exif_date($imagepath);
         if ($date !== null) {
-            $photo['date'] = $date->format('Y-m-d H:i:s');
+            $photo['date'] = $date;
         }
 
         $mdpath = $path . '/' . pathinfo($imagepath, PATHINFO_FILENAME) . '.md';
