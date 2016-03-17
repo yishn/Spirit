@@ -9,3 +9,4 @@ Just a beautiful, minimal photo journal in PHP. This is a work in progress.
 * [jQuery](http://jquery.com/) ([MIT License](https://jquery.org/license/))
 * [Lazy Load](http://www.appelsiini.net/projects/lazyload) ([MIT License](http://www.opensource.org/licenses/mit-license.php))
 * [Color Thief](https://github.com/lokesh/color-thief) ([MIT License](https://github.com/lokesh/color-thief/blob/master/LICENSE))
+* [Source Sans Pro](http://adobe-fonts.github.io/source-sans-pro/) ([SIL Open Font License](https://github.com/adobe-fonts/source-sans-pro/blob/master/LICENSE.txt))
