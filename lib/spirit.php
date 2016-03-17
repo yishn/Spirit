@@ -14,6 +14,8 @@ class SpiritParsedown extends Parsedown {
     }
 }
 
+$spirit_cache_journals = null;
+
 function spirit_route($method, $paths, $funcs) {
     if (!is_array($paths)) $paths = [$paths];
 
@@ -25,19 +27,28 @@ function spirit_route($method, $paths, $funcs) {
     return route($method, $paths, $funcs);
 }
 
+function spirit_json($object) {
+    header('Content-Type: application/json');
+    echo json_encode($object, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+    exit();
+}
+
 function spirit_journals($id = null) {
     if ($id !== null) {
         $journals = array_filter(spirit_journals(), function($j) use($id) {
             return $j['id'] == $id;
         });
 
-        if (count($journals) == 0) return;
+        if (count($journals) == 0) return null;
 
         $journal = $journals[0];
         $journal['photos'] = spirit_photos($journal['path']);
 
         return $journal;
     }
+
+    if ($spirit_cache_journals !== null)
+        return $spirit_cache_journals;
 
     $paths = glob('content/*', GLOB_ONLYDIR);
     $result = [];
@@ -62,16 +73,37 @@ function spirit_journals($id = null) {
         ];
     }
 
+    $spirit_cache_journals = $result;
     return $result;
+}
+
+function spirit_get_exif_date($path) {
+    try {
+        $exif = @exif_read_data($path);
+
+        if (isset($exif['DateTimeOriginal']))
+            return new DateTime($exif['DateTimeOriginal']);
+    } catch (Exception $ex) { }
+
+    return null;
 }
 
 function spirit_photos($path) {
     $result = [];
+    $i = 1;
 
     $imagepaths = glob($path . '/*.{jpg,jpeg,gif,png}', GLOB_BRACE);
 
     foreach ($imagepaths as $imagepath) {
-        $photo = ['path' => $imagepath];
+        $photo = [
+            'path' => $imagepath,
+            'permalink' => '#' . $i
+        ];
+
+        $date = spirit_get_exif_date($imagepath);
+        if ($date !== null) {
+            $photo['date'] = $date->format('Y-m-d H:i:s');
+        }
 
         $mdpath = $path . '/' . pathinfo($imagepath, PATHINFO_FILENAME) . '.md';
         if (file_exists($mdpath)) {
@@ -81,6 +113,7 @@ function spirit_photos($path) {
         }
 
         $result[] = $photo;
+        $i++;
     }
 
     return $result;
