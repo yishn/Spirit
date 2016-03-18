@@ -3,11 +3,20 @@
 * { margin: 0; padding: 0; }
 
 body {
-    padding: 10em;
+    padding: 2em;
     background: #181818;
     color: white;
     font: 300 110%/1.5 'Source Sans Pro', 'Microsoft YaHei', DengXian, sans-serif;
     text-align: center;
+}
+
+main {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    transform: translateY(-50%);
 }
 
 h1 {
