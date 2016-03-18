@@ -82,6 +82,14 @@ nav {
         background: #181818;
         transition: background .5s, color .2s, border-color .2s;
     }
+    nav img {
+        display: block;
+        position: absolute;
+        left: 50%;
+        bottom: 30px;
+        transform: translateX(-50%);
+        opacity: .4;
+    }
     nav ol {
         list-style: none;
     }
