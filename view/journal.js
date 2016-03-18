@@ -22,10 +22,7 @@ function getColorFromImg(img) {
         return sum(x) < sum(min) ? x : min
     })
 
-    return [
-        'rgb(' + maxcolor.join(',') + ')',
-        'rgb(' + mincolor.join(',') + ')'
-    ]
+    return [maxcolor, mincolor]
 }
 
 function activateArticle(index) {
@@ -51,9 +48,11 @@ function activateArticle(index) {
 
         if (!colors) return
 
-        $('nav').css('color', colors[0])
-            .css('border-color', colors[0])
-            .css('background-color', colors[1])
+        $articles.eq(currentIndex).css('background-color', 'rgb(' + colors[1].join(',') + ')')
+
+        $('nav').css('color', 'rgb(' + colors[0].join(',') + ')')
+            .css('border-color', 'rgb(' + colors[1].join(',') + ')')
+            .css('background-color', 'rgb(' + colors[1].map(function(x) { return Math.round(.8 * x) }).join(',') + ')')
     }, 300)
 
     currentIndex = index

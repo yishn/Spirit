@@ -13,7 +13,7 @@ h1, nav h2, main > h2:first-child {
 }
 
 body {
-    font: 300 120%/1.5 'Source Sans Pro', 'Microsoft YaHei', DengXian, sans-serif;
+    font: 300 110%/1.5 'Source Sans Pro', 'Microsoft YaHei', DengXian, sans-serif;
 }
 
 main h1 {
@@ -23,7 +23,8 @@ main h1 {
     letter-spacing: -3px;
 }
 
-aside p, aside ul, aside ol, aside h2, aside h3, aside h4, aside h5, aside h6 {
+aside p, aside ul, aside ol, aside h2, aside h3, aside h4, aside h5, aside h6,
+aside blockquote, aside pre {
     margin: 1em 0;
 }
 
@@ -48,6 +49,10 @@ strong {
     font-weight: 600;
 }
 
+sup, sub {
+    font-size: .8em;
+}
+
 /**
  * Layout
  */
@@ -70,9 +75,10 @@ nav {
         position: fixed;
         left: 0;
         top: 0;
-        min-height: 100%;
+        height: 100%;
         width: 200px;
         padding: 30px;
+        overflow: auto;
         background: #26292C;
         transition: background .5s, color .2s, border-color .2s;
     }
@@ -99,28 +105,25 @@ nav {
         margin-bottom: 1em;
     }
     nav li.current a {
-        border-bottom: 1px solid white;
-        border-color: inherit;
+        border-bottom: 1px solid;
         margin-bottom: 10px;
         transition: color .2s, border-color .2s;
     }
-    nav li.current::after {
+    nav li.current::before {
         content: '';
-        border-right: 10px solid #181818;
+        display: block;
+        border-left: 10px solid;
         border-top: 8px solid transparent;
         border-bottom: 8px solid transparent;
-        display: block;
+        position: absolute;
         height: 0;
         width: 0;
-        position: absolute;
-        right: -30px;
+        left: -30px;
         top: 50%;
-        transform: translateY(-50%);
-        transition: border-color .5s;
+        margin-top: -8px;
     }
     nav li time {
         display: block;
-        margin-left: 10px;
         font-size: .8em;
         opacity: .7;
     }
@@ -132,6 +135,9 @@ nav {
 
 main {
         margin-left: 200px;
+    }
+    main article {
+        transition: background-color .5s;
     }
     main .image {
         position: relative;

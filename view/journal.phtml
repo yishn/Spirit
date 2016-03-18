@@ -50,7 +50,7 @@
                 <a href="#<?php p($photo['id']) ?>" title="Permalink">
                 <?php if (isset($photo['date'])): ?>
                     <time datetime="<?php p($photo['date']->format('Y-m-d H:i:s')) ?>">
-                        <?php p($photo['date']->format('jS F Y, H:i')) ?>
+                        <?php echo $photo['date']->format('j<\s\u\p>S</\s\u\p> F Y, H:i') ?>
                     </time>
                 <?php else: ?>
                     #
