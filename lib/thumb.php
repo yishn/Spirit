@@ -30,11 +30,6 @@
  * IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-define('THUMB_BROWSER_CACHE',   true);          // Browser cache true or false
-define('SHARPEN_MIN',           12);            // Minimum sharpen value
-define('SHARPEN_MAX',           28);            // Maximum sharpen value
-define('ADJUST_ORIENTATION',    true);          // Auto adjust orientation for JPEG true or false
-
 class Thumb {
     public static $thumb_cache = CACHE_DIR;
 
@@ -100,7 +95,7 @@ class Thumb {
             touch(self::$thumb_cache . 'index.html');
         }
 
-        if (THUMB_BROWSER_CACHE && (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) || isset($_SERVER['HTTP_IF_NONE_MATCH']))) {
+        if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) || isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
             if ($_SERVER['HTTP_IF_MODIFIED_SINCE'] == $file_date && $_SERVER['HTTP_IF_NONE_MATCH'] == $file_hash) {
                 header($_SERVER['SERVER_PROTOCOL'] . ' 304 Not Modified');
                 die();
@@ -118,19 +113,13 @@ class Thumb {
                     header('Last-Modified: ' . $file_date);
                     header('ETag: ' . $file_hash);
                     header('Accept-Ranges: none');
-                    if (THUMB_BROWSER_CACHE) {
-                        header('Cache-Control: max-age=604800, must-revalidate');
-                        header('Expires: ' . gmdate('D, d M Y H:i:s T', strtotime('+7 days')));
-                    } else {
-                        header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
-                        header('Expires: ' . gmdate('D, d M Y H:i:s T'));
-                        header('Pragma: no-cache');
-                    }
+                    header('Cache-Control: max-age=604800, must-revalidate');
+                    header('Expires: ' . gmdate('D, d M Y H:i:s T', strtotime('+7 days')));
                     die($data);
                 }
             }
             $oi = imagecreatefromstring($data);
-            if (ADJUST_ORIENTATION && $type == 2) {
+            if ($type == 2) {
                 // I know supressing errors is bad, but calling exif_read_data on invalid
                 // or corrupted data returns a fatal error and there's no way to validate
                 // the EXIF data before calling the function.
@@ -217,7 +206,7 @@ class Thumb {
             if ($sharpen) {
                 $matrix = array (
                     array(-1, -1, -1),
-                    array(-1, SHARPEN_MAX - ($sharpen * (SHARPEN_MAX - SHARPEN_MIN)) / 100, -1),
+                    array(-1, 28 - ($sharpen * (28 - 12)) / 100, -1),
                     array(-1, -1, -1));
                 $divisor = array_sum(array_map('array_sum', $matrix));
             }
@@ -273,14 +262,8 @@ class Thumb {
         header('Last-Modified: ' . $file_date);
         header('ETag: ' . $file_hash);
         header('Accept-Ranges: none');
-        if (THUMB_BROWSER_CACHE) {
-            header('Cache-Control: max-age=604800, must-revalidate');
-            header('Expires: ' . gmdate('D, d M Y H:i:s T', strtotime('+7 days')));
-        } else {
-            header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
-            header('Expires: ' . gmdate('D, d M Y H:i:s T'));
-            header('Pragma: no-cache');
-        }
+        header('Cache-Control: max-age=604800, must-revalidate');
+        header('Expires: ' . gmdate('D, d M Y H:i:s T', strtotime('+7 days')));
 
         readfile($file_temp);
     }
