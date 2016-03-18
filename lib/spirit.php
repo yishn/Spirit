@@ -106,8 +106,11 @@ function spirit_photos($journal) {
     $i = 1;
 
     $imagepaths = glob($path . '/*.{jpg,jpeg,gif,png}', GLOB_BRACE);
+    $previous_imageset = null;
 
     foreach ($imagepaths as $imagepath) {
+        $without_ext = pathinfo($imagepath, PATHINFO_FILENAME);
+
         $photo = [
             'src' => BASE_PATH . 'photo/' . $journal['id'] . '/' . basename($imagepath),
             'download' => BASE_PATH . 'download/' . $journal['id'] . '/' . basename($imagepath),
@@ -120,11 +123,23 @@ function spirit_photos($journal) {
             $photo['date'] = $date;
         }
 
-        $mdpath = $path . '/' . pathinfo($imagepath, PATHINFO_FILENAME) . '.md';
+        $mdpath = $path . '/' . $without_ext . '.md';
         if (file_exists($mdpath)) {
             $parsedown = new SpiritParsedown();
             $photo['markdown'] = file_get_contents($mdpath);
             $photo['description'] = $parsedown->text($photo['markdown']);
+        }
+
+        $index = strrpos($without_ext, '.');
+        if ($index !== false) {
+            $photo['imageset'] = substr($without_ext, $index + 1);
+            if ($previous_imageset != $photo['imageset']) {
+                $photo['start_imageset'] = true;
+            }
+
+            $previous_imageset = $photo['imageset'];
+        } else if (count($result) > 0 && isset($result[count($result) - 1]['imageset'])) {
+            $result[count($result) - 1]['stop_imageset'] = true;
         }
 
         $result[] = $photo;

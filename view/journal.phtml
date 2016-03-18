@@ -54,7 +54,12 @@
     <h2>Photos</h2>
 
     <?php foreach ($journal['photos'] as $photo): ?>
-        <article id="<?php p($photo['id']) ?>">
+        <?php if (isset($photo['start_imageset'])): ?>
+        <section class="imageset">
+        <?php endif ?>
+
+        <article id="<?php p($photo['id']) ?>"<?php if (isset($photo['imageset'])): ?>
+        data-imageset="<?php p($photo['imageset']) ?>"<?php endif ?>>
             <section class="image">
                 <img src="<?php p($photo['src']) ?>" />
 
@@ -75,12 +80,17 @@
                     <?php endif ?>
                 </ul>
             </section>
+
             <?php if (isset($photo['description'])): ?>
-                <aside>
-                    <?php echo $photo['description'] ?>
-                </aside>
+            <aside>
+                <?php echo $photo['description'] ?>
+            </aside>
             <?php endif ?>
         </article>
+
+        <?php if (isset($photo['stop_imageset'])): ?>
+        </section>
+        <?php endif ?>
     <?php endforeach ?>
 </main>
 

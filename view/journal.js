@@ -31,8 +31,7 @@ function getColorFromImg(img) {
 function activateArticle(index, force) {
     if (index == null) {
         var index = $articles.map(function() {
-            var distance = Math.abs($(this).offset().top + $(this).height() / 2
-                - $(window).scrollTop() - $(window).height() / 2)
+            var distance = Math.abs($(window).scrollTop() - $(this).offset().top)
             return distance
         }).get().reduce(function(min, x, i, a) {
             return x < a[min] ? i : min
