@@ -35,6 +35,20 @@ spirit_route('GET', '/photo/:id@[-a-zA-Z0-9]+/:filename', [confirm_journal_id, f
     else Thumb::render($imagepath, IMG_SIZE);
 }]);
 
+spirit_route('GET', '/download/:id@[-a-zA-Z0-9]+/:filename', [confirm_journal_id, function($args) {
+    $journal = $args['journal'];
+    $imagepath = $journal['path'] . '/' . $args['filename'];
+
+    if (!file_exists($imagepath)) return render('view/error.phtml');
+
+    header('Content-Type: application/octet-stream');
+    header('Content-Length: ' . filesize($imagepath));
+    header('Content-Disposition: attachment; filename=' . basename($imagepath));
+
+    readfile($imagepath);
+    exit();
+}]);
+
 /**
  * REST API
  */
