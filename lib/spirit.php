@@ -35,18 +35,25 @@ function spirit_json($object) {
 
 function spirit_journals($id = null) {
     if ($id !== null) {
-        $journals = array_filter(spirit_journals(), function($j) use($id) {
-            return $j['id'] == $id;
-        });
+        $journal = null;
 
-        if (count($journals) == 0) return null;
+        foreach (spirit_journals() as $j) {
+            if ($j['id'] == $id) {
+                $journal = $j;
+                break;
+            }
+        }
 
-        $journal = $journals[0];
+        if ($journal === null) return null;
+
         $journal['photos'] = spirit_photos($journal);
 
-        $dates = array_map(function($p) { return $p['date']; }, $journal['photos']);
-        $journal['start_date'] = min($dates);
-        $journal['end_date'] = max($dates);
+        $dates = array_filter(array_map(function($p) { return $p['date']; }, $journal['photos']));
+
+        if (count($dates) != 0) {
+            $journal['start_date'] = min($dates);
+            $journal['end_date'] = max($dates);
+        }
 
         return $journal;
     }
@@ -103,6 +110,7 @@ function spirit_photos($journal) {
     foreach ($imagepaths as $imagepath) {
         $photo = [
             'src' => BASE_PATH . 'photo/' . $journal['id'] . '/' . basename($imagepath),
+            'download' => BASE_PATH . 'download/' . $journal['id'] . '/' . basename($imagepath),
             'id' => 'p' . $i,
             'permalink' => $journal['permalink'] . '#p' . $i
         ];

@@ -32,12 +32,14 @@
                 <li class="current">
                     <a href="<?php p($j['permalink']) ?>"><?php p($j['name']) ?></a>
 
-                    <time datetime="<?php p($journal['start_date']->format('Y-m-d')) ?>">
-                        from <em><?php p($journal['start_date']->format('Y-m-d')) ?></em>
-                    </time>
-                    <time datetime="<?php p($journal['end_date']->format('Y-m-d')) ?>">
-                        to <em><?php p($journal['end_date']->format('Y-m-d')) ?></em>
-                    </time>
+                    <?php if (isset($journal['start_date'])): ?>
+                        <time datetime="<?php p($journal['start_date']->format('Y-m-d')) ?>">
+                            from <em><?php p($journal['start_date']->format('Y-m-d')) ?></em>
+                        </time>
+                        <time datetime="<?php p($journal['end_date']->format('Y-m-d')) ?>">
+                            to <em><?php p($journal['end_date']->format('Y-m-d')) ?></em>
+                        </time>
+                    <?php endif ?>
                 </li>
             <?php else: ?>
                 <li>
@@ -53,19 +55,24 @@
 
     <?php foreach ($journal['photos'] as $photo): ?>
         <article id="<?php p($photo['id']) ?>">
-            <p class="image">
+            <section class="image">
                 <img src="<?php p($photo['src']) ?>" />
 
-                <a href="#<?php p($photo['id']) ?>" title="Permalink">
-                <?php if (isset($photo['date'])): ?>
-                    <time datetime="<?php p($photo['date']->format('Y-m-d H:i:s')) ?>">
-                        <?php echo $photo['date']->format('j<\s\u\p>S</\s\u\p> F Y, H:i') ?>
-                    </time>
-                <?php else: ?>
-                    #
-                <?php endif ?>
-                </a>
-            </p>
+                <ul>
+                    <a href="#<?php p($photo['id']) ?>" title="Permalink">
+                        <?php if (isset($photo['date'])): ?>
+                            <time datetime="<?php p($photo['date']->format('Y-m-d H:i:s')) ?>">
+                                <?php echo $photo['date']->format('jS F Y, H:i') ?>
+                            </time>
+                        <?php else: ?>
+                            &para;
+                        <?php endif ?>
+                    </a>
+                    <a href="<?php p($photo['download']) ?>" title="Download">
+                        &#11015;
+                    </a>
+                </ul>
+            </section>
             <?php if (isset($photo['description'])): ?>
                 <aside>
                     <?php echo $photo['description'] ?>

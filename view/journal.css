@@ -50,7 +50,7 @@ strong {
 }
 
 sup, sub {
-    font-size: .8em;
+    font-size: .9em;
 }
 
 /**
@@ -132,7 +132,7 @@ nav {
     }
     nav li time {
         display: block;
-        font-size: .8em;
+        font-size: .9em;
         opacity: .7;
     }
     nav li time em {
@@ -153,22 +153,25 @@ main {
     main .image img {
         width: 100%;
     }
-    main .image a {
-        display: block;
+    main .image ul {
         position: absolute;
         right: 0;
         top: 0;
+        font-size: .9em;
+    }
+    main .image ul a {
+        display: inline-block;
         padding: .1em .5em;
+        margin-left: .1em;
         background: #181818;
-        font-size: .8em;
         opacity: 0;
         text-decoration: none;
         transition: opacity .2s;
     }
-    main .image:hover a {
+    main .image:hover ul a {
         opacity: .7;
     }
-    main .image:hover a:hover, main .image:hover a:focus {
+    main .image:hover ul a:hover, main .image:hover ul a:focus {
         opacity: .9;
     }
     main aside {
