@@ -68,9 +68,11 @@
                             &para;
                         <?php endif ?>
                     </a>
-                    <a href="<?php p($photo['download']) ?>" title="Download">
-                        &#11015;
-                    </a>
+                    <?php if (ALLOW_DOWNLOAD): ?>
+                        <a href="<?php p($photo['download']) ?>" title="Download">
+                            &#11015;
+                        </a>
+                    <?php endif ?>
                 </ul>
             </section>
             <?php if (isset($photo['description'])): ?>

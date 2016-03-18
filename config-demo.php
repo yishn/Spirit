@@ -6,9 +6,14 @@
 
 // Base path with trailing '/'
 define('BASE_PATH', '/');
-
 // Image size
 define('IMG_SIZE', '1280x');
+// Cache directory with trailing '/'
+define('CACHE_DIR', 'cache/');
+// Content directory with trailing '/'
+define('CONTENT_DIR', 'content/');
+// Allow download
+define('ALLOW_DOWNLOAD', true);
 
 /**
  * Ok, stop editing now!

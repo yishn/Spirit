@@ -61,7 +61,7 @@ function spirit_journals($id = null) {
     if ($spirit_cache_journals !== null)
         return $spirit_cache_journals;
 
-    $paths = glob('content/*', GLOB_ONLYDIR);
+    $paths = glob(CONTENT_DIR . '*', GLOB_ONLYDIR);
     $result = [];
 
     foreach ($paths as $path) {

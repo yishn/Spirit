@@ -39,7 +39,8 @@ spirit_route('GET', '/download/:id@[-a-zA-Z0-9]+/:filename', [confirm_journal_id
     $journal = $args['journal'];
     $imagepath = $journal['path'] . '/' . $args['filename'];
 
-    if (!file_exists($imagepath)) return render('view/error.phtml');
+    if (!ALLOW_DOWNLOAD || !file_exists($imagepath))
+        return render('view/error.phtml');
 
     header('Content-Type: application/octet-stream');
     header('Content-Length: ' . filesize($imagepath));

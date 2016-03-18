@@ -36,7 +36,7 @@ define('SHARPEN_MAX',           28);            // Maximum sharpen value
 define('ADJUST_ORIENTATION',    true);          // Auto adjust orientation for JPEG true or false
 
 class Thumb {
-    public static $thumb_cache = 'cache/';
+    public static $thumb_cache = CACHE_DIR;
 
     public static function render($src, $size, array $options = []) {
         $crop = isset($options['crop']) ? $options['crop'] : 1;
