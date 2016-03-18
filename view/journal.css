@@ -169,8 +169,10 @@ main {
         display: inline-block;
         padding: .1em .5em;
         margin-left: .1em;
+        min-width: 1em;
         background: #181818;
         opacity: 0;
+        text-align: center;
         text-decoration: none;
         transition: opacity .2s;
     }
