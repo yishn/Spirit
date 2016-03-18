@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,200,300italic,600,600italic');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,200,300italic,400,600,600italic');
 
 * { margin: 0; padding: 0; }
 
@@ -36,7 +36,7 @@ img {
 }
 
 a {
-        color: white;
+        color: inherit;
         opacity: .8;
         transition: opacity .2s;
     }
@@ -66,13 +66,68 @@ nav, main {
 }
 
 nav {
-    position: fixed;
-    left: 0;
-    top: 0;
-    min-height: 100%;
-    width: 200px;
-    background: #26292C;
-    transition: background .5s, color .5s;
+        box-sizing: border-box;
+        position: fixed;
+        left: 0;
+        top: 0;
+        min-height: 100%;
+        width: 200px;
+        padding: 30px;
+        background: #26292C;
+        transition: background .5s, color .2s, border-color .2s;
+    }
+    nav ol {
+        list-style: none;
+    }
+    nav li {
+        position: relative;
+        margin-bottom: .5em;
+    }
+    nav li a {
+        display: inline-block;
+        line-height: 1;
+        font-weight: 400;
+        opacity: 1;
+        text-decoration: none;
+        transition: color .2s;
+    }
+    nav li a:hover, nav li.current a:hover {
+        color: white;
+        border-color: white;
+    }
+    nav li.current {
+        margin-bottom: 1em;
+    }
+    nav li.current a {
+        border-bottom: 1px solid white;
+        border-color: inherit;
+        margin-bottom: 10px;
+        transition: color .2s, border-color .2s;
+    }
+    nav li.current::after {
+        content: '';
+        border-right: 10px solid #181818;
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        display: block;
+        height: 0;
+        width: 0;
+        position: absolute;
+        right: -30px;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: border-color .5s;
+    }
+    nav li time {
+        display: block;
+        margin-left: 10px;
+        font-size: .8em;
+        opacity: .7;
+    }
+    nav li time em {
+        margin-left: 5px;
+        color: white;
+        font-style: normal;
 }
 
 main {

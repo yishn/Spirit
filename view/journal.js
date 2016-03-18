@@ -5,20 +5,27 @@ var currentIndex = -1
 var updateColorId = null
 var colorThief = new ColorThief()
 
+function sum(array) {
+    return array.reduce(function(sum, x) { return sum + x }, 0)
+}
+
 function getColorFromImg(img) {
-    var palette = colorThief.getPalette(img, 3, 50)
+    var palette = colorThief.getPalette(img, 4, 50)
 
     if (!palette) return
 
     var maxcolor = palette.reduce(function(max, x) {
-        return x[0] + x[1] + x[2] > max[0] + max[1] + max[2] ? x : max
+        return sum(x) > sum(max) ? x : max
     })
 
     var mincolor = palette.reduce(function(min, x) {
-        return x[0] + x[1] + x[2] < min[0] + min[1] + min[2] ? x : min
+        return sum(x) < sum(min) ? x : min
     })
 
-    return ['rgb(' + maxcolor.join(',') + ')', 'rgb(' + mincolor.join(',') + ')']
+    return [
+        'rgb(' + maxcolor.join(',') + ')',
+        'rgb(' + mincolor.join(',') + ')'
+    ]
 }
 
 function activateArticle(index) {
@@ -44,7 +51,9 @@ function activateArticle(index) {
 
         if (!colors) return
 
-        $('nav').css('color', colors[0]).css('background-color', colors[1])
+        $('nav').css('color', colors[0])
+            .css('border-color', colors[0])
+            .css('background-color', colors[1])
     }, 300)
 
     currentIndex = index
