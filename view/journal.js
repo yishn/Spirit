@@ -10,7 +10,9 @@ function sum(array) {
 }
 
 function getColorFromImg(img) {
-    var palette = colorThief.getPalette(img, 4, 50)
+    if (img.spiritColors) return img.spiritColors
+
+    var palette = colorThief.getPalette(img, 4, 500)
 
     if (!palette) return
 
@@ -22,7 +24,8 @@ function getColorFromImg(img) {
         return sum(x) < sum(min) ? x : min
     })
 
-    return [maxcolor, mincolor]
+    img.spiritColors = [maxcolor, mincolor]
+    return img.spiritColors
 }
 
 function activateArticle(index) {
@@ -53,7 +56,7 @@ function activateArticle(index) {
         $('nav').css('color', 'rgb(' + colors[0].join(',') + ')')
             .css('border-color', 'rgb(' + colors[1].join(',') + ')')
             .css('background-color', 'rgb(' + colors[1].map(function(x) { return Math.round(.8 * x) }).join(',') + ')')
-    }, 300)
+    }, 500)
 
     currentIndex = index
 }

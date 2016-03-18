@@ -38,7 +38,7 @@ img {
 
 a {
         color: inherit;
-        opacity: .8;
+        opacity: .5;
         transition: opacity .2s;
     }
     a:hover, a:focus {
@@ -62,7 +62,7 @@ html, body {
 }
 
 body {
-    background: #181818;
+    background: #26292C;
     color: white;
 }
 
@@ -79,7 +79,7 @@ nav {
         width: 200px;
         padding: 30px;
         overflow: auto;
-        background: #26292C;
+        background: #181818;
         transition: background .5s, color .2s, border-color .2s;
     }
     nav ol {
