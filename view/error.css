@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,200,300italic,400,600,600italic');
+
+* { margin: 0; padding: 0; }
+
+body {
+    padding: 10em;
+    background: #181818;
+    color: white;
+    font: 300 110%/1.5 'Source Sans Pro', 'Microsoft YaHei', DengXian, sans-serif;
+    text-align: center;
+}
+
+h1 {
+        margin: .5em 0;
+        font-size: 3em;
+        font-weight: 200;
+        letter-spacing: -3px;
+    }
+    h1 img {
+        display: block;
+        margin: 0 auto;
+        margin-bottom: .2em;
+        opacity: .7;
+}
+
+a {
+        color: inherit;
+        opacity: .8;
+        transition: opacity .2s;
+    }
+    a:hover, a:focus {
+        opacity: 1;
+}
