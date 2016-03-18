@@ -32,6 +32,12 @@ aside ul, aside ol {
     margin-left: 1.5em;
 }
 
+h2 {
+    font-size: 2em;
+    font-weight: 200;
+    letter-spacing: -2px;
+}
+
 img {
     vertical-align: bottom;
 }
