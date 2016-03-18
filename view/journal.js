@@ -63,6 +63,27 @@ function activateArticle(index) {
 
 activateArticle()
 
-$(window).bind('scroll', function() { activateArticle() })
+$(window).on('scroll', function() {
+    activateArticle()
+}).on('keypress', function(e) {
+    var cond = $(window).scrollTop() - $articles.eq(currentIndex).offset().top
+    var onArticle = Math.abs(cond) <= 1
+
+    if (e.charCode == 107) {
+        // k
+        var index = !onArticle && cond > 0 ? currentIndex : Math.max(0, currentIndex - 1)
+
+        $('html, body').animate({
+            scrollTop: $articles.eq(index).offset().top
+        }, 200)
+    } else if (e.charCode == 106) {
+        // j
+        var index = !onArticle && cond < 0 ? currentIndex : Math.min($articles.length, currentIndex + 1)
+
+        $('html, body').animate({
+            scrollTop: $articles.eq(index).offset().top
+        }, 200)
+    }
+})
 
 })
