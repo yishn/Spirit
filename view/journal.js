@@ -1,13 +1,35 @@
 $(document).ready(function() {
 
 var $articles = $('main article')
+var currentIndex = -1
+var updateColorId = null
+var colorThief = new ColorThief()
 
 function activateArticle(index) {
+    if (currentIndex == index) return
+
     $articles.filter(function() {
         return !$(this).hasClass('inactive')
     }).addClass('inactive')
 
     $articles.eq(index).removeClass('inactive')
+
+    clearTimeout(updateColorId)
+    updateColorId = setTimeout(function() {
+        var $img = $articles.eq(currentIndex).find('img')
+        var palette = colorThief.getPalette($img.get(0), 3)
+
+        if (!palette) return
+
+        var color = palette.reduce(function(min, x) {
+            return x[0] + x[1] + x[2] < min[0] + min[1] + min[2] ? x : min
+        })
+
+        $img.css('background-color', 'rgb(' + color.join(',') + ')')
+        $('nav').css('background-color', $img.css('background-color'))
+    }, 300)
+
+    currentIndex = index
 }
 
 activateArticle(0)
