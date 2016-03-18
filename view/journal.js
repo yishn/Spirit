@@ -28,7 +28,7 @@ function getColorFromImg(img) {
     return img.spiritColors
 }
 
-function activateArticle(index) {
+function activateArticle(index, force) {
     if (index == null) {
         var index = $articles.map(function() {
             var distance = Math.abs($(this).offset().top + $(this).height() / 2
@@ -42,7 +42,7 @@ function activateArticle(index) {
         return
     }
 
-    if (currentIndex == index) return
+    if (!force && currentIndex == index) return
 
     clearTimeout(updateColorId)
     updateColorId = setTimeout(function() {
@@ -62,6 +62,11 @@ function activateArticle(index) {
 }
 
 activateArticle()
+
+$articles.find('.image img').on('load', function() {
+    if (currentIndex == $articles.get().indexOf($(this).parents('article').get(0)))
+    activateArticle(currentIndex, true)
+})
 
 $(window).on('scroll', function() {
     activateArticle()
