@@ -27,6 +27,10 @@ aside p, aside ul, aside ol, aside h2, aside h3, aside h4, aside h5, aside h6 {
     margin: 1em 0;
 }
 
+aside ul, aside ol {
+    margin-left: 1.5em;
+}
+
 img {
     vertical-align: bottom;
 }
@@ -68,17 +72,11 @@ nav {
     min-height: 100%;
     width: 200px;
     background: #26292C;
-    transition: background .5s;
+    transition: background .5s, color .5s;
 }
 
 main {
         margin-left: 200px;
-    }
-    main article {
-        transition: opacity .2s;
-    }
-    main article.inactive {
-        /*opacity: .6;*/
     }
     main .image {
         position: relative;
@@ -93,15 +91,16 @@ main {
         top: 0;
         padding: .1em .5em;
         background: #181818;
+        font-size: .8em;
         opacity: 0;
         text-decoration: none;
         transition: opacity .2s;
     }
     main .image:hover a {
-        opacity: .8;
+        opacity: .7;
     }
     main .image:hover a:hover, main .image:hover a:focus {
-        opacity: 1;
+        opacity: .9;
     }
     main aside {
         position: relative;
