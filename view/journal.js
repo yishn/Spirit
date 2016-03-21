@@ -1,6 +1,5 @@
 $(document).ready(function() {
 
-var $articles = $('main article')
 var currentIndex = -1
 var updateColorId = null
 var colorThief = new ColorThief()
@@ -28,7 +27,9 @@ function getColorFromImg(img) {
     return img.spiritColors
 }
 
-function activateArticle(index, force) {
+function activateArticle(index) {
+    var $articles = $('main article:not(.inactive)')
+
     if (index == null) {
         var index = $articles.map(function() {
             var distance = Math.abs($(window).scrollTop() - $(this).offset().top)
@@ -41,16 +42,16 @@ function activateArticle(index, force) {
         return
     }
 
-    if (!force && currentIndex == index) return
-
     clearTimeout(updateColorId)
     updateColorId = setTimeout(function() {
+        var $articles = $('main article:not(.inactive)')
         var $img = $articles.eq(currentIndex).find('img')
         var colors = getColorFromImg($img.get(0))
 
         if (!colors) return
 
         $articles.eq(currentIndex).css('background-color', 'rgb(' + colors[1].join(',') + ')')
+            .parents('.imageset').next('.description').css('background-color', 'rgb(' + colors[1].join(',') + ')')
 
         $('nav').css('color', 'rgb(' + colors[0].join(',') + ')')
             .css('background-color', 'rgb(' + colors[1].map(function(x) { return Math.round(.8 * x) }).join(',') + ')')
@@ -62,13 +63,16 @@ function activateArticle(index, force) {
 activateArticle()
 
 $('main article .image img').on('load', function() {
-    if (currentIndex == $articles.get().indexOf($(this).parents('article').get(0)))
-    activateArticle(currentIndex, true)
+    $(this).parent('.image').addClass('loaded')
+
+    if (currentIndex == $('main article:not(.inactive) .image img').get().indexOf(this))
+        activateArticle(currentIndex)
 })
 
 $(window).on('scroll', function() {
     activateArticle()
 }).on('keypress', function(e) {
+    var $articles = $('main article:not(.inactive)')
     var cond = $(window).scrollTop() - $articles.eq(currentIndex).offset().top
     var snapped = Math.abs(cond) <= 1
 
@@ -87,6 +91,51 @@ $(window).on('scroll', function() {
             scrollTop: $articles.eq(index).offset().top
         }, 200)
     }
+})
+
+// Handle image sets
+
+function showNextSlide($imageset) {
+    var $articles = $imageset.find('article')
+    var currentArticle = $imageset.find('article:not(.inactive)').get(0)
+    var globalIndex = $('main article:not(.inactive)').get().indexOf(currentArticle)
+    var index = $articles.get().indexOf(currentArticle)
+    var nextIndex = (index + 1) % $articles.length
+
+    $articles.eq(index).addClass('inactive')
+    $articles.eq(nextIndex).removeClass('inactive')
+    $imageset.height($articles.eq(nextIndex).height())
+
+    if (globalIndex == currentIndex) activateArticle(currentIndex)
+}
+
+function updateHeight($imageset) {
+    return $imageset.each(function() {
+        $(this).height(Math.max.apply(null, $(this).find('article').map(function() {
+            return $(this).height()
+        }).get()))
+    })
+}
+
+$('.imageset').each(function() {
+    var $imageset = $(this)
+
+    $imageset.after($('<section/>', {
+        class: 'description'
+    }).append($imageset.find('aside')))
+    .find('.image img').on('load', function() {
+        if ($imageset.find('.image img').length != $imageset.find('.image.loaded img').length)
+            return
+
+        var height = Math.max.apply(null, $imageset.find('article').map(function() {
+            return $(this).height()
+        }).get())
+
+        updateHeight($imageset).addClass('render')
+        $imageset.find('article:not(:first-child)').addClass('inactive')
+
+        setInterval(function() { showNextSlide($imageset) }, 5000)
+    })
 })
 
 })

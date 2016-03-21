@@ -151,6 +151,7 @@ main {
         margin-left: 200px;
     }
     main article {
+        position: relative;
         transition: background-color .5s;
     }
     main .image {
@@ -182,6 +183,9 @@ main {
     main .image:hover ul a:hover, main .image:hover ul a:focus {
         opacity: .9;
     }
+    main .description {
+        transition: background-color .5s;
+    }
     main aside {
         position: relative;
         box-sizing: border-box;
@@ -190,4 +194,25 @@ main {
     }
     main article:nth-child(odd) aside {
         left: 34%;
+        text-align: right;
+}
+
+.imageset.render {
+        position: relative;
+        overflow: hidden;
+        transition: height 1s;
+    }
+    .imageset.render article {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 1;
+        z-index: 2;
+        transition: opacity 1s, background-color .5s;
+    }
+    .imageset.render article.inactive {
+        opacity: 0;
+        z-index: 1;
 }
