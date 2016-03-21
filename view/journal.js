@@ -104,6 +104,7 @@ function showNextSlide($imageset) {
 
     $articles.eq(index).addClass('inactive')
     $articles.eq(nextIndex).removeClass('inactive')
+    $imageset.find('.progress').css('width', (nextIndex + 1) * 100 / $articles.length + '%')
 
     if (globalIndex == currentIndex) activateArticle(currentIndex)
 }
@@ -119,6 +120,7 @@ $('.imageset').each(function() {
             return
 
         $imageset.addClass('render')
+            .append($('<div/>', { class: 'progress' }).css('width', 100 / $imageset.find('article').length + '%'))
             .find('article:not(:first-child)').addClass('inactive')
 
         setInterval(function() { showNextSlide($imageset) }, 5000)

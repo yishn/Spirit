@@ -201,6 +201,16 @@ main {
         position: relative;
         overflow: hidden;
     }
+    .imageset.render .progress {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 5px;
+        background: white;
+        opacity: .3;
+        z-index: 3;
+        transition: width .5s;
+    }
     .imageset.render article {
         position: relative;
         opacity: 1;
