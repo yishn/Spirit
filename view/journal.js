@@ -62,7 +62,7 @@ function activateArticle(index, force) {
 
 activateArticle()
 
-$articles.find('.image img').on('load', function() {
+$('main article .image img').on('load', function() {
     if (currentIndex == $articles.get().indexOf($(this).parents('article').get(0)))
     activateArticle(currentIndex, true)
 })
@@ -71,18 +71,18 @@ $(window).on('scroll', function() {
     activateArticle()
 }).on('keypress', function(e) {
     var cond = $(window).scrollTop() - $articles.eq(currentIndex).offset().top
-    var onArticle = Math.abs(cond) <= 1
+    var snapped = Math.abs(cond) <= 1
 
     if (e.charCode == 107) {
         // k
-        var index = !onArticle && cond > 0 ? currentIndex : Math.max(0, currentIndex - 1)
+        var index = !snapped && cond > 0 ? currentIndex : Math.max(0, currentIndex - 1)
 
         $('html, body').animate({
             scrollTop: $articles.eq(index).offset().top
         }, 200)
     } else if (e.charCode == 106) {
         // j
-        var index = !onArticle && cond < 0 ? currentIndex : Math.min($articles.length, currentIndex + 1)
+        var index = !snapped && cond < 0 ? currentIndex : Math.min($articles.length, currentIndex + 1)
 
         $('html, body').animate({
             scrollTop: $articles.eq(index).offset().top
