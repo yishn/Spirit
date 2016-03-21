@@ -104,17 +104,8 @@ function showNextSlide($imageset) {
 
     $articles.eq(index).addClass('inactive')
     $articles.eq(nextIndex).removeClass('inactive')
-    $imageset.height($articles.eq(nextIndex).height())
 
     if (globalIndex == currentIndex) activateArticle(currentIndex)
-}
-
-function updateHeight($imageset) {
-    return $imageset.each(function() {
-        $(this).height(Math.max.apply(null, $(this).find('article').map(function() {
-            return $(this).height()
-        }).get()))
-    })
 }
 
 $('.imageset').each(function() {
@@ -127,12 +118,8 @@ $('.imageset').each(function() {
         if ($imageset.find('.image img').length != $imageset.find('.image.loaded img').length)
             return
 
-        var height = Math.max.apply(null, $imageset.find('article').map(function() {
-            return $(this).height()
-        }).get())
-
-        updateHeight($imageset).addClass('render')
-        $imageset.find('article:not(:first-child)').addClass('inactive')
+        $imageset.addClass('render')
+            .find('article:not(:first-child)').addClass('inactive')
 
         setInterval(function() { showNextSlide($imageset) }, 5000)
     })
