@@ -53,7 +53,6 @@ function activateArticle(index, force) {
         $articles.eq(currentIndex).css('background-color', 'rgb(' + colors[1].join(',') + ')')
 
         $('nav').css('color', 'rgb(' + colors[0].join(',') + ')')
-            .css('border-color', 'rgb(' + colors[1].join(',') + ')')
             .css('background-color', 'rgb(' + colors[1].map(function(x) { return Math.round(.8 * x) }).join(',') + ')')
     }, 500)
 
