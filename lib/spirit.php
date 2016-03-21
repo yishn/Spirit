@@ -133,8 +133,13 @@ function spirit_photos($journal) {
         $index = strrpos($without_ext, '.');
         if ($index !== false) {
             $photo['imageset'] = substr($without_ext, $index + 1);
+
             if ($previous_imageset != $photo['imageset']) {
                 $photo['start_imageset'] = true;
+                
+                if (count($result) > 0 && isset($result[count($result) - 1]['imageset'])) {
+                    $result[count($result) - 1]['stop_imageset'] = true;
+                }
             }
 
             $previous_imageset = $photo['imageset'];
