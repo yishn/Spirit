@@ -89,7 +89,7 @@ function match($verb, $path, $route = null) {
 
                 if ($index !== false) {
                     $name = substr($psegment, 1, $index - 1);
-                    $regex = '/^' . substr($psegment, $index + 1) . '$/';
+                    $regex = '/^(' . substr($psegment, $index + 1) . ')$/';
                 }
 
                 if (!preg_match($regex, $segment)) break;
