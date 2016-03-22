@@ -2,6 +2,8 @@
 
 Just a beautiful, minimal photo journal in PHP. This is a work in progress.
 
+![Screenshot](screenshot.png)
+
 ## Third Party Libraries
 
 * [dispatcher](https://github.com/yishn/dispatcher) ([MIT License](https://github.com/yishn/dispatcher/blob/master/LICENSE))
