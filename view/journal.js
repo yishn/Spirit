@@ -42,6 +42,8 @@ function activateArticle(index) {
         return
     }
 
+    currentIndex = index
+
     clearTimeout(updateColorId)
     updateColorId = setTimeout(function() {
         var $articles = $('main article:not(.inactive)')
@@ -55,9 +57,7 @@ function activateArticle(index) {
 
         $('nav').css('color', 'rgb(' + colors[0].join(',') + ')')
             .css('background-color', 'rgb(' + colors[1].map(function(x) { return Math.round(.8 * x) }).join(',') + ')')
-    }, 500)
-
-    currentIndex = index
+    }, 100)
 }
 
 activateArticle()
