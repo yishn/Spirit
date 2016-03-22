@@ -11,11 +11,13 @@ body {
 }
 
 main {
+    box-sizing: border-box;
     display: block;
     position: absolute;
     top: 50%;
     left: 0;
     width: 100%;
+    padding: 30px;
     transform: translateY(-50%);
 }
 
@@ -24,6 +26,7 @@ h1 {
         font-size: 3em;
         font-weight: 200;
         letter-spacing: -3px;
+        line-height: 1.2;
     }
     h1 img {
         display: block;
