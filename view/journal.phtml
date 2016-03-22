@@ -68,28 +68,33 @@
     <article id="<?php p($photo['id']) ?>"<?php if (isset($photo['imageset'])): ?>
     data-imageset="<?php p($photo['imageset']) ?>"<?php endif ?>>
         <section class="image">
-            <img src="<?php p($photo['src']) ?>" />
+            <img src="<?php p($photo['src']) ?>"
+            alt="<?php p($journal['name']) ?> &ndash; Photo #<?php p($photo['id']) ?> ?>" />
 
             <ul>
-                <a href="#<?php p($photo['id']) ?>" title="Permalink">
-                    <?php if (isset($photo['date'])): ?>
+                <li>
+                    <a href="#<?php p($photo['id']) ?>" title="Permalink">
+                        <?php if (isset($photo['date'])): ?>
 
-                    <time datetime="<?php p($photo['date']->format('Y-m-d H:i:s')) ?>">
-                        <?php echo $photo['date']->format('jS F Y, H:i') ?>
-                    </time>
+                        <time datetime="<?php p($photo['date']->format('Y-m-d H:i:s')) ?>">
+                            <?php echo $photo['date']->format('jS F Y, H:i') ?>
+                        </time>
 
-                    <?php else: ?>
+                        <?php else: ?>
 
-                    &para;
+                        &para;
 
-                    <?php endif ?>
-                </a>
+                        <?php endif ?>
+                    </a>
+                <li>
 
                 <?php if (ALLOW_DOWNLOAD): ?>
 
-                <a href="<?php p($photo['download']) ?>" title="Download">
-                    &#11015;
-                </a>
+                <li>
+                    <a href="<?php p($photo['download']) ?>" title="Download">
+                        &#11015;
+                    </a>
+                </li>
 
                 <?php endif ?>
             </ul>
