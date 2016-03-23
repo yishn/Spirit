@@ -162,6 +162,7 @@ main {
         width: 100%;
     }
     main .image ul {
+        list-style: none;
         position: absolute;
         right: 0;
         top: -3px;
@@ -171,10 +172,13 @@ main {
     main .image:hover ul {
         top: 0;
     }
+    main .image li {
+        display: inline-block;
+        margin-left: .1em;
+    }
     main .image ul a {
         display: inline-block;
         padding: .1em .5em;
-        margin-left: .1em;
         min-width: 1em;
         background: #181818;
         opacity: 0;
