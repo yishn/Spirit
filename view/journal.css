@@ -156,7 +156,6 @@ main {
     }
     main .image {
         position: relative;
-        overflow: hidden;
     }
     main .image img {
         width: 100%;
@@ -165,7 +164,7 @@ main {
         list-style: none;
         position: absolute;
         right: 0;
-        top: -3px;
+        top: 3px;
         font-size: .9em;
         transition: top .2s;
     }
@@ -208,7 +207,6 @@ main {
 
 .imageset.render {
         position: relative;
-        overflow: hidden;
     }
     .imageset.render .progress {
         position: absolute;
