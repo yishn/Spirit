@@ -1,6 +1,6 @@
 # Spirit
 
-Just a beautiful, minimal, database-free photo journal in PHP. This is a work in progress.
+Just a beautiful, minimal, database-free photo journal in PHP. This is a work in progress. See Spirit at work [here](http://yichuanshen.de/photos).
 
 ![Screenshot](screenshot.png)
 
