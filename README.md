@@ -34,7 +34,7 @@ The journal won't appear in Spirit unless it has a title. To give your journal a
 
 ### Diashow
 
-You can turn consecutive photos into a diashow. First, think of a unique diashow id. Then choose a selection of consecutive photos, say `photo02.jpg`, `photo03.jpg`, `photo04.jpg`. Just add `.{diashow id}` just before the file extension, e.g. `photo02.dia01.jpg`, `photo03.dia01.jpg`, `photo04.dia01.jpg`.
+You can turn consecutive photos into a diashow. First, think of a unique diashow id. Then choose a selection of consecutive photos, say `photo02.jpg`, `photo03.jpg`, `photo04.jpg`. Just add `.{diashow id}` just before the file extension, e.g. `photo02.dia01.jpg`, `photo03.dia01.jpg`, `photo04.dia01.jpg`. You want to make sure that every photo in a diashow has the same height.
 
 ## Third Party Libraries
 
