@@ -32,9 +32,44 @@ The journal won't appear in Spirit unless it has a title. To give your journal a
 # Turkey
 ~~~
 
-### Diashow
+### Image Sets
 
-You can turn consecutive photos into a diashow. First, think of a unique diashow id. Then choose a selection of consecutive photos, say `photo02.jpg`, `photo03.jpg`, `photo04.jpg`. Just add `.{diashow id}` just before the file extension, e.g. `photo02.dia01.jpg`, `photo03.dia01.jpg`, `photo04.dia01.jpg`. You want to make sure that every photo in a diashow has the same height.
+You can turn consecutive photos into a diashow. First, think of a unique image set id. Then choose a selection of consecutive photos, say `photo02.jpg`, `photo03.jpg`, `photo04.jpg`. Just add `.{imageset-id}` just before the file extension, e.g. `photo02.dia01.jpg`, `photo03.dia01.jpg`, `photo04.dia01.jpg`.  You want to make sure that every photo in a diashow has the same height.
+
+## JSON API
+
+Spirit also provides a simple JSON API. There are following paths to self-explanatory JSONs:
+
+### `/json/journals`
+
+Get an array of journals. Each journal is represented by an object with the following keys:
+
+* `id`: The journal id, a.k.a. journal directory name stripped of order number.
+* `path`: The internal relative path to the journal directory.
+* `permalink`: The public absolute path to the journal.
+* `name`: The name of the journal.
+
+### `/json/journals/[journal-id]`
+
+Get all journal information of a given journal id. Basically a journal object (see above) with extra keys:
+
+* `start_date`: The earliest date of all photos in the journal. May not be defined.
+* `end_date`: The latest date of all photos in the journal. May not be defined.
+* `photos`: An array of photo objects.
+
+### Photo Object
+
+A photo object has the following keys:
+
+* `src`: The public absolute path to the resized photo as transmitted to the browser.
+* `download`: The public absolute path to the original photo as transmitted to the browser. May not be defined if configured that way.
+* `id`: An internal id used by Spirit.
+* `permalink`: The permalink of the photo.
+* `date`: An object describing when the photo was captured. May not be defined.
+* `markdown`: The description of the photo in Markdown if available. May not be defined.
+* `description`: The rendered HTML of `markdown`. May not be defined.
+* `imageset`: The image set id. May not be defined.
+* `start_imageset` and `stop_imageset`: Determines whether the photo is the start or end of an image set. May not be defined.
 
 ## Third Party Libraries
 
