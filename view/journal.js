@@ -111,6 +111,7 @@ function showNextSlide($imageset) {
 
 $('.imageset').each(function() {
     var $imageset = $(this)
+    var $articles = $imageset.find('article')
 
     $imageset.after($('<section/>', {
         class: 'description'
@@ -119,9 +120,14 @@ $('.imageset').each(function() {
         if ($imageset.find('.image img').length != $imageset.find('.image.loaded img').length)
             return
 
-        $imageset.addClass('render')
-            .append($('<div/>', { class: 'progress' }).css('width', 100 / $imageset.find('article').length + '%'))
-            .find('article:not(:first-child)').addClass('inactive')
+        $imageset
+        .addClass('render')
+        .css('height', $articles.get().reduce(function(height, el) {
+            return Math.max(height, $(el).height())
+        }, 0) + 'px')
+        .append($('<div/>', { class: 'progress' }).css('width', 100 / $articles.length + '%'))
+        .find('article:not(:first-child)')
+        .addClass('inactive')
 
         setInterval(function() { showNextSlide($imageset) }, 5000)
     })
