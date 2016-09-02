@@ -114,14 +114,13 @@ function initImageset($imageset) {
     || $imageset.hasClass('render'))
         return
 
-    resizeImageset($imageset)
-
     $imageset
     .addClass('render')
     .append($('<div/>', { class: 'progress' }).css('width', 100 / $imageset.find('article').length + '%'))
     .find('article:not(:first-child)')
     .addClass('inactive')
 
+    resizeImageset($imageset)
     setInterval(function() { showNextSlide($imageset) }, 5000)
 }
 
@@ -130,9 +129,9 @@ function resizeImageset($imageset) {
 
     var $img = $imageset.find('.image img')
 
-    $imageset.css('height', $img.get().reduce(function(height, el) {
+    $imageset.css('height', Math.ceil($img.get().reduce(function(height, el) {
         return Math.max(height, $(el).height())
-    }, 0))
+    }, 0)))
 }
 
 $('.imageset').each(function() {
