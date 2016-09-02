@@ -109,27 +109,42 @@ function showNextSlide($imageset) {
     if (globalIndex == currentIndex) activateArticle(currentIndex)
 }
 
+function initImageset($imageset) {
+    if ($imageset.find('.image img').length != $imageset.find('.image.loaded img').length
+    || $imageset.hasClass('render'))
+        return
+
+    var $articles = $imageset.find('article')
+
+    $imageset
+    .addClass('render')
+    .css('height', $articles.get().reduce(function(height, el) {
+        return Math.max(height, $(el).height())
+    }, 0))
+    .append($('<div/>', { class: 'progress' }).css('width', 100 / $articles.length + '%'))
+    .find('article:not(:first-child)')
+    .addClass('inactive')
+
+    setInterval(function() { showNextSlide($imageset) }, 5000)
+}
+
 $('.imageset').each(function() {
     var $imageset = $(this)
-    var $articles = $imageset.find('article')
 
     $imageset.after($('<section/>', {
         class: 'description'
     }).append($imageset.find('aside')))
-    .find('.image img').on('load', function() {
-        if ($imageset.find('.image img').length != $imageset.find('.image.loaded img').length)
-            return
+})
 
-        $imageset
-        .addClass('render')
-        .css('height', $articles.get().reduce(function(height, el) {
-            return Math.max(height, $(el).height())
-        }, 0) + 'px')
-        .append($('<div/>', { class: 'progress' }).css('width', 100 / $articles.length + '%'))
-        .find('article:not(:first-child)')
-        .addClass('inactive')
+$('.imageset .image img').on('load', function() {
+    initImageset($(this).parents('.imageset'))
+})
 
-        setInterval(function() { showNextSlide($imageset) }, 5000)
+$(window).on('load', function() {
+    $('.image').addClass('loaded')
+    
+    $('.imageset').get().forEach(function(el) {
+        initImageset($(el))
     })
 })
 
