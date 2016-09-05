@@ -207,6 +207,7 @@ main {
 
 .imageset.render {
         position: relative;
+        overflow: hidden;
     }
     .imageset.render .progress {
         position: absolute;

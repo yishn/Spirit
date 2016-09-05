@@ -129,9 +129,9 @@ function resizeImageset($imageset) {
 
     var $img = $imageset.find('.image img')
 
-    $imageset.css('height', Math.ceil($img.get().reduce(function(height, el) {
-        return Math.max(height, $(el).height())
-    }, 0)))
+    $imageset.css('height', Math.floor($img.get().reduce(function(height, el) {
+        return Math.min(height, $(el).height())
+    }, Infinity)))
 }
 
 $('.imageset').each(function() {
