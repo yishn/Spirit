@@ -5,6 +5,7 @@
 }
 
 body {
+  --standard-padding: 1rem;
   background-color: var(--background-color, rgb(25, 25, 25));
   color: var(--color, rgb(238, 238, 238));
   color-scheme: dark;
@@ -15,4 +16,9 @@ body {
 
 a {
   color: var(--link-color, rgb(157, 148, 223));
+}
+
+#root {
+  margin: 1rem auto;
+  max-width: 30rem;
 }

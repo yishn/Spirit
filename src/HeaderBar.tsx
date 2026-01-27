@@ -42,13 +42,14 @@ export class HeaderBar extends Component("header-bar", {
           }
 
           :host {
+            --heading-font-size: 1.7rem;
             display: flex;
-            height: calc(2.2 * 1.5rem);
+            height: calc(2.2 * var(--heading-font-size));
             line-height: 2.2;
           }
 
           :host::part(back) {
-            padding: 0.7rem;
+            padding: 1rem var(--standard-padding);
             text-decoration: none;
           }
 
@@ -58,8 +59,8 @@ export class HeaderBar extends Component("header-bar", {
 
           :host::part(heading) {
             flex: 1;
-            margin-right: 0.7rem;
-            font-size: 1.5rem;
+            margin-right: var(--standard-padding);
+            font-size: var(--heading-font-size);
             font-weight: normal;
             white-space: nowrap;
             overflow: hidden;
@@ -67,7 +68,7 @@ export class HeaderBar extends Component("header-bar", {
           }
 
           :host([no-back])::part(heading) {
-            margin-left: 0.7rem;
+            margin-left: var(--standard-padding);
           }
         `}</Style>
       </>
