@@ -5,6 +5,14 @@
 }
 
 body {
-  background-color: black;
-  color: white;
+  background-color: var(--background-color, rgb(25, 25, 25));
+  color: var(--color, rgb(238, 238, 238));
+  color-scheme: dark;
+  font-family: Inter, sans-serif;
+  line-height: 1.5;
+  scrollbar-width: thin;
+}
+
+a {
+  color: var(--link-color, rgb(157, 148, 223));
 }

@@ -5,15 +5,16 @@
   "main": "./src/main.ts",
   "type": "module",
   "scripts": {
-    "dev": "rspack dev --configLoader=native",
-    "build": "rspack build --configLoader=native",
-    "preview": "rspack preview --configLoader=native",
+    "dev": "rspack dev",
+    "build": "rspack build",
+    "preview": "rspack preview",
     "typecheck": "tsc --project ./"
   },
   "author": "Yichuan Shen",
   "license": "MIT",
   "dependencies": {
-    "colorthief": "^2.6.0"
+    "colorthief": "^2.6.0",
+    "sinho": "^0.3.1"
   },
   "devDependencies": {
     "@rspack/cli": "^1.7.4",
