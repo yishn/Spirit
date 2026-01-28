@@ -10,10 +10,8 @@ import {
   useEffect,
   useMemo,
   useRef,
-  useSignal,
 } from "sinho";
 import { DateIcon, LocationIcon } from "./icons.tsx";
-import { updatePalette } from "../palette.ts";
 
 export class PhotoFeed extends Component("photo-feed") {
   render() {
@@ -138,7 +136,7 @@ export class PhotoFeedImageSet extends Component("photo-feed-imageset", {
         left: currentIndexMemo() * this.clientWidth,
         behavior: "smooth",
       });
-    }, [galleryRef, currentIndexMemo]);
+    });
 
     return (
       <>

@@ -24,46 +24,48 @@ function getPaletteFromImg(img: HTMLImageElement): Color[] | null {
   return palette;
 }
 
-let timeout: ReturnType<typeof setTimeout> | undefined;
+function updatePalette(img: HTMLImageElement) {
+  const palette = getPaletteFromImg(img);
+  if (palette == null) return;
 
-export function updatePalette(img: HTMLImageElement) {
-  clearTimeout(timeout);
-
-  timeout = setTimeout(() => {
-    const palette = getPaletteFromImg(img);
-    if (palette == null) return;
-
-    document.body.style.setProperty(
-      "--main-image",
-      `url("${img.getAttribute("src")}")`,
-    );
-    document.body.style.setProperty(
-      "--background-color",
-      `rgb(${palette[0].map((x) => x * 0.8).join(", ")})`,
-    );
-    document.body.style.setProperty(
-      "--color",
-      `rgb(${palette.at(-1)!.join(", ")})`,
-    );
-    document.body.style.setProperty(
-      "--link-color",
-      `rgb(${palette.at(-2)!.join(", ")})`,
-    );
-
-    timeout = undefined;
-  }, 50);
+  document.body.style.setProperty(
+    "--main-image",
+    `url("${img.getAttribute("src")}")`,
+  );
+  document.body.style.setProperty(
+    "--background-color",
+    `rgb(${palette[0].map((x) => x * 0.8).join(", ")})`,
+  );
+  document.body.style.setProperty(
+    "--color",
+    `rgb(${palette.at(-1)!.join(", ")})`,
+  );
+  document.body.style.setProperty(
+    "--link-color",
+    `rgb(${palette.at(-2)!.join(", ")})`,
+  );
 }
+
+let timeout: ReturnType<typeof setTimeout> | undefined;
 
 export function initPalette() {
   const observer = new IntersectionObserver(
     (entries) => {
-      const el = entries.find((entry) => entry.intersectionRatio > 0.5)?.target;
+      clearTimeout(timeout);
 
-      if (el != null && el instanceof HTMLImageElement) {
-        updatePalette(el);
-      }
+      timeout = setTimeout(() => {
+        const el = entries.find(
+          (entry) => entry.intersectionRatio > 0.5,
+        )?.target;
+
+        if (el != null && el instanceof HTMLImageElement) {
+          updatePalette(el);
+        }
+
+        timeout = undefined;
+      }, 500);
     },
-    { threshold: 0.5 },
+    { threshold: 0.6 },
   );
 
   window.addEventListener("DOMContentLoaded", () => {
