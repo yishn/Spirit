@@ -40,12 +40,15 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
       <>
         <div class="spacer" />
 
-        <img class="corona" src={imgSrc} alt="" />
+        <If condition={() => imgSrc() != null}>
+          <img class="corona" src={imgSrc} alt="" />
+        </If>
+
         <slot
           name="img"
           onslotchange={() => {
             setImgSrc(
-              [...this.children]
+              [...this.querySelectorAll(`img[slot="img"], [slot="img"] img`)]
                 .find((child) => child.slot === "img")
                 ?.getAttribute("src") ?? undefined,
             );

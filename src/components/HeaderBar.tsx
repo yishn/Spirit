@@ -9,17 +9,19 @@ export class HeaderBar extends Component("header-bar", {
   render() {
     return (
       <>
-        <a
-          part="back"
-          href={this.props.backHref}
-          title="Back"
-          onclick={this.events.onBackClick}
-        >
-          <BackIcon />
-        </a>
-        <h1 part="heading">
-          <slot>Spirit</slot>
-        </h1>
+        <div class="wrapper">
+          <a
+            part="back"
+            href={this.props.backHref}
+            title="Back"
+            onclick={this.events.onBackClick}
+          >
+            <BackIcon />
+          </a>
+          <h1 part="heading">
+            <slot>Spirit</slot>
+          </h1>
+        </div>
 
         <Style>{css`
           * {
@@ -31,21 +33,23 @@ export class HeaderBar extends Component("header-bar", {
           :host {
             position: fixed;
             top: 0;
-            left: 50%;
+            right: 0;
             width: 100%;
-            max-width: var(--max-width);
             height: var(--heading-size);
-            display: flex;
             background-color: var(--background-color);
             line-height: 2.2;
-            box-shadow:
-              -1rem -0.5rem 1rem var(--background-color),
-              1rem -0.5rem 1rem var(--background-color);
-            transform: translateX(-50%);
             transition:
               background-color 1s,
               box-shadow 1s;
             z-index: 100;
+          }
+
+          .wrapper {
+            display: flex;
+            margin: 0 auto;
+            width: 100%;
+            height: var(--heading-size);
+            max-width: var(--max-width);
           }
 
           [part="back"] {
