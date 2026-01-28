@@ -37,6 +37,7 @@ export class HeaderBar extends Component("header-bar", {
 
           [part="back"] {
             padding: 1rem var(--standard-padding);
+            color: var(--link-color);
             text-decoration: none;
           }
 

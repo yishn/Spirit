@@ -1,4 +1,4 @@
-import { Component, css, defineComponents, If, prop, Style } from "sinho";
+import { Component, css, defineComponents, Else, If, prop, Style } from "sinho";
 import { DateIcon, LocationIcon } from "./icons.tsx";
 
 export class PhotoFeed extends Component("photo-feed") {
@@ -33,13 +33,17 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
             <If condition={() => this.props.location() != null}>
               <span part="location">
                 <LocationIcon />
-                {this.props.location}
+                <a href="#">{this.props.location}</a>
               </span>
             </If>
             <If condition={() => this.props.date() != null}>
               <span part="date">
                 <DateIcon />
-                {this.props.date}
+
+                <If condition={this.id !== ""}>
+                  <a href={"#" + this.id}>{this.props.date}</a>
+                </If>
+                <Else>{this.props.date}</Else>
               </span>
             </If>
           </p>
@@ -75,6 +79,15 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
           [part="meta"] > span {
             display: inline-flex;
             align-items: center;
+          }
+
+          [part="meta"] a {
+            color: inherit;
+            text-decoration: none;
+          }
+
+          [part="meta"] a:hover {
+            text-decoration: underline;
           }
 
           [part="meta"] svg {

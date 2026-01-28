@@ -6,8 +6,11 @@
 
 html {
   --standard-padding: 1rem;
-  background-color: var(--background-color, rgb(25, 25, 25));
-  color: var(--color, rgb(238, 238, 238));
+  --background-color: rgb(25, 25, 25);
+  --color: rgb(238, 238, 238);
+  --link-color: rgb(157, 148, 223);
+  background-color: var(--background-color);
+  color: var(--color);
   color-scheme: dark;
   font-family: Inter, sans-serif;
   line-height: 1.5;
@@ -17,7 +20,7 @@ html {
 }
 
 a {
-  color: var(--link-color, rgb(157, 148, 223));
+  color: var(--link-color);
   text-decoration: none;
 }
 
