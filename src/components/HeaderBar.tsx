@@ -34,13 +34,18 @@ export class HeaderBar extends Component("header-bar", {
             left: 50%;
             width: 100%;
             max-width: var(--max-width);
-            display: flex;
             height: var(--heading-size);
+            display: flex;
             background-color: var(--background-color);
             line-height: 2.2;
-            z-index: 100;
+            box-shadow:
+              -1rem -0.5rem 1rem var(--background-color),
+              1rem -0.5rem 1rem var(--background-color);
             transform: translateX(-50%);
-            transition: background-color 1s;
+            transition:
+              background-color 1s,
+              box-shadow 1s;
+            z-index: 100;
           }
 
           [part="back"] {
