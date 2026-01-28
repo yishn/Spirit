@@ -38,34 +38,11 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
   date: prop<string | null>(null, { attribute: String }),
 }) {
   render() {
-    const [imgSrc, setImgSrc] = useSignal<string>();
-
     return (
       <>
         <div class="spacer" />
 
-        <If condition={() => imgSrc() != null}>
-          <img class="corona" src={imgSrc} alt="" />
-        </If>
-
-        <slot
-          name="img"
-          onslotchange={() => {
-            setImgSrc(
-              [...this.querySelectorAll(`img[slot="img"], [slot="img"] img`)]
-                .find((child) => child.slot === "img")
-                ?.getAttribute("src") ?? undefined,
-            );
-
-            this.querySelectorAll(`photo-feed-imageset[slot="img"]`).forEach(
-              (el) => {
-                el.addEventListener("current-index-change", () => {
-                  // updatePalette();
-                });
-              },
-            );
-          }}
-        />
+        <slot name="img" />
 
         <div class="details">
           <p part="meta">
@@ -102,7 +79,6 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
             height: var(--heading-size);
           }
 
-          .corona,
           ::slotted([slot="img"]) {
             display: block;
             width: 100%;
@@ -111,14 +87,6 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
           .details {
             padding: 0 var(--standard-padding);
             margin-bottom: 2rem;
-          }
-
-          .corona {
-            position: absolute;
-            filter: blur(3rem);
-            transform: scale(1);
-            opacity: 0.3;
-            z-index: -1;
           }
 
           ::slotted(:not([slot="img"])) {
