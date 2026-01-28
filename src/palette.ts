@@ -1,10 +1,9 @@
 import ColorThief from "colorthief";
 
-const colorthief = new ColorThief();
-
 type Color = [number, number, number];
 
-const cache = new WeakMap<HTMLImageElement, Color[]>();
+const colorthief = new ColorThief();
+const cache = new Map<HTMLImageElement, Color[]>();
 
 function brightness([r, g, b]: Color): number {
   return 0.2126 * r + 0.7152 * g + 0.0722 * b;
@@ -15,7 +14,7 @@ function getPaletteFromImg(img: HTMLImageElement): Color[] | null {
     return cache.get(img)!;
   }
 
-  const palette = colorthief.getPalette(img, 4) as Color[] | null;
+  const palette = colorthief.getPalette(img, 8) as Color[] | null;
   if (palette == null) return null;
 
   palette.sort((c1, c2) => brightness(c1) - brightness(c2));
@@ -37,22 +36,21 @@ function getMainImg(): HTMLImageElement | undefined {
     )[0];
 }
 
-let lastImg: HTMLImageElement | undefined;
 let timeout: ReturnType<typeof setTimeout> | undefined;
 
 export function updatePalette() {
   clearTimeout(timeout);
 
-  const img = getMainImg();
-  if (!img || img === lastImg) return;
-
-  const palette = getPaletteFromImg(img);
-  if (palette == null) return;
-
   timeout = setTimeout(() => {
+    const img = getMainImg();
+    if (!img) return;
+
+    const palette = getPaletteFromImg(img);
+    if (palette == null) return;
+
     document.body.style.setProperty(
       "--background-color",
-      `rgb(${palette[0].join(", ")})`,
+      `rgb(${palette[0].map((x) => x * 0.8).join(", ")})`,
     );
     document.body.style.setProperty(
       "--color",

@@ -27,6 +27,7 @@ body {
 a {
   color: var(--link-color);
   text-decoration: none;
+  transition: color 1s;
 }
 
 a:hover {
