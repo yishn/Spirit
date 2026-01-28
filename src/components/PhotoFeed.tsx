@@ -5,11 +5,15 @@ import {
   Else,
   If,
   prop,
+  event,
   Style,
   useEffect,
+  useMemo,
+  useRef,
   useSignal,
 } from "sinho";
 import { DateIcon, LocationIcon } from "./icons.tsx";
+import { updatePalette } from "../palette.ts";
 
 export class PhotoFeed extends Component("photo-feed") {
   render() {
@@ -51,6 +55,14 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
               [...this.querySelectorAll(`img[slot="img"], [slot="img"] img`)]
                 .find((child) => child.slot === "img")
                 ?.getAttribute("src") ?? undefined,
+            );
+
+            this.querySelectorAll(`photo-feed-imageset[slot="img"]`).forEach(
+              (el) => {
+                el.addEventListener("current-index-change", () => {
+                  // updatePalette();
+                });
+              },
             );
           }}
         />
@@ -109,7 +121,7 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
             z-index: -1;
           }
 
-          ::slotted(*:not([slot="img"])) {
+          ::slotted(:not([slot="img"])) {
             margin: 0.5rem 0 !important;
           }
 
@@ -145,4 +157,58 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
   }
 }
 
-defineComponents(PhotoFeed, PhotoFeedItem);
+export class PhotoFeedImageSet extends Component("photo-feed-imageset", {
+  currentIndex: prop<number>(0, { attribute: Number }),
+  onCurrentIndexChange: event(),
+}) {
+  render() {
+    const galleryRef = useRef<HTMLElement>();
+    const currentIndexMemo = useMemo(() => this.props.currentIndex());
+
+    useEffect(() => {
+      galleryRef()?.scrollTo({
+        left: currentIndexMemo() * this.clientWidth,
+        behavior: "smooth",
+      });
+    }, [galleryRef, currentIndexMemo]);
+
+    return (
+      <>
+        <div
+          ref={galleryRef}
+          part="gallery"
+          onscrollend={(evt) => {
+            const target = evt.currentTarget as HTMLElement;
+            const newIndex = Math.round(target.scrollLeft / target.clientWidth);
+
+            if (newIndex !== this.props.currentIndex()) {
+              this.currentIndex = newIndex;
+              this.events.onCurrentIndexChange();
+            }
+          }}
+        >
+          <slot />
+        </div>
+
+        <Style>{css`
+          [part="gallery"] {
+            display: flex;
+            overflow: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            scroll-snap-type: x mandatory;
+            scroll-snap-stop: always;
+          }
+
+          ::slotted(img) {
+            display: block;
+            width: 100%;
+            scroll-snap-align: start;
+          }
+        `}</Style>
+      </>
+    );
+  }
+}
+
+defineComponents(PhotoFeed, PhotoFeedItem, PhotoFeedImageSet);
