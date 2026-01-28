@@ -19,14 +19,13 @@ export class PhotoFeed extends Component("photo-feed") {
 }
 
 export class PhotoFeedItem extends Component("photo-feed-item", {
-  imgsrc: prop<string | null>(null, { attribute: String }),
   location: prop<string | null>(null, { attribute: String }),
   date: prop<string | null>(null, { attribute: String }),
 }) {
   render() {
     return (
       <>
-        <img src={this.props.imgsrc} alt="" />
+        <slot name="img" />
 
         <div class="details">
           <p part="meta">
@@ -56,7 +55,7 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
             scroll-snap-align: start;
           }
 
-          img {
+          ::slotted([slot="img"]) {
             display: block;
             width: 100%;
           }
@@ -66,7 +65,7 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
             margin-bottom: 2rem;
           }
 
-          ::slotted(*) {
+          ::slotted(*:not([slot="img"])) {
             margin: 0.5rem 0 !important;
           }
 

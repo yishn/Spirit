@@ -38,13 +38,12 @@ export class JourneyList extends Component("journey-list", {
 
 export class JourneyListItem extends Component("journey-list-item", {
   href: prop<string>("#", { attribute: String }),
-  imgsrc: prop<string | null>(null, { attribute: String }),
 }) {
   render() {
     return (
       <>
         <a href={this.props.href}>
-          <img src={this.props.imgsrc} alt="" />
+          <slot name="img" />
           <span class="shade" />
           <span part="text">
             <slot />
@@ -56,10 +55,6 @@ export class JourneyListItem extends Component("journey-list-item", {
             display: grid;
             height: 6rem;
             background-color: black;
-            background-image: ${() =>
-              this.props.imgsrc() == null
-                ? "none"
-                : `url('${this.props.imgsrc()}')`};
             background-size: cover;
             background-position: center;
           }
@@ -88,7 +83,7 @@ export class JourneyListItem extends Component("journey-list-item", {
             background-color: rgba(0, 0, 0, 0.2);
           }
 
-          img {
+          ::slotted(img) {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -97,7 +92,7 @@ export class JourneyListItem extends Component("journey-list-item", {
             transition: transform 0.5s;
           }
 
-          a:hover img {
+          a:hover ::slotted(img) {
             transform: translate(calc(-50% + 2rem), -50%);
           }
         `}</Style>
