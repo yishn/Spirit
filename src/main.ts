@@ -1,3 +1,3 @@
-import "./HeaderBar.tsx";
-import "./JourneyList.tsx";
-import "./PhotoFeed.tsx";
+import "./components/HeaderBar.tsx";
+import "./components/JourneyList.tsx";
+import "./components/PhotoFeed.tsx";
