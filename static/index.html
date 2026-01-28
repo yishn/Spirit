@@ -11,16 +11,27 @@
   </head>
   <body>
     <div id="root">
-      <header-bar no-back>Journeys</header-bar>
+      <header-bar>Japan 2025</header-bar>
 
-      <journey-list text="2025">
-        <journey-list-item img-src="./samples/IMG_9404.jpeg">
-          Osaka
-        </journey-list-item>
-        <journey-list-item img-src="./samples/IMG_8260.jpeg">
-          Kyoto
-        </journey-list-item>
-      </journey-list>
+      <photo-feed>
+        <photo-feed-item
+          imgsrc="./samples/IMG_8260.jpeg"
+          location="Kyoto, Japan"
+          date="2025-11-25"
+        >
+          <p>A rickshaw under a beautiful tori</p>
+          <p><a href="#">#rickshaw</a> <a href="#">#tori</a></p>
+        </photo-feed-item>
+
+        <photo-feed-item
+          imgsrc="./samples/IMG_9404.jpeg"
+          location="Osaka, Japan"
+          date="2025-12-03"
+        >
+          <p>The majestic Osaka castle</p>
+          <p><a href="#">#castle</a> <a href="#">#architecture</a></p>
+        </photo-feed-item>
+      </photo-feed>
     </div>
   </body>
 </html>

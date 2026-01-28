@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 
-body {
+html {
   --standard-padding: 1rem;
   background-color: var(--background-color, rgb(25, 25, 25));
   color: var(--color, rgb(238, 238, 238));
@@ -12,10 +12,17 @@ body {
   font-family: Inter, sans-serif;
   line-height: 1.5;
   scrollbar-width: thin;
+  scroll-snap-type: y proximity;
+  scroll-snap-align: start;
 }
 
 a {
   color: var(--link-color, rgb(157, 148, 223));
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 #root {

@@ -22,10 +22,10 @@ export class JourneyList extends Component("journey-list", {
           h2 {
             font-weight: normal;
             font-size: 1rem;
-            padding: 1rem var(--standard-padding) .5rem;
+            padding: 1rem var(--standard-padding) 0.5rem;
           }
 
-          :host::part(list) {
+          [part="list"] {
             display: flex;
             flex-direction: column;
             padding-bottom: 1rem;
@@ -71,7 +71,7 @@ export class JourneyListItem extends Component("journey-list-item", {
             overflow: hidden;
           }
 
-          :host::part(text) {
+          [part="text"] {
             position: absolute;
             bottom: 0.2rem;
             left: var(--standard-padding);
