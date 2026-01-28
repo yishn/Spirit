@@ -6,9 +6,9 @@
 
 html {
   scroll-behavior: smooth;
-  scrollbar-width: thin;
+  /* scrollbar-width: thin;
   scroll-snap-type: y proximity;
-  scroll-snap-align: start;
+  scroll-snap-align: start; */
 }
 
 body {
@@ -36,6 +36,6 @@ a:hover {
 
 #root {
   margin: 0 auto;
-  padding: 1rem 0;
+  padding: 1px 0;
   max-width: 30rem;
 }

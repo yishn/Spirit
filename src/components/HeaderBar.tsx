@@ -30,15 +30,20 @@ export class HeaderBar extends Component("header-bar", {
 
           :host {
             --heading-font-size: 1.7rem;
+            position: sticky;
+            top: 0;
             display: flex;
             height: calc(2.2 * var(--heading-font-size));
+            background-color: var(--background-color);
             line-height: 2.2;
+            z-index: 100;
           }
 
           [part="back"] {
             padding: 1rem var(--standard-padding);
             color: var(--link-color);
             text-decoration: none;
+            transition: color 1s;
           }
 
           :host([no-back]) [part="back"] {

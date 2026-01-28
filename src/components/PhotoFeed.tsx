@@ -57,10 +57,6 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
         </div>
 
         <Style>{css`
-          :host {
-            scroll-snap-align: start;
-          }
-
           ::slotted([slot="img"]) {
             display: block;
             width: 100%;
@@ -79,6 +75,7 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
             display: flex;
             gap: 1rem;
             font-size: 0.8rem;
+            opacity: 0.7;
           }
 
           [part="meta"] > span {
