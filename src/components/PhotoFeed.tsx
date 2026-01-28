@@ -26,6 +26,7 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
   render() {
     return (
       <>
+        <div class="spacer" />
         <slot name="img" />
 
         <div class="details">
@@ -57,6 +58,10 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
         </div>
 
         <Style>{css`
+          :host .spacer {
+            height: var(--heading-size);
+          }
+
           ::slotted([slot="img"]) {
             display: block;
             width: 100%;

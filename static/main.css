@@ -16,6 +16,9 @@ body {
   --background-color: rgb(25, 25, 25);
   --color: rgb(238, 238, 238);
   --link-color: rgb(160, 149, 240);
+  --heading-font-size: 1.7rem;
+  --heading-size: calc(2.2 * var(--heading-font-size));
+  --max-width: 30rem;
   background-color: var(--background-color);
   color: var(--color);
   color-scheme: dark;
@@ -35,7 +38,8 @@ a:hover {
 }
 
 #root {
+  position: relative;
   margin: 0 auto;
   padding: 1px 0;
-  max-width: 30rem;
+  max-width: var(--max-width);
 }

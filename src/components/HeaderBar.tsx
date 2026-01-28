@@ -29,14 +29,18 @@ export class HeaderBar extends Component("header-bar", {
           }
 
           :host {
-            --heading-font-size: 1.7rem;
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 50%;
+            width: 100%;
+            max-width: var(--max-width);
             display: flex;
-            height: calc(2.2 * var(--heading-font-size));
+            height: var(--heading-size);
             background-color: var(--background-color);
             line-height: 2.2;
             z-index: 100;
+            transform: translateX(-50%);
+            transition: background-color 1s;
           }
 
           [part="back"] {
