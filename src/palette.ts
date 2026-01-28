@@ -1,3 +1,4 @@
+// @ts-ignore
 import ColorThief from "colorthief";
 
 type Color = [number, number, number];
@@ -54,11 +55,11 @@ export function updatePalette() {
     );
     document.body.style.setProperty(
       "--color",
-      `rgb(${palette.at(-1).join(", ")})`,
+      `rgb(${palette.at(-1)!.join(", ")})`,
     );
     document.body.style.setProperty(
       "--link-color",
-      `rgb(${palette.at(-2).join(", ")})`,
+      `rgb(${palette.at(-2)!.join(", ")})`,
     );
 
     timeout = undefined;

@@ -1,4 +1,14 @@
-import { Component, css, defineComponents, Else, If, prop, Style } from "sinho";
+import {
+  Component,
+  css,
+  defineComponents,
+  Else,
+  If,
+  prop,
+  Style,
+  useEffect,
+  useSignal,
+} from "sinho";
 import { DateIcon, LocationIcon } from "./icons.tsx";
 
 export class PhotoFeed extends Component("photo-feed") {
@@ -24,10 +34,23 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
   date: prop<string | null>(null, { attribute: String }),
 }) {
   render() {
+    const [imgSrc, setImgSrc] = useSignal<string>();
+
     return (
       <>
         <div class="spacer" />
-        <slot name="img" />
+
+        <img class="corona" src={imgSrc} alt="" />
+        <slot
+          name="img"
+          onslotchange={() => {
+            setImgSrc(
+              [...this.children]
+                .find((child) => child.slot === "img")
+                ?.getAttribute("src") ?? undefined,
+            );
+          }}
+        />
 
         <div class="details">
           <p part="meta">
@@ -35,7 +58,9 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
               <span part="location">
                 <LocationIcon />
                 <If condition={() => this.props.locationHref() != null}>
-                  <a href={this.props.locationHref}>{this.props.location}</a>
+                  <a href={() => this.props.locationHref()!}>
+                    {this.props.location}
+                  </a>
                 </If>
                 <Else>{this.props.location}</Else>
               </span>
@@ -62,6 +87,7 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
             height: var(--heading-size);
           }
 
+          .corona,
           ::slotted([slot="img"]) {
             display: block;
             width: 100%;
@@ -70,6 +96,14 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
           .details {
             padding: 0 var(--standard-padding);
             margin-bottom: 2rem;
+          }
+
+          .corona {
+            position: absolute;
+            filter: blur(3rem);
+            transform: scale(1);
+            opacity: 0.3;
+            z-index: -1;
           }
 
           ::slotted(*:not([slot="img"])) {
