@@ -6,9 +6,6 @@
 
 html {
   scroll-behavior: smooth;
-  /* scrollbar-width: thin;
-  scroll-snap-type: y proximity;
-  scroll-snap-align: start; */
 }
 
 body {
@@ -18,7 +15,7 @@ body {
   --link-color: rgb(160, 149, 240);
   --heading-font-size: 1.7rem;
   --heading-size: calc(2.2 * var(--heading-font-size));
-  --max-width: 30rem;
+  --max-width: 35rem;
   background-color: var(--background-color);
   color: var(--color);
   color-scheme: dark;

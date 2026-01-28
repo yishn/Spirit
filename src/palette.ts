@@ -24,31 +24,19 @@ function getPaletteFromImg(img: HTMLImageElement): Color[] | null {
   return palette;
 }
 
-function getMainImg(): HTMLImageElement | undefined {
-  const imgs = document.querySelectorAll("img");
-  if (imgs.length === 0) return;
-
-  return [...imgs]
-    .map((img) => [img, Math.abs(window.scrollY - img.offsetTop)] as const)
-    .reduce(
-      ([minImg, minIndex], [img, d], i, arr) =>
-        d < arr[minIndex][1] ? [img, i] : [minImg, minIndex],
-      [imgs[0], 0],
-    )[0];
-}
-
 let timeout: ReturnType<typeof setTimeout> | undefined;
 
-export function updatePalette() {
+export function updatePalette(img: HTMLImageElement) {
   clearTimeout(timeout);
 
   timeout = setTimeout(() => {
-    const img = getMainImg();
-    if (!img) return;
-
     const palette = getPaletteFromImg(img);
     if (palette == null) return;
 
+    document.body.style.setProperty(
+      "--main-image",
+      `url("${img.getAttribute("src")}")`,
+    );
     document.body.style.setProperty(
       "--background-color",
       `rgb(${palette[0].map((x) => x * 0.8).join(", ")})`,
@@ -67,19 +55,20 @@ export function updatePalette() {
 }
 
 export function initPalette() {
-  document.addEventListener("DOMContentLoaded", () => {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const el = entries.find((entry) => entry.intersectionRatio > 0.5)?.target;
+
+      if (el != null && el instanceof HTMLImageElement) {
+        updatePalette(el);
+      }
+    },
+    { threshold: 0.5 },
+  );
+
+  window.addEventListener("DOMContentLoaded", () => {
     for (const img of document.querySelectorAll("img")) {
-      img.addEventListener("load", () => {
-        updatePalette();
-      });
+      observer.observe(img);
     }
-  });
-
-  window.addEventListener("load", () => {
-    updatePalette();
-  });
-
-  window.addEventListener("scroll", () => {
-    updatePalette();
   });
 }
