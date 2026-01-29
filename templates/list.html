@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="./main.css" />
+    <script src="./main.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <header-bar>{{title}}</header-bar>
+
+      {{lists}}
+
+      <template id="journey-list-template">
+        <journey-list>
+          <h2 slot="title">{{name}}</h2>
+          {{items}}
+        </journey-list>
+      </template>
+
+      <template id="journey-list-item-template">
+        <journey-list-item href="./{{listId}}/{{id}}/">
+          <img slot="img" alt="" src="{{imgSrc}}" />
+          {{name}}
+        </journey-list-item>
+      </template>
+    </div>
+  </body>
+</html>

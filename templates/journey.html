@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="../../main.css"
+    />
+    <script src="../../main.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <header-bar back-href="../../">{{name}} {{listName}}</header-bar>
+
+      <photo-feed>{{items}}</photo-feed>
+
+      <template id="photo-feed-item-template">
+        <photo-feed-item id="{{id}}" location="{{location}}" date="{{date}}">
+          <img slot="img" src="{{imgSrc}}" alt="" />
+
+          {{description}}
+        </photo-feed-item>
+      </template>
+
+      <template id="photo-feed-item-imageset-template">
+        <photo-feed-item id="{{id}}" location="{{location}}" date="{{date}}">
+          <photo-feed-imageset slot="img">{{images}}</photo-feed-imageset>
+
+          {{description}}
+        </photo-feed-item>
+      </template>
+
+      <template id="photo-feed-item-imageset-image-template">
+        <img src="{{imgSrc}}" alt="" />
+      </template>
+    </div>
+  </body>
+</html>
