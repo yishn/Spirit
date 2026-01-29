@@ -32,9 +32,9 @@ export class PhotoFeed extends Component("photo-feed") {
 }
 
 export class PhotoFeedItem extends Component("photo-feed-item", {
-  location: prop<string | null>(null, { attribute: String }),
-  locationHref: prop<string | null>(null, { attribute: String }),
-  date: prop<string | null>(null, { attribute: String }),
+  location: prop<string>("", { attribute: String }),
+  locationHref: prop<string>("", { attribute: String }),
+  date: prop<string>("", { attribute: String }),
 }) {
   render() {
     return (
@@ -43,10 +43,10 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
 
         <div class="details">
           <p part="meta">
-            <If condition={() => this.props.location() != null}>
+            <If condition={() => this.props.location() != ""}>
               <span part="location">
                 <LocationIcon />
-                <If condition={() => this.props.locationHref() != null}>
+                <If condition={() => this.props.locationHref() != ""}>
                   <a href={() => this.props.locationHref()!}>
                     {this.props.location}
                   </a>
@@ -54,7 +54,7 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
                 <Else>{this.props.location}</Else>
               </span>
             </If>
-            <If condition={() => this.props.date() != null}>
+            <If condition={() => this.props.date() != ""}>
               <span part="date">
                 <DateIcon />
 
