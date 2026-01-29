@@ -9,7 +9,7 @@ export class HeaderBar extends Component("header-bar", {
   render() {
     return (
       <>
-        <div class="wrapper">
+        <div class={() => "wrapper " + (this.props.noBack() ? "noback" : "")}>
           <a
             part="back"
             href={this.props.backHref}
@@ -59,7 +59,7 @@ export class HeaderBar extends Component("header-bar", {
             transition: color 1s;
           }
 
-          :host([no-back]) [part="back"] {
+          .noback [part="back"] {
             display: none;
           }
 
@@ -73,7 +73,7 @@ export class HeaderBar extends Component("header-bar", {
             text-overflow: ellipsis;
           }
 
-          :host([no-back]) [part="heading"] {
+          .noback [part="heading"] {
             margin-left: var(--standard-padding);
           }
         `}</Style>
