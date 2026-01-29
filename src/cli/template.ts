@@ -21,10 +21,19 @@ export function extractTemplate(
   return match?.[1];
 }
 
+function removeTemplates(content: string): string {
+  return content.replace(
+    /\s*<template[^>]*id="[^"]+"[^>]*>[\s\S]*?<\/template>\s*/g,
+    "",
+  );
+}
+
 export function renderTemplate(
   template: string,
   placeholders: Record<string, string>,
 ): string {
+  template = removeTemplates(template);
+
   for (const placeholder in placeholders) {
     template = template.replaceAll(
       `{{${placeholder}}}`,
