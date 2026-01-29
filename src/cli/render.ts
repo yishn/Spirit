@@ -1,9 +1,9 @@
 import { loadTemplate } from "./template.ts";
 
-export async function renderList(): Promise<string> {
-  const template = await loadTemplate("list");
+export async function renderIndex(): Promise<string> {
+  const template = await loadTemplate("index");
 
   return template;
 }
 
-console.log(await renderList());
+console.log(await renderIndex());
