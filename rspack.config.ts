@@ -3,7 +3,7 @@ import rspack from "@rspack/core";
 
 export default defineConfig({
   entry: {
-    main: "./src/main.ts",
+    main: "./src/web/main.ts",
   },
   plugins: [
     new rspack.CopyRspackPlugin({
