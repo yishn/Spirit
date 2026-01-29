@@ -2,17 +2,20 @@ import { Component, css, defineComponents, event, prop, Style } from "sinho";
 import { BackIcon } from "./icons.tsx";
 
 export class HeaderBar extends Component("header-bar", {
-  backHref: prop<string>("#", { attribute: String }),
-  noBack: prop<boolean>(false, { attribute: () => true }),
+  backHref: prop<string | null>(null, { attribute: String }),
   onBackClick: event(MouseEvent),
 }) {
   render() {
     return (
       <>
-        <div class={() => "wrapper " + (this.props.noBack() ? "noback" : "")}>
+        <div
+          class={() =>
+            "wrapper " + (this.props.backHref() == null ? "noback" : "")
+          }
+        >
           <a
             part="back"
-            href={this.props.backHref}
+            href={() => this.props.backHref() ?? "#"}
             title="Back"
             onclick={this.events.onBackClick}
           >
