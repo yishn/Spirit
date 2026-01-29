@@ -1,15 +1,9 @@
 import { defineConfig } from "@rspack/cli";
-import rspack from "@rspack/core";
 
 export default defineConfig({
   entry: {
     main: "./src/web/main.ts",
   },
-  plugins: [
-    new rspack.CopyRspackPlugin({
-      patterns: [{ from: "./static" }],
-    }),
-  ],
   resolve: {
     alias: {
       "sinho/jsx-dev-runtime": "sinho/jsx-runtime",

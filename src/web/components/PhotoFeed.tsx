@@ -13,6 +13,7 @@ import {
   useSignal,
 } from "sinho";
 import { DateIcon, LeftIcon, LocationIcon, RightIcon } from "./icons.tsx";
+import { MarkdownContent } from "./MarkdownContent.tsx";
 
 export class PhotoFeed extends Component("photo-feed") {
   render() {
@@ -68,11 +69,13 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
             </If>
           </p>
 
-          <slot />
+          <MarkdownContent>
+            <slot />
+          </MarkdownContent>
         </div>
 
         <Style>{css`
-          :host::before {
+          :host(:not(:first-child))::before {
             content: " ";
             display: block;
             height: var(--heading-size);
@@ -86,10 +89,6 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
           .details {
             padding: 0 var(--standard-padding);
             margin-bottom: 2rem;
-          }
-
-          ::slotted(:not([slot="img"])) {
-            margin: 0.5rem 0 !important;
           }
 
           [part="meta"] {

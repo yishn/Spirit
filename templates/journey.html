@@ -6,17 +6,15 @@
     <title>{{name}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      media="screen"
-      href="../../main.css"
-    />
     <script src="../../main.js"></script>
   </head>
   <body>
+    <global-style></global-style>
+
     <div id="root">
       <header-bar back-href="../../">{{name}}</header-bar>
+
+      <markdown-content>{{content}}</markdown-content>
 
       <photo-feed>{{items}}</photo-feed>
 
