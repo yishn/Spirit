@@ -170,7 +170,9 @@ export class PhotoFeedImageSet extends Component("photo-feed-imageset", {
           <a
             class="left"
             href="#"
-            onclick={() => {
+            onclick={(evt) => {
+              evt.preventDefault();
+
               if (this.currentIndex > 0) {
                 this.currentIndex--;
               }
@@ -183,7 +185,9 @@ export class PhotoFeedImageSet extends Component("photo-feed-imageset", {
           <a
             class="right"
             href="#"
-            onclick={() => {
+            onclick={(evt) => {
+              evt.preventDefault();
+
               if (this.currentIndex < length() - 1) {
                 this.currentIndex++;
               }
@@ -218,25 +222,24 @@ export class PhotoFeedImageSet extends Component("photo-feed-imageset", {
             position: absolute;
             top: 50%;
             display: grid;
+            border-radius: 50%;
+            padding: 0.1rem;
             color: white;
-            background-image: radial-gradient(
-              rgba(0, 0, 0, 0.3),
-              transparent 50%
-            );
+            background-color: rgba(0, 0, 0, 0.5);
             transform: translateY(-50%);
           }
 
           a.left svg,
           a.right svg {
-            height: 2rem;
+            height: 1.5rem;
           }
 
           a.left {
-            left: 0rem;
+            left: 0.2rem;
           }
 
           a.right {
-            right: 0rem;
+            right: 0.5rem;
           }
         `}</Style>
       </>
