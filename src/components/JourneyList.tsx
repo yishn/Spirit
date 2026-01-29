@@ -1,12 +1,10 @@
 import { Component, css, defineComponents, prop, Style } from "sinho";
 
-export class JourneyList extends Component("journey-list", {
-  text: prop<string>("", { attribute: String }),
-}) {
+export class JourneyList extends Component("journey-list") {
   render() {
     return (
       <>
-        <h2>{this.props.text}</h2>
+        <slot name="title" />
 
         <div part="list">
           <slot />
@@ -19,7 +17,7 @@ export class JourneyList extends Component("journey-list", {
             box-sizing: border-box;
           }
 
-          h2 {
+          ::slotted([slot="title"]) {
             font-weight: normal;
             font-size: 1rem;
             padding: 1rem var(--standard-padding) 0.5rem;
