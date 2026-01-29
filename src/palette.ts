@@ -15,7 +15,7 @@ function getPaletteFromImg(img: HTMLImageElement): Color[] | null {
     return cache.get(img)!;
   }
 
-  const palette = colorthief.getPalette(img, 8) as Color[] | null;
+  const palette = colorthief.getPalette(img, 5) as Color[] | null;
   if (palette == null) return null;
 
   palette.sort((c1, c2) => brightness(c1) - brightness(c2));

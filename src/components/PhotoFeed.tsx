@@ -10,8 +10,9 @@ import {
   useEffect,
   useMemo,
   useRef,
+  useSignal,
 } from "sinho";
-import { DateIcon, LocationIcon } from "./icons.tsx";
+import { DateIcon, LeftIcon, LocationIcon, RightIcon } from "./icons.tsx";
 
 export class PhotoFeed extends Component("photo-feed") {
   render() {
@@ -128,8 +129,13 @@ export class PhotoFeedImageSet extends Component("photo-feed-imageset", {
   onCurrentIndexChange: event(),
 }) {
   render() {
+    const [length, setLength] = useSignal(0);
     const galleryRef = useRef<HTMLElement>();
     const currentIndexMemo = useMemo(() => this.props.currentIndex());
+
+    useEffect(() => {
+      this.events.onCurrentIndexChange();
+    }, [currentIndexMemo]);
 
     useEffect(() => {
       galleryRef()?.scrollTo({
@@ -153,10 +159,45 @@ export class PhotoFeedImageSet extends Component("photo-feed-imageset", {
             }
           }}
         >
-          <slot />
+          <slot
+            onslotchange={() => {
+              setLength(this.children.length);
+            }}
+          />
         </div>
 
+        <If condition={() => this.props.currentIndex() > 0}>
+          <a
+            class="left"
+            href="#"
+            onclick={() => {
+              if (this.currentIndex > 0) {
+                this.currentIndex--;
+              }
+            }}
+          >
+            <LeftIcon />
+          </a>
+        </If>
+        <If condition={() => this.props.currentIndex() < length() - 1}>
+          <a
+            class="right"
+            href="#"
+            onclick={() => {
+              if (this.currentIndex < length() - 1) {
+                this.currentIndex++;
+              }
+            }}
+          >
+            <RightIcon />
+          </a>
+        </If>
+
         <Style>{css`
+          :host {
+            position: relative;
+          }
+
           [part="gallery"] {
             display: flex;
             overflow: auto;
@@ -170,6 +211,32 @@ export class PhotoFeedImageSet extends Component("photo-feed-imageset", {
             display: block;
             width: 100%;
             scroll-snap-align: start;
+          }
+
+          a.left,
+          a.right {
+            position: absolute;
+            top: 50%;
+            display: grid;
+            color: white;
+            background-image: radial-gradient(
+              rgba(0, 0, 0, 0.3),
+              transparent 50%
+            );
+            transform: translateY(-50%);
+          }
+
+          a.left svg,
+          a.right svg {
+            height: 2rem;
+          }
+
+          a.left {
+            left: 0rem;
+          }
+
+          a.right {
+            right: 0rem;
           }
         `}</Style>
       </>

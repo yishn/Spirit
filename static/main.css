@@ -46,14 +46,13 @@ a:hover {
 
 /* Background image blur */
 #root::before {
-  content: " ";
+  content: "";
   position: fixed;
   top: -10%;
   left: -10%;
   width: 110%;
   height: 110%;
   background-image: var(--main-image);
-  background-size: cover;
   background-position: center;
   filter: blur(3rem);
   opacity: 0.1;
