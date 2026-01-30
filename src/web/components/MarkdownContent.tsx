@@ -12,11 +12,9 @@ export class MarkdownContent extends Component("markdown-content") {
           .wrapper {
             padding: 0 var(--standard-padding);
           }
-        `}</Style>
 
-        <Style light>{css`
-          markdown-content p {
-            margin: 0.5rem 0;
+          ::slotted(p) {
+            margin: 0.5rem 0 !important;
           }
         `}</Style>
       </>

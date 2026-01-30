@@ -50,4 +50,13 @@ export async function compile(dirPath: string): Promise<void> {
   for (const journey of index.journeys) {
     await compileJourney(path.resolve(dirPath, journey.id));
   }
+
+  await fs.copyFile(
+    path.resolve(import.meta.dirname, "../../dist/main.js"),
+    path.resolve(dirPath, "main.js"),
+  );
+  await fs.copyFile(
+    path.resolve(import.meta.dirname, "../../dist/main.js.map"),
+    path.resolve(dirPath, "main.js.map"),
+  );
 }

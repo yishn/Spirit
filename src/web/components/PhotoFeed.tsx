@@ -42,43 +42,46 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
       <>
         <slot name="img" />
 
-        <div class="details">
-          <p part="meta">
-            <If condition={() => this.props.location() != ""}>
-              <span part="location">
-                <LocationIcon />
-                <If condition={() => this.props.locationHref() != ""}>
-                  <a href={() => this.props.locationHref()!} target="_blank">
-                    {this.props.location}
-                  </a>
-                </If>
-                <Else>{this.props.location}</Else>
-              </span>
-            </If>
-            <If condition={() => this.props.date() != ""}>
-              <span part="date">
-                <DateIcon />
+        <p part="meta">
+          <If condition={() => this.props.location() != ""}>
+            <span part="location">
+              <LocationIcon />
+              <If condition={() => this.props.locationHref() != ""}>
+                <a href={() => this.props.locationHref()!} target="_blank">
+                  {this.props.location}
+                </a>
+              </If>
+              <Else>{this.props.location}</Else>
+            </span>
+          </If>
+          <If condition={() => this.props.date() != ""}>
+            <span part="date">
+              <DateIcon />
 
-                <If condition={this.id !== ""}>
-                  <a href={"#" + this.id} title="Permalink">
-                    {this.props.date}
-                  </a>
-                </If>
-                <Else>{this.props.date}</Else>
-              </span>
-            </If>
-          </p>
+              <If condition={this.id !== ""}>
+                <a href={"#" + this.id} title="Permalink">
+                  {this.props.date}
+                </a>
+              </If>
+              <Else>{this.props.date}</Else>
+            </span>
+          </If>
+        </p>
 
-          <MarkdownContent>
-            <slot />
-          </MarkdownContent>
-        </div>
+        <MarkdownContent>
+          <slot />
+        </MarkdownContent>
 
         <Style>{css`
           :host::before {
             content: " ";
             display: block;
             height: var(--heading-size);
+            pointer-events: none;
+          }
+
+          :host(:first-child) {
+            margin-top: calc(-1 * var(--heading-size) + 1rem) !important;
           }
 
           ::slotted([slot="img"]) {
@@ -86,16 +89,14 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
             width: 100%;
           }
 
-          .details {
-            padding: 0 var(--standard-padding);
-            margin-bottom: 2rem;
-          }
-
           [part="meta"] {
             display: flex;
             gap: 1rem;
+            padding: 0 var(--standard-padding);
+            margin-bottom: 1rem;
+            color: var(--link-color);
             font-size: 0.8rem;
-            opacity: 0.7;
+            transition: color 1s;
           }
 
           [part="meta"] > span {

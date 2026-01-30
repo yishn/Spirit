@@ -1,4 +1,13 @@
-import { Component, css, defineComponents, event, prop, Style } from "sinho";
+import {
+  Component,
+  css,
+  defineComponents,
+  event,
+  prop,
+  Style,
+  useEffect,
+  useSignal,
+} from "sinho";
 import { BackIcon } from "./icons.tsx";
 
 export class HeaderBar extends Component("header-bar", {
@@ -6,11 +15,27 @@ export class HeaderBar extends Component("header-bar", {
   onBackClick: event(MouseEvent),
 }) {
   render() {
+    const [opaque, setOpaque] = useSignal(false);
+
+    useEffect(() => {
+      function handleScroll() {
+        setOpaque(document.scrollingElement!.scrollTop > 0);
+      }
+
+      document.addEventListener("scroll", handleScroll);
+
+      return () => {
+        document.removeEventListener("scroll", handleScroll);
+      };
+    });
+
     return (
       <>
         <div
           class={() =>
-            "wrapper " + (this.props.backHref() == null ? "noback" : "")
+            "wrapper " +
+            (this.props.backHref() == null ? "noback " : "") +
+            (opaque() ? "opaque " : "")
           }
         >
           <a
@@ -27,6 +52,13 @@ export class HeaderBar extends Component("header-bar", {
         </div>
 
         <Style>{css`
+          :host {
+            background-color: ${() =>
+              opaque() ? "var(--background-color)" : "transparent"};
+          }
+        `}</Style>
+
+        <Style>{css`
           * {
             margin: 0;
             padding: 0;
@@ -39,7 +71,6 @@ export class HeaderBar extends Component("header-bar", {
             right: 0;
             width: 100%;
             height: var(--heading-size);
-            background-color: var(--background-color);
             line-height: 2.2;
             transition:
               background-color 1s,

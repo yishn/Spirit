@@ -46,7 +46,7 @@ export class GlobalStyle extends Component("global-style") {
         #root {
           position: relative;
           margin: 0 auto;
-          padding: var(--heading-size) 0 1px;
+          padding: var(--heading-size) 0 var(--heading-size);
           max-width: var(--max-width);
         }
 
