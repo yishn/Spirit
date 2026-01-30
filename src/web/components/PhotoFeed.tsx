@@ -48,7 +48,7 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
               <span part="location">
                 <LocationIcon />
                 <If condition={() => this.props.locationHref() != ""}>
-                  <a href={() => this.props.locationHref()!}>
+                  <a href={() => this.props.locationHref()!} target="_blank">
                     {this.props.location}
                   </a>
                 </If>
@@ -75,7 +75,7 @@ export class PhotoFeedItem extends Component("photo-feed-item", {
         </div>
 
         <Style>{css`
-          :host(:not(:first-child))::before {
+          :host::before {
             content: " ";
             display: block;
             height: var(--heading-size);

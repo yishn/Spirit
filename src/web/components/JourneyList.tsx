@@ -4,7 +4,9 @@ export class JourneyList extends Component("journey-list") {
   render() {
     return (
       <>
-        <slot name="title" />
+        <div class="wrapper">
+          <slot name="title" />
+        </div>
 
         <div part="list">
           <slot />
@@ -17,10 +19,13 @@ export class JourneyList extends Component("journey-list") {
             box-sizing: border-box;
           }
 
+          .wrapper {
+            padding: 1rem var(--standard-padding) 0.5rem;
+          }
+
           ::slotted([slot="title"]) {
             font-weight: normal;
             font-size: 1rem;
-            padding: 1rem var(--standard-padding) 0.5rem;
           }
 
           [part="list"] {

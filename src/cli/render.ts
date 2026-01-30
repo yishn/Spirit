@@ -1,7 +1,8 @@
 import { extractTemplate, loadTemplate, renderTemplate } from "./template.ts";
 
-interface IndexTemplateData {
+export interface IndexTemplateData {
   title: string;
+  content: string;
   lists: {
     name: string;
     items: {
@@ -21,12 +22,12 @@ export async function renderIndex(data: IndexTemplateData): Promise<string> {
   )!;
 
   return renderTemplate(template, {
-    title: data.title,
+    ...data,
     lists: data.lists
-      .map((list) =>
+      .map(({ items, ...list }) =>
         renderTemplate(listTemplate, {
-          name: list.name,
-          items: list.items
+          ...list,
+          items: items
             .map((item) => renderTemplate(listItemTemplate, item))
             .join(""),
         }),
@@ -35,13 +36,14 @@ export async function renderIndex(data: IndexTemplateData): Promise<string> {
   });
 }
 
-interface JourneyTemplateData {
+export interface JourneyTemplateData {
   name: string;
+  content: string;
   items: {
     id: string;
-    location?: string;
-    date?: string;
-    description?: string;
+    location: string;
+    date: string;
+    description: string;
     images: { imgSrc: string }[];
   }[];
 }
@@ -61,28 +63,18 @@ export async function renderJourney(
   )!;
 
   return renderTemplate(template, {
-    name: data.name,
+    ...data,
     items: data.items
-      .map((item) =>
-        item.images.length === 1
+      .map(({ images, ...item }) =>
+        images.length === 1
           ? renderTemplate(itemTemplate, {
-              id: item.id,
-              location: item.location ?? "",
-              date: item.date ?? "",
-              description: item.description ?? "",
-              imgSrc: item.images[0].imgSrc,
+              ...item,
+              imgSrc: images[0].imgSrc,
             })
           : renderTemplate(itemImageSetTemplate, {
-              id: item.id,
-              location: item.location ?? "",
-              date: item.date ?? "",
-              description: item.description ?? "",
-              images: item.images
-                .map((img) =>
-                  renderTemplate(itemImageSetImageTemplate, {
-                    imgSrc: img.imgSrc,
-                  }),
-                )
+              ...item,
+              images: images
+                .map((img) => renderTemplate(itemImageSetImageTemplate, img))
                 .join(""),
             }),
       )
