@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
 import crypto from "node:crypto";
@@ -35,26 +36,31 @@ function exifGpsToCoords(
 }
 
 export async function parseJourney(dirPath: string) {
-  const markdown = await fs.readFile(
-    path.resolve(dirPath, "index.md"),
-    "utf-8",
-  );
-  const sections = markdown
-    .split(/^\s*----*\s*$/m)
-    .map((section) => section.trim());
-
   let name = capitalize(path.basename(dirPath).replaceAll("-", " "));
   let content = "";
+  let sections = [`# ${name}`];
+
+  const markdownFile = path.resolve(dirPath, "index.md");
+
+  try {
+    const markdown = await fs.readFile(markdownFile, "utf-8");
+    sections = markdown
+      .split(/^\s*----*\s*$/m)
+      .map((section) => section.trim());
+  } catch (err) {}
 
   // Detect header section
+
+  let headerSection: string | undefined;
+
   if (sections[0] != null) {
-    let headerSection = false;
+    let hasHeaderSection = false;
 
     marked.use({
       renderer: {
         heading(token: Tokens.Heading) {
           if (token.depth === 1) {
-            headerSection = true;
+            hasHeaderSection = true;
             name = token.text;
           }
           return "";
@@ -64,20 +70,35 @@ export async function parseJourney(dirPath: string) {
 
     const parsed = marked.parse(sections[0]) as string;
 
-    if (headerSection) {
+    if (hasHeaderSection) {
       content = parsed;
-      sections.unshift();
+      headerSection = sections.shift();
     }
   }
 
-  const items = await Promise.all(
-    sections.map(async (section) => {
-      let images: { imgSrc: string }[] = [];
+  // Detect new photos
+
+  const photoFiles = (await fs.readdir(dirPath, { withFileTypes: true }))
+    .filter(
+      (dirent) =>
+        dirent.isFile() &&
+        [".jpg", ".jpeg"].some((ext) =>
+          dirent.name.toLowerCase().endsWith(ext),
+        ),
+    )
+    .map((dirent) => path.resolve(dirent.parentPath, dirent.name));
+
+  const parsedSections = sections
+    .map((section) => {
+      const images: { imgSrc: string }[] = [];
 
       marked.use({
         renderer: {
           image(token: Tokens.Image) {
-            if ([".jpg", ".jpeg"].some((ext) => token.href.endsWith(ext))) {
+            if (
+              [".jpg", ".jpeg"].some((ext) => token.href.endsWith(ext)) &&
+              photoFiles.includes(path.resolve(dirPath, token.href))
+            ) {
               images.push({ imgSrc: token.href });
             }
             return "";
@@ -88,9 +109,49 @@ export async function parseJourney(dirPath: string) {
       const description = (marked.parse(section) as string)
         .replace(/<p>\s*<\/p>/g, "")
         .trim();
-      if (images.length === 0) return null;
+      return { images, description };
+    })
+    .filter((section) => section.images.length > 0);
 
-      const id = crypto.hash("shake256", images[0].imgSrc, { outputLength: 4 });
+  const newPhotoFiles = photoFiles.filter(
+    (filePath) =>
+      !parsedSections.some((section) =>
+        section.images.some(
+          (img) => path.resolve(dirPath, img.imgSrc) === filePath,
+        ),
+      ),
+  );
+
+  // Insert new photos
+
+  for (const filePath of newPhotoFiles) {
+    let index = parsedSections.findIndex(
+      (section) => path.resolve(dirPath, section.images[0].imgSrc) >= filePath,
+    );
+    if (index < 0) index = parsedSections.length;
+
+    parsedSections.splice(index, 0, {
+      images: [{ imgSrc: `./${path.basename(filePath)}` }],
+      description: "",
+    });
+    sections.splice(index, 0, `![](./${path.basename(filePath)})`);
+  }
+
+  // Overwrite markdown file
+
+  if (newPhotoFiles.length > 0) {
+    const markdown = [headerSection, ...sections]
+      .filter((section) => section != null)
+      .join("\n\n---\n\n");
+
+    await fs.writeFile(markdownFile, markdown, "utf-8");
+  }
+
+  // Preparing items
+
+  const items = await Promise.all(
+    parsedSections.map(async ({ images, description }) => {
+      const id = crypto.hash("shake256", images[0].imgSrc, "hex").slice(0, 8);
       const meta = (await exifr
         .parse(path.resolve(dirPath, images[0].imgSrc))
         .catch(() => ({}))) as {

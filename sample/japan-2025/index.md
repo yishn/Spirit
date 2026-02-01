@@ -1,16 +1,16 @@
 # Japan 2025
 
-In 2025 I went to Kyoto and Osaka.
+Making memories in Japan.
 
 ---
 
 ![](./IMG_8107.jpeg)
 ![](./IMG_8260.jpeg)
 
-Went to Arashiyama Bamboo forest early in the morning today.
+The beautiful Arashiyama Bamboo Grove in the morning
 
 ---
 
 ![](./IMG_9404.jpeg)
 
-The majestic Osaka castle
+The majestic Osaka castle standing tall against the sky
