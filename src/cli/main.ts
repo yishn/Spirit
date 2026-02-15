@@ -1,7 +1,14 @@
 import { compile } from "./compiler.ts";
 
 async function main() {
-  await compile("./sample");
+  const args = process.argv.slice(2);
+  const inputDir = args[0];
+
+  if (!inputDir) {
+    throw new Error("Input directory as first argument is required.");
+  }
+
+  await compile(inputDir);
 }
 
 try {
