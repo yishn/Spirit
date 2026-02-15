@@ -194,10 +194,21 @@ export async function parseJourney(dirPath: string) {
 }
 
 export async function parseIndex(dirPath: string) {
-  const markdown = await fs.readFile(
-    path.resolve(dirPath, "index.md"),
-    "utf-8",
-  );
+  const indexFile = path.resolve(dirPath, "index.md");
+  let markdown = "";
+
+  if (!existsSync(indexFile)) {
+    markdown = `
+# Spirit
+
+Welcome to your new photo journal! To get started, create a new folder for each
+journey and add your photos there. Each folder and new photos will be
+automatically detected and added to the journal.`.trim();
+
+    await fs.writeFile(indexFile, markdown);
+  } else {
+    markdown = await fs.readFile(indexFile, "utf-8");
+  }
 
   let title: string = "Spirit";
 
